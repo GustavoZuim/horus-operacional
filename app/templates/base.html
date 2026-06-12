@@ -32,9 +32,9 @@
         </div>
       </div>
       
-      <div class="nav-section">Opera????o</div>
+      <div class="nav-section">Operação</div>
       <a class="nav-link-h {% if request.endpoint == 'main.dashboard' %}active{% endif %}" href="{{ url_for('main.dashboard') }}">
-        <i class="bi bi-house-door"></i> In??cio
+        <i class="bi bi-house-door"></i> Início
       </a>
       <a class="nav-link-h {% if request.endpoint == 'weekly.index' %}active{% endif %}" href="{{ url_for('weekly.index') }}">
         <i class="bi bi-table"></i> Quadro semanal
@@ -60,7 +60,7 @@
         <i class="bi bi-person-lock"></i> Usuários
       </a>
       
-      <div class="nav-section">Governan??a</div>
+      <div class="nav-section">Governança</div>
       <a class="nav-link-h {% if request.endpoint == 'logs.index' %}active{% endif %}" href="{{ url_for('logs.index') }}">
         <i class="bi bi-clock-history"></i> Logs
       </a>
@@ -79,7 +79,7 @@
       <!-- Breadcrumbs -->
       <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="bi bi-house-door"></i> In??cio</a></li>
+          <li class="breadcrumb-item"><a href="{{ url_for('main.dashboard') }}"><i class="bi bi-house-door"></i> Início</a></li>
           {% block breadcrumbs %}{% endblock %}
         </ol>
       </nav>

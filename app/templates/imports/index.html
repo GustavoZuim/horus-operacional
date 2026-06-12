@@ -11,9 +11,9 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <span class="badge badge-category">Opera????o</span>
+                <span class="badge badge-category">Operação</span>
                 <h1>Importar Planejamento</h1>
-                <p class="text-muted">Upload de PDF com pr??via revis??vel</p>
+                <p class="text-muted">Upload de PDF com prévia revisível</p>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
 <!-- Etapa 2: Pr??via -->
 <div id="step-preview" class="card mystic-card mb-4" style="display: none;">
     <div class="card-body">
-        <h5 class="card-title"><i class="bi bi-eye"></i> 2. Revise a pr??via antes de importar</h5>
+        <h5 class="card-title"><i class="bi bi-eye"></i> 2. Revise a prévia antes de importar</h5>
         
         <!-- Dados gerais -->
         <div id="preview-info" class="alert alert-info mb-4">
@@ -116,7 +116,7 @@
             </button>
         </div>
         
-        <!-- Tabela de pr??via -->
+        <!-- Tabela de prévia -->
         <div class="table-responsive">
             <table class="table table-hover" id="preview-table">
                 <thead>
@@ -208,7 +208,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
             return;
         }
         
-        // Mostrar pr??via
+        // Mostrar prévia
         showPreview(data.preview);
         
     } catch (error) {
@@ -509,12 +509,12 @@ document.getElementById('btnCreateProject')?.addEventListener('click', async () 
 });
 </script>
 
-<!-- Modal de Cadastro R??pido -->
+<!-- Modal de Cadastro Rápido -->
 <div class="modal fade" id="quickRegisterModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-person-plus"></i> Cadastro R??pido de Profissionais</h5>
+                <h5 class="modal-title"><i class="bi bi-person-plus"></i> Cadastro Rápido de Profissionais</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -524,7 +524,7 @@ document.getElementById('btnCreateProject')?.addEventListener('click', async () 
                     <div id="quick-register-fields"></div>
                     <div class="alert alert-info mt-3">
                         <i class="bi bi-info-circle"></i> 
-                        Ap??s cadastrar, os profissionais aparecer??o automaticamente na pr??via de importa????o.
+                        Ap??s cadastrar, os profissionais aparecer??o automaticamente na prévia de importa????o.
                     </div>
                 </form>
             </div>
@@ -621,7 +621,7 @@ document.getElementById('btnQuickRegister')?.addEventListener('click', async () 
         // Ocultar se????o de n??o cadastrados
         document.getElementById('unregistered-section').style.display = 'none';
         
-        // Recarregar pr??via com profissionais cadastrados
+        // Recarregar prévia com profissionais cadastrados
         reloadPreview();
         
     } catch (error) {
@@ -630,7 +630,7 @@ document.getElementById('btnQuickRegister')?.addEventListener('click', async () 
 });
 
 async function reloadPreview() {
-    // Re-submeter o formul??rio para atualizar a pr??via
+    // Re-submeter o formul??rio para atualizar a prévia
     const projectId = document.getElementById('project_id').value;
     const fileInput = document.getElementById('pdf_file');
     
@@ -650,7 +650,7 @@ async function reloadPreview() {
             showPreview(data.preview);
         }
     } catch (error) {
-        console.error('Erro ao recarregar pr??via:', error);
+        console.error('Erro ao recarregar prévia:', error);
     }
 }
 </script>
