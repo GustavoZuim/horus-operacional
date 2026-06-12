@@ -61,5 +61,5 @@ def logout():
     db.session.commit()
     
     logout_user()
-    flash('VocÜ saiu com sucesso.', 'success')
+    flash('Você saiu com sucesso.', 'success')
     return redirect(url_for('auth.login'))
