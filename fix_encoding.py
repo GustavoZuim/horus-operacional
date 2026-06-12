@@ -10,6 +10,7 @@ REPLACEMENTS = {
     "Formul??rio": "Formulário",
     "Informa????es": "Informações",
     "Usu??rios": "Usuários",
+    "usu??rios": "usuários",
     "vig??lia": "vigília",
     "A????o": "Ação",
     "a????es": "ações",
