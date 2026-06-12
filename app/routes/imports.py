@@ -76,16 +76,9 @@ def index():
 @login_required
 @admin_or_supervisor_required
 def upload():
-    """Processa upload do PDF e retorna pr??via"""
+    """Processa upload do PDF e retorna prévia"""
     try:
-        # Validar projeto
-        project_id = request.form.get('project_id', type=int)
-        if not project_id:
-            return jsonify({'error': 'Selecione um projeto'}), 400
-        
-        project = Project.query.get_or_404(project_id)
-        
-        # Validar arquivo
+        # Validar arquivo primeiro
         if 'file' not in request.files:
             return jsonify({'error': 'Nenhum arquivo enviado'}), 400
         
@@ -94,9 +87,9 @@ def upload():
             return jsonify({'error': 'Nenhum arquivo selecionado'}), 400
         
         if not allowed_file(file.filename):
-            return jsonify({'error': 'Apenas arquivos PDF s??o permitidos'}), 400
+            return jsonify({'error': 'Apenas arquivos PDF são permitidos'}), 400
         
-        # Criar pasta tempor??ria se n??o existir
+        # Criar pasta temporária se não existir
         os.makedirs(UPLOAD_FOLDER, exist_ok=True)
         
         # Salvar arquivo temporariamente
@@ -106,13 +99,62 @@ def upload():
         filepath = os.path.join(UPLOAD_FOLDER, temp_filename)
         file.save(filepath)
         
-        # Registrar log
+        # Usar agente de IA para parsing inicial (extrair nome do projeto)
+        ai_parser = PlanningAIParser(filepath)
+        initial_parse = ai_parser.parse_full_planning([])
+        project_name_from_pdf = initial_parse.get('project_name', 'Projeto Sem Nome')
+        
+        # Verificar se foi fornecido project_id manualmente
+        project_id = request.form.get('project_id', type=int)
+        
+        if project_id:
+            # Usar projeto fornecido manualmente
+            project = Project.query.get_or_404(project_id)
+        else:
+            # Buscar projeto pelo nome extraído do PDF
+            project = Project.query.filter(
+                Project.name.ilike(f"%{project_name_from_pdf}%")
+            ).filter_by(status='active').first()
+            
+            if not project:
+                # Criar novo projeto automaticamente
+                project = Project(
+                    name=project_name_from_pdf,
+                    description=f'Projeto criado automaticamente via importação de PDF',
+                    status='active',
+                    start_date=datetime.now().date()
+                )
+                db.session.add(project)
+                db.session.flush()  # Para obter o ID sem commit
+                
+                # Registrar log de criação do projeto
+                log_create = AuditLog(
+                    user_id=current_user.id,
+                    action='create_project_auto',
+                    entity='project',
+                    entity_id=project.id,
+                    details=json.dumps({
+                        'project_name': project_name_from_pdf,
+                        'source': 'pdf_import',
+                        'filename': filename
+                    })
+                )
+                db.session.add(log_create)
+        
+        # Atualizar project_id para usar no restante do código
+        project_id = project.id
+        
+        # Registrar log de upload
         log = AuditLog(
             user_id=current_user.id,
             action='upload_pdf',
             entity='import',
             entity_id=project_id,
-            details=json.dumps({'filename': filename, 'project': project.name})
+            details=json.dumps({
+                'filename': filename,
+                'project': project.name,
+                'extracted_project_name': project_name_from_pdf
+            })
         )
         db.session.add(log)
         db.session.commit()

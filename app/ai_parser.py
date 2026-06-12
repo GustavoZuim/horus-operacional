@@ -88,6 +88,73 @@ class PlanningAIParser:
         
         return result
     
+    def extract_project_name(self) -> str:
+        """
+        Extrai o nome do projeto do PDF usando IA
+        
+        Estratégia:
+        1. Buscar padrão "Projeto: Nome"
+        2. Buscar "Projeto Nome" no início do documento
+        3. Buscar títulos em destaque no cabeçalho
+        4. Extrair do nome do arquivo
+        5. Fallback: "Projeto Sem Nome"
+        """
+        # Usar apenas as primeiras 3 páginas (onde geralmente está o projeto)
+        first_pages = '\n'.join(self.pages_text[:min(3, len(self.pages_text))])
+        
+        # Padrão 1: "Projeto: Nome do Projeto"
+        pattern1 = r'Projeto\s*:\s*([A-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ][^\n]{3,80})'
+        match1 = re.search(pattern1, first_pages, re.IGNORECASE)
+        if match1:
+            project_name = match1.group(1).strip()
+            # Limpar caracteres especiais do final
+            project_name = re.sub(r'[\s\-_:]+$', '', project_name)
+            return project_name
+        
+        # Padrão 2: "PROJETO Nome" ou "Project Nome"
+        pattern2 = r'(?:PROJETO|Project)\s+([A-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ][^\n]{3,80})'
+        match2 = re.search(pattern2, first_pages)
+        if match2:
+            project_name = match2.group(1).strip()
+            project_name = re.sub(r'[\s\-_:]+$', '', project_name)
+            return project_name
+        
+        # Padrão 3: Buscar linha com palavras-chave e capitalização
+        # Ex: "Educação Digital" ou "Sistema de Gestão"
+        pattern3 = r'^([A-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ][a-zàáâãäåçèéêëìíîïñòóôõöùúûü]+(?:\s+(?:de|da|do|dos|das|e|para|com))?\s+[A-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ][a-zàáâãäåçèéêëìíîïñòóôõöùúûü]+(?:\s+[A-ZÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜ][a-zàáâãäåçèéêëìíîïñòóôõöùúûü]+)*)'
+        lines = first_pages.split('\n')
+        for line in lines[:50]:  # Primeiras 50 linhas
+            line = line.strip()
+            if len(line) > 10 and len(line) < 80:
+                match3 = re.match(pattern3, line)
+                if match3:
+                    potential_name = match3.group(1).strip()
+                    # Verificar se não é uma categoria comum
+                    common_words = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'matrícula', 'cargo', 'semana']
+                    if not any(word in potential_name.lower() for word in common_words):
+                        return potential_name
+        
+        # Padrão 4: Buscar no nome do arquivo
+        # Ex: "planejamento_projeto_educacao.pdf"
+        import os
+        filename = os.path.basename(self.pdf_path)
+        filename_no_ext = os.path.splitext(filename)[0]
+        
+        # Remover timestamps
+        filename_clean = re.sub(r'\d{8}_\d{6}_', '', filename_no_ext)
+        filename_clean = re.sub(r'planejamento[_\s]', '', filename_clean, flags=re.IGNORECASE)
+        filename_clean = re.sub(r'[_-]', ' ', filename_clean)
+        
+        if len(filename_clean) > 5 and len(filename_clean) < 80:
+            # Capitalizar
+            words = filename_clean.split()
+            capitalized = ' '.join(word.capitalize() for word in words)
+            if capitalized != 'Semana' and not capitalized.isdigit():
+                return capitalized
+        
+        # Fallback: Projeto Sem Nome
+        return "Projeto Sem Nome"
+    
     def extract_professionals_from_page(self, page_text: str) -> List[Dict]:
         """Extrai profissionais de uma p??gina espec??fica"""
         professionals = []
@@ -272,8 +339,7 @@ class PlanningAIParser:
         Returns:
             Dict com todos os dados extra??dos estruturados
         """
-        result = {
-            'week_info': self.extract_week_info(),
+        result = {            'project_name': self.extract_project_name(),            'week_info': self.extract_week_info(),
             'professionals': [],
             'alerts': []
         }

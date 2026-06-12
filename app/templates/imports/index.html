@@ -22,15 +22,22 @@
 <!-- Etapa 1: Upload -->
 <div id="step-upload" class="card mystic-card mb-4">
     <div class="card-body">
-        <h5 class="card-title"><i class="bi bi-upload"></i> 1. Selecione o projeto e fa??a upload do PDF</h5>
+        <h5 class="card-title"><i class="bi bi-upload"></i> 1. Faça upload do PDF de planejamento</h5>
+        
+        <!-- Alerta informativo sobre IA -->
+        <div class="alert alert-info mb-3">
+            <i class="bi bi-robot"></i> <strong>IA Integrada:</strong> 
+            A inteligência artificial irá extrair automaticamente o nome do projeto do PDF. 
+            Se o projeto não existir no sistema, será criado automaticamente para você!
+        </div>
         
         <form id="uploadForm" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="project_id" class="form-label">Projeto *</label>
+                    <label for="project_id" class="form-label">Projeto (Opcional)</label>
                     <div class="input-group">
-                        <select class="form-select" id="project_id" name="project_id" required>
-                            <option value="">Selecione um projeto</option>
+                        <select class="form-select" id="project_id" name="project_id">
+                            <option value="">A IA irá detectar automaticamente</option>
                             {% for project in projects %}
                             <option value="{{ project.id }}">{{ project.name }}</option>
                             {% endfor %}
@@ -41,18 +48,20 @@
                         </button>
                         {% endif %}
                     </div>
-                    <div class="form-text">Escolha o projeto para este planejamento</div>
+                    <div class="form-text">
+                        <i class="bi bi-magic"></i> Deixe em branco para detecção automática via IA
+                    </div>
                 </div>
                 
                 <div class="col-md-6 mb-3">
                     <label for="pdf_file" class="form-label">Arquivo PDF *</label>
                     <input type="file" class="form-control" id="pdf_file" name="file" accept=".pdf" required>
-                    <div class="form-text">Tamanho m??ximo: 10MB</div>
+                    <div class="form-text">Tamanho máximo: 10MB</div>
                 </div>
             </div>
             
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-file-earmark-pdf"></i> Processar PDF
+                <i class="bi bi-file-earmark-pdf"></i> Processar PDF com IA
             </button>
         </form>
     </div>
