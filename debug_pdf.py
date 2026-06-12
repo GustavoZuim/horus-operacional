@@ -8,7 +8,7 @@ if pdf_files:
     
     parser = PlanningAIParser(pdf_path)
     
-    # Ver o texto bruto da primeira p??gina
+    # Ver o texto bruto da primeira página
     print('=== TEXTO BRUTO DA P??GINA 1 ===\n')
     print(parser.pages_text[0][:2000])  # Primeiros 2000 caracteres
     

@@ -1,0 +1,755 @@
+/**
+ * H??rus Operacional - Identidade Visual M??stica
+ * Paleta: Olho de H??rus - O olho que tudo v??
+ * Inspirado no misticismo eg??pcio e na vigil??ncia divina
+ */
+
+:root {
+  /* Cores principais - Tema Claro */
+  --primary-bg: #F5F7FA;           /* Fundo principal cinza clarinho */
+  --secondary-bg: #FFFFFF;         /* Branco puro */
+  --accent-bg: #FFF9E6;            /* Amarelo bem claro */
+  
+  /* Dourados do Hórus */
+  --horus-gold: #D4AF37;           /* Ouro principal */
+  --horus-gold-light: #E8C547;     /* Dourado claro */
+  --horus-gold-dark: #B8860B;      /* Dourado escuro */
+  
+  /* Azuis suaves */
+  --blue-light: #E3F2FD;           /* Azul muito claro */
+  --blue-medium: #2196F3;          /* Azul médio */
+  --blue-dark: #1565C0;            /* Azul escuro */
+  
+  /* Textos */
+  --text-primary: #212529;         /* Texto principal escuro */
+  --text-secondary: #6C757D;       /* Texto secundário */
+  --text-muted: #ADB5BD;           /* Texto desbotado */
+  
+  /* Bordas e divisores */
+  --border-color: #DEE2E6;         /* Borda suave */
+  --shadow-color: rgba(0, 0, 0, 0.08); /* Sombra suave */
+}
+
+body {
+  background: linear-gradient(135deg, #F5F7FA 0%, #E8EEF3 100%);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Remover efeito de estrelas */
+body::before {
+  display: none;
+}
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, rgba(255, 215, 0, .4), transparent),
+    radial-gradient(2px 2px at 60% 70%, rgba(212, 175, 55, .3), transparent),
+    radial-gradient(1px 1px at 50% 50%, rgba(0, 188, 212, .3), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(255, 215, 0, .3), transparent),
+    radial-gradient(2px 2px at 90% 60%, rgba(212, 175, 55, .2), transparent);
+  background-size: 200% 200%;
+  animation: starsMove 120s linear infinite;
+  pointer-events: none;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+@keyframes starsMove {
+  from { background-position: 0 0; }
+  to { background-position: 100% 100%; }
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 292px 1fr;
+  min-height: 100vh;
+}
+
+/* === Sidebar M??stica === */
+.sidebar {
+  background: linear-gradient(180deg, 
+    var(--mystic-night) 0%, 
+    var(--mystic-deep) 30%, 
+    var(--mystic-purple) 70%,
+    var(--mystic-indigo) 100%);
+  color: var(--mystic-silver);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Brilho m??stico de fundo */
+.sidebar::before {
+  content: "";
+  position: absolute;
+  right: -80px;
+  bottom: -100px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, 
+    rgba(212, 175, 55, .15) 0%, 
+    rgba(0, 188, 212, .1) 50%,
+    transparent 100%);
+  animation: mysticPulse 4s ease-in-out infinite;
+}
+
+@keyframes mysticPulse {
+  0%, 100% { transform: scale(1) translateY(0); opacity: 0.3; }
+  50% { transform: scale(1.1) translateY(-10px); opacity: 0.5; }
+}
+
+    var(--horus-gold-light) 0%, 
+    var(--horus-gold) 50%, 
+    var(--horus-gold-dark) 100%);
+  display: grid;
+  place-items: center;
+  box-shadow: 
+    0 4px 20px rgba(212, 175, 55, .5),
+    0 0 40px rgba(255, 215, 0, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .3);
+  border: 2px solid rgba(255, 215, 0, .4);
+  position: relative;
+  animation: horusBadgePulse 3s ease-in-out infinite;
+}
+
+@keyframes horusBadgePulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(212, 175, 55, .5), 0 0 40px rgba(255, 215, 0, .3); }
+  50% { box-shadow: 0 4px 30px rgba(212, 175, 55, .7), 0 0 60px rgba(255, 215, 0, .5); }
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.horus-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  display: grid;
+  place-items: center;
+  box-shadow: 0 14px 38px rgba(216, 162, 58, .25);
+}
+
+/* === Olho de H??rus Animado === */
+.eye {
+  width: 42px;
+  height: 26px;
+  position: relative;
+  animation: pulseEye 2.8s infinite ease-in-out;
+}
+
+.eye:before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 6px;
+  width: 38px;
+  height: 14px;
+  border: 3px solid #111827;
+  border-radius: 50%;
+  background: #fff7df;
+  transform: skewX(-8deg);
+}
+
+.eye:after {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 9px;
+  width: 10px;
+  height: 10px;
+  background: #111827;
+  border-radius: 50%;
+  animation: lookAround 3.8s infinite ease-in-out;
+}
+
+.tear {
+  position: absolute;
+  width: 18px;
+  height: 3px;
+  background: #111827;
+  bottom: 0;
+  left: 21px;
+  transform: rotate(35deg);
+  border-radius: 999px;
+}
+
+.tear:after {
+  content: "";
+  position: absolute;
+  right: -9px;
+  top: 3px;
+  width: 14px;
+  height: 3px;
+  background: #111827;
+  border-radius: 999px;
+  transform: rotate(70deg);
+}
+
+@keyframes pulseEye {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes lookAround {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-5px);
+  }
+  65% {
+    transform: translateX(5px);
+  }
+}
+
+.brand-title {
+  font-size: 18px;
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.brand-subtitle {
+  color: var(--eye-cyan);
+  font-size: 12px;
+  margin-top: 4px;
+  text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+}
+
+/* === Navega????o === */
+.nav-section {
+  color: var(--mystic-smoke);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin: 24px 10px 8px;
+  font-weight: 600;
+}
+
+.nav-link-h {
+  color: var(--mystic-silver);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.nav-link-h:hover,
+.nav-link-h.active {
+  color: var(--horus-gold-light);
+  background: rgba(212, 175, 55, .2);
+  border: 1px solid var(--horus-gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, .3);
+  transform: translateX(4px);
+}
+
+/* === Main Content M??stico === */
+main {
+  padding: 26px;
+  position: relative;
+  z-index: 1;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.kicker {
+  color: var(--horus-gold);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 4px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 30px;
+  margin: 0;
+  color: var(--horus-gold-light);
+  text-shadow: 0 0 30px rgba(212, 175, 55, .5), 0 2px 4px rgba(0, 0, 0, .3);
+}
+
+.lead-small {
+  color: var(--mystic-silver);
+  margin: 6px 0 0;
+  max-width: 760px;
+}
+
+.user-chip {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.9), rgba(74, 20, 140, 0.8));
+  border: 1px solid var(--horus-gold);
+  border-radius: 999px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, .3), 0 0 30px rgba(0, 188, 212, .2);
+  white-space: nowrap;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--horus-gold-dark), var(--horus-gold));
+  color: var(--mystic-night);
+  font-weight: 900;
+  box-shadow: 0 0 15px rgba(212, 175, 55, .4);
+}
+
+/* === Cards === */
+.card-h {
+  background: linear-gradient(135deg, rgba(26, 31, 58, 0.95), rgba(26, 35, 126, 0.9));
+  border: 1px solid rgba(212, 175, 55, .3);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .4), 0 0 60px rgba(212, 175, 55, .1);
+  backdrop-filter: blur(12px);
+}
+
+.filters {
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+/* === Bot??es === */
+.btn-horus {
+  background: linear-gradient(135deg, var(--horus-gold-light), var(--horus-gold), var(--horus-gold-dark));
+  border: 1px solid var(--horus-gold-light);
+  color: var(--mystic-night);
+  font-weight: 800;
+  border-radius: 999px;
+  padding-inline: 18px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, .4), 0 0 20px rgba(255, 215, 0, .3);
+  transition: all 0.3s ease;
+}
+
+.btn-horus:hover {
+  color: var(--mystic-night);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, .6), 0 0 40px rgba(255, 215, 0, .5);
+}
+
+.btn-round {
+  border-radius: 999px;
+  padding-inline: 16px;
+}
+
+/* === M??tricas === */
+.metric {
+  padding: 18px;
+  height: 100%;
+}
+
+.metric-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: #fff4d7;
+  color: #9a6b16;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.metric-value {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.metric-label {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+/* === Board === */
+.board {
+  overflow: hidden;
+  margin-top: 18px;
+}
+
+.board-head {
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-title {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.board-subtitle {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.holiday-alert {
+  margin: 18px 20px 0;
+  background: #fff3cd;
+  border: 1px solid #f5d06f;
+  color: #76540d;
+  border-radius: 18px;
+  padding: 12px 14px;
+}
+
+/* === Tabela === */
+.table thead th {
+  background: #f9f0d9;
+  color: #4b3510;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.table td {
+  border-color: #f0e5d1;
+  vertical-align: middle;
+}
+
+.name {
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* === Status Colors === */
+.status-select {
+  min-width: 158px;
+  border-radius: 12px;
+  font-weight: 750;
+  font-size: 13px;
+}
+
+.s-presente {
+  background: rgba(212, 175, 55, 0.08) !important;
+  border-color: rgba(212, 175, 55, 0.2) !important;
+  color: #8b7355 !important;
+  font-weight: 500 !important;
+}
+
+.s-falta-j {
+  background: #fffbeb !important;
+  border-color: #fde68a !important;
+  color: #92400e !important;
+}
+
+.s-falta-nj {
+  background: #fef2f2 !important;
+  border-color: #fecaca !important;
+  color: #991b1b !important;
+}
+
+.s-saida {
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+  color: #9a3412 !important;
+}
+
+.s-realocado {
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+}
+
+.s-feriado {
+  background: #f3e8ff !important;
+  border-color: #ddd6fe !important;
+  color: #6d28d9 !important;
+}
+
+.s-folga {
+  background: #f3f4f6 !important;
+  border-color: #d1d5db !important;
+  color: #374151 !important;
+}
+
+.s-nao {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+.day-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #111827;
+  color: #f4d27a;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 4px;
+}
+
+.section-title {
+  font-weight: 900;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* ====== Cards de Atividades ====== */
+.day-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  min-height: 100px;
+}
+
+.activities-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.activity-card {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border-left: 3px solid var(--horus-gold);
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card:hover {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(212, 175, 55, 0.08) 100%);
+  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25);
+  transform: translateX(2px);
+}
+
+.activity-category {
+  font-weight: 700;
+  color: var(--horus-gold);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.activity-desc {
+  color: #e2e8f0;
+  line-height: 1.4;
+  font-size: 11.5px;
+}
+
+.activity-more {
+  text-align: center;
+  padding: 6px;
+  background: rgba(212, 175, 55, 0.08);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--horus-gold);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.activity-more:hover {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.no-activities {
+  text-align: center;
+  padding: 12px;
+  color: #64748b;
+  font-size: 11px;
+  font-style: italic;
+}
+
+/* Ajustar largura das c??lulas de dia */
+.table-weekly td:nth-child(n+3):nth-child(-n+7) {
+  min-width: 200px;
+  vertical-align: top;
+}
+
+.status-pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.import-zone {
+  border: 1px dashed #d6bd79;
+  background: #fff8e7;
+  border-radius: 20px;
+  padding: 22px;
+  text-align: center;
+}
+
+/* === Breadcrumb M??stico === */
+.breadcrumb {
+  background: rgba(26, 31, 58, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 8px 16px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.breadcrumb-item {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+}
+
+.breadcrumb-item a {
+  color: var(--horus-gold);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.breadcrumb-item a:hover {
+  color: var(--horus-gold-light);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.breadcrumb-item.active {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  color: rgba(212, 175, 55, 0.5);
+  padding: 0 8px;
+}
+
+/* === Responsivo === */
+@media (max-width: 992px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  main {
+    padding: 16px;
+  }
+
+  .topbar {
+    flex-direction: column;
+  }
+}
+
+/* === Correções de contraste para melhor legibilidade === */
+
+/* Textos dentro dos cards - Máxima prioridade */
+.card-h .text-muted,
+.card-h small.text-muted,
+.card-h p.text-muted,
+div.text-muted,
+small.text-muted,
+p.text-muted,
+.text-muted {
+  color: #B0BEC5 !important;
+  opacity: 1 !important;
+}
+
+.card-h .form-label,
+.form-label {
+  color: #E0E0E0 !important;
+}
+
+.card-h h2,
+.card-h h1,
+.card-h h3,
+.card-h h4,
+.card-h h5,
+.card-h h6 {
+  color: #FFD700 !important;
+}
+
+.card-h p,
+.card-h small,
+div.card-h small {
+  color: #E0E0E0 !important;
+}
+
+/* Inputs com melhor contraste */
+.form-control {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  color: var(--mystic-night) !important;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 1) !important;
+  border-color: var(--horus-gold) !important;
+  box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25) !important;
+}
+
+.form-control::placeholder {
+  color: rgba(26, 31, 58, 0.5) !important;
+}
+
+/* Checkbox com melhor visibilidade */
+.form-check-label {
+  color: #E0E0E0 !important;
+}
+
+.form-check-input {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: var(--horus-gold);
+}
+
+.form-check-input:checked {
+  background-color: var(--horus-gold);
+  border-color: var(--horus-gold-light);
+}
+
+/* Textos pequenos com boa legibilidade - Cores diretas */
+small,
+small.text-muted {
+  color: #B0BEC5 !important;
+}
+
+strong {
+  color: #FFD700 !important;
+}
+
+/* Rodapé fora do card */
+.text-center small.text-muted {
+  color: #B0BEC5 !important;
+}

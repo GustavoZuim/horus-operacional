@@ -11,7 +11,7 @@ from collections import defaultdict
 
 bp = Blueprint('activity_report', __name__, url_prefix='/activity-report')
 
-# Tradu????o de meses para portugu??s
+# Tradu????o de meses para português
 MONTHS_PT = {
     1: 'Janeiro', 2: 'Fevereiro', 3: 'Mar??o', 4: 'Abril',
     5: 'Maio', 6: 'Junho', 7: 'Julho', 8: 'Agosto',
@@ -31,7 +31,7 @@ def parse_activities(activities_text):
         line = line.strip()
         if ':' in line and line:
             category = line.split(':')[0].strip()
-            if category and len(category) > 3:  # Filtrar categorias v??lidas
+            if category and len(category) > 3:  # Filtrar categorias vêlidas
                 categories.append(category)
     
     return categories
@@ -40,7 +40,7 @@ def parse_activities(activities_text):
 @bp.route('/')
 @login_required
 def index():
-    """P??gina principal do relat??rio de atividades"""
+    """Página principal do relat??rio de atividades"""
     # Buscar projetos ativos
     projects = Project.query.filter_by(status='active').order_by(Project.name).all()
     
@@ -75,7 +75,7 @@ def get_data():
     try:
         year, month_num = map(int, month.split('-'))
     except:
-        return jsonify({'error': 'Formato de m??s inv??lido'}), 400
+        return jsonify({'error': 'Formato de m??s invêlido'}), 400
     
     # Buscar todas as semanas do m??s
     weeks = PlanningWeek.query.filter(

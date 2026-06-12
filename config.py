@@ -1,5 +1,5 @@
 """
-Configura????es da aplica????o H??rus Operacional
+Configurações da aplica????o Hórus Operacional
 """
 import os
 from datetime import timedelta
@@ -10,7 +10,7 @@ load_dotenv()
 class Config:
     """Configura????o base"""
     
-    # Configura????es b??sicas
+    # Configurações b??sicas
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
     
     # Database
@@ -24,8 +24,8 @@ class Config:
     SESSION_COOKIE_SAMESITE = 'Lax'
     
     # App info
-    APP_NAME = os.getenv('APP_NAME', 'H??rus Operacional')
-    APP_DESCRIPTION = os.getenv('APP_DESCRIPTION', 'O olho que v?? a assiduidade')
+    APP_NAME = os.getenv('APP_NAME', 'Hórus Operacional')
+    APP_DESCRIPTION = os.getenv('APP_DESCRIPTION', 'O olho que vê a assiduidade')
     
     # Admin inicial
     ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'admin@horus.local')

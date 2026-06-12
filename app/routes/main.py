@@ -10,7 +10,7 @@ bp = Blueprint('main', __name__)
 
 @bp.route('/')
 def index():
-    """P??gina inicial - redireciona para login ou dashboard"""
+    """Página inicial - redireciona para login ou dashboard"""
     if current_user.is_authenticated:
         return redirect(url_for('main.dashboard'))
     return redirect(url_for('auth.login'))
@@ -19,8 +19,8 @@ def index():
 @bp.route('/dashboard')
 @login_required
 def dashboard():
-    """Dashboard principal com estat??sticas e atalhos"""
-    # Calcular estat??sticas
+    """Dashboard principal com estatísticas e atalhos"""
+    # Calcular estatísticas
     stats = {
         'total_projects': Project.query.filter_by(status='active').count(),
         'active_professionals': Professional.query.filter_by(status='active').count(),
@@ -36,6 +36,6 @@ def health():
     """Health check para monitoramento"""
     return jsonify({
         'status': 'ok',
-        'app': 'H??rus Operacional',
+        'app': 'Hórus Operacional',
         'version': '2.0.0'
     })

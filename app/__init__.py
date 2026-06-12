@@ -1,5 +1,5 @@
 """
-Factory da aplica????o Flask - H??rus Operacional
+Factory da aplica????o Flask - Hórus Operacional
 """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -26,7 +26,7 @@ def create_app(config_name='development'):
     
     # Configurar Flask-Login
     login_manager.login_view = 'auth.login'
-    login_manager.login_message = 'Fa??a login para acessar esta p??gina.'
+    login_manager.login_message = 'Faça login para acessar esta página.'
     login_manager.login_message_category = 'warning'
     
     # Importar models antes dos blueprints

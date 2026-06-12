@@ -96,7 +96,7 @@ def initialize_database(app):
             db.session.add(week_25)
             db.session.commit()
             
-            # Criar registros de presen??a para todos os profissionais
+            # Criar registros de presença para todos os profissionais
             # Todos come??am como "Presente" de segunda a sexta
             for prof in professionals:
                 attendance = WeeklyAttendance(

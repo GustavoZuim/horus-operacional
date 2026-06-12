@@ -1,5 +1,5 @@
 """
-Modelos de dados do H??rus Operacional
+Modelos de dados do Hórus Operacional
 """
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -113,7 +113,7 @@ class PlanningWeek(db.Model):
 
 
 class WeeklyAttendance(db.Model):
-    """Modelo de presen??a semanal"""
+    """Modelo de presença semanal"""
     
     __tablename__ = 'weekly_attendance'
     
@@ -173,7 +173,7 @@ class WeeklyAttendance(db.Model):
     
     @staticmethod
     def is_present(status):
-        """Verifica se o status conta como presen??a"""
+        """Verifica se o status conta como presença"""
         return status in [
             WeeklyAttendance.STATUS_PRESENTE,
             WeeklyAttendance.STATUS_SAIDA_ANTECIPADA,
@@ -191,7 +191,7 @@ class WeeklyAttendance(db.Model):
         ]
     
     def calculate_metrics(self):
-        """Calcula m??tricas de assiduidade"""
+        """Calcula métricas de assiduidade"""
         statuses = self.get_week_statuses()
         
         valid_days = sum(1 for s in statuses if self.is_valid_day(s))

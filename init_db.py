@@ -1,6 +1,6 @@
 """
 Script de inicializa????o do banco de dados
-Limpa todos os dados e cria um usu??rio admin padr??o
+Limpa todos os dados e cria um usu??rio admin padrão
 """
 from app import create_app, db
 from app.models import User
@@ -24,7 +24,7 @@ def init_database():
         db.create_all()
         print('   ??? Tabelas criadas')
         
-        # Criar usu??rio admin padr??o
+        # Criar usu??rio admin padrão
         print('\n???? Criando usu??rio administrador...')
         admin = User(
             name='Administrador',

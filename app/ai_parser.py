@@ -1,6 +1,6 @@
 """
-Agente de IA para interpreta????o inteligente de PDFs de planejamento
-Usa t??cnicas avan??adas de NLP e extra????o estruturada
+Agente de IA para interpretação inteligente de PDFs de planejamento
+Usa técnicas avan??adas de NLP e extração estruturada
 """
 import fitz  # PyMuPDF
 import re
@@ -8,9 +8,9 @@ from typing import Dict, List, Tuple
 from datetime import datetime
 
 class PlanningAIParser:
-    """Parser inteligente com t??cnicas de IA para extrair dados estruturados de PDFs"""
+    """Parser inteligente com técnicas de IA para extrair dados estruturados de PDFs"""
     
-    # Dias da semana em portugu??s
+    # Dias da semana em português
     WEEKDAYS = {
         'segunda': 'monday',
         'ter??a': 'tuesday',
@@ -21,13 +21,13 @@ class PlanningAIParser:
     
     # Categorias de atividades comuns
     ACTIVITY_CATEGORIES = [
-        'Organiza????o Cadastral',
+        'Organização Cadastral',
         'Teste de Funcionalidades',
-        'Forma????o e Treinamento',
-        'Elabora????o de Relat??rios',
-        'Vistoria ?? Setores ou Unidades',
-        'Suporte T??cnico',
-        'Reuni??o',
+        'Formação e Treinamento',
+        'Elaboração de Relatórios',
+        'Vistoria à Setores ou Unidades',
+        'Suporte Técnico',
+        'Reunião',
         'Desenvolvimento'
     ]
     
@@ -47,7 +47,7 @@ class PlanningAIParser:
         return text
     
     def extract_pages_text(self) -> List[str]:
-        """Extrai texto de cada p??gina separadamente"""
+        """Extrai texto de cada página separadamente"""
         doc = fitz.open(self.pdf_path)
         pages = []
         for page in doc:
@@ -56,7 +56,7 @@ class PlanningAIParser:
         return pages
     
     def extract_week_info(self) -> Dict:
-        """Extrai informa????es da semana"""
+        """Extrai informações da semana"""
         result = {
             'week_label': None,
             'dates': []
@@ -156,17 +156,17 @@ class PlanningAIParser:
         return "Projeto Sem Nome"
     
     def extract_professionals_from_page(self, page_text: str) -> List[Dict]:
-        """Extrai profissionais de uma p??gina espec??fica"""
+        """Extrai profissionais de uma página específica"""
         professionals = []
         
-        # Buscar padr??o: Nome do profissional (geralmente em destaque)
-        # Matr??cula: XXX Cargo: YYY
+        # Buscar padrão: Nome do profissional (geralmente em destaque)
+        # Matrícula: XXX Cargo: YYY
         
-        # Padr??o 1: Buscar linha com "Matricula:" ou "Matr??cula:"
+        # Padr??o 1: Buscar linha com "Matricula:" ou "Matrícula:"
         matricula_pattern = r'Matr[??i]cula:\s*([A-Z]{2}\d+)'
         matriculas = re.findall(matricula_pattern, page_text, re.IGNORECASE)
         
-        # Padr??o 2: Buscar nome antes da matr??cula
+        # Padr??o 2: Buscar nome antes da matrícula
         # Formato comum: "Nome Completo\nMatricula: XXX"
         name_matricula_pattern = r'([A-Z??????????????????????][a-z??????????????????????]+(?:\s+[A-Z??????????????????????][a-z??????????????????????]+)+)\s+Matr[??i]cula:\s*([A-Z]{2}\d+)'
         name_matricula_matches = re.findall(name_matricula_pattern, page_text, re.IGNORECASE)
@@ -197,7 +197,7 @@ class PlanningAIParser:
             'friday': []
         }
         
-        # Extrair todas as atividades da p??gina
+        # Extrair todas as atividades da página
         all_activities = self._extract_all_activities_from_page(page_text)
         
         if not all_activities:
@@ -220,21 +220,21 @@ class PlanningAIParser:
         return activities_by_day
     
     def _extract_all_activities_from_page(self, page_text: str) -> List[str]:
-        """Extrai todas as atividades de uma p??gina"""
+        """Extrai todas as atividades de uma página"""
         activities = []
         
         # Lista de categorias conhecidas
         categories = [
-            'Organiza????o Cadastral',
+            'Organização Cadastral',
             'Teste de Funcionalidades',
-            'Forma????o e Treinamento',
-            'Elabora????o de Relat??rios',
-            'Vistoria ?? Setores ou Unidades',
-            'Suporte T??cnico',
-            'Reuni??o',
+            'Formação e Treinamento',
+            'Elaboração de Relatórios',
+            'Vistoria à Setores ou Unidades',
+            'Suporte Técnico',
+            'Reunião',
             'Desenvolvimento',
             'Atendimento',
-            'Manuten????o'
+            'Manutenção'
         ]
         
         # Estrat??gia: Split por marcadores de unidade e processar cada bloco
@@ -282,28 +282,28 @@ class PlanningAIParser:
         return unique_activities
     
     def _extract_activities_from_section(self, section_text: str) -> List[str]:
-        """Extrai atividades de uma se????o de texto"""
+        """Extrai atividades de uma seção de texto"""
         activities = []
         
-        # Novo padr??o para o formato espec??fico do PDF:
-        # Categoria (ex: "Organiza????o Cadastral")
-        # Bullet "" + descri????o
+        # Novo padrão para o formato espec??fico do PDF:
+        # Categoria (ex: "Organização Cadastral")
+        # Bullet "" + descrição
         # "Sem Unidade" ou nome da unidade
         
-        # Padr??o melhorado: captura categoria e descri????o
-        # Ex: "Organiza????o Cadastral\n Card??pio da merenda..."
+        # Padr??o melhorado: captura categoria e descrição
+        # Ex: "Organização Cadastral\n Card??pio da merenda..."
         pattern = r'([A-Z??????????????????????][^\n]{10,})\n\s*([^\n]{20,}?)(?:\nSem Unidade|\nEMEIEF|\nEMEI|\nCREI|\n[A-Z]{2,})'
         matches = re.findall(pattern, section_text, re.MULTILINE)
         
         for category, description in matches:
-            # Limpar categoria e descri????o
+            # Limpar categoria e descrição
             category = category.strip()
             description = description.strip()
             
             # Remover bullet "" se existir
             description = re.sub(r'^[\s]*', '', description).strip()
             
-            # Formato: "Categoria: Descri????o"
+            # Formato: "Categoria: Descrição"
             activity_text = f"{category}: {description}"
             
             # Limpar espa??os m??ltiplos
@@ -344,9 +344,9 @@ class PlanningAIParser:
             'alerts': []
         }
         
-        # Processar cada p??gina (cada profissional geralmente est?? em uma p??gina)
+        # Processar cada página (cada profissional geralmente est?? em uma página)
         for page_text in self.pages_text:
-            # Extrair profissionais desta p??gina
+            # Extrair profissionais desta página
             page_professionals = self.extract_professionals_from_page(page_text)
             
             for prof_data in page_professionals:

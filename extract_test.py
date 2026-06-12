@@ -8,7 +8,7 @@ if pdf_files:
     
     print('=== EXTRA????O DE ATIVIDADES DA P??GINA ===\n')
     
-    # Pegar texto da primeira p??gina (Mara)
+    # Pegar texto da primeira página (Mara)
     page_text = parser.pages_text[0]
     
     # Extrair todas as atividades

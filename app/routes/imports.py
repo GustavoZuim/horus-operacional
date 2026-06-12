@@ -1,5 +1,5 @@
 """
-Rotas de importa????o de planejamento em PDF
+Rotas de importação de planejamento em PDF
 """
 from flask import Blueprint, render_template, request, jsonify, session, redirect, url_for, flash
 from flask_login import login_required, current_user
@@ -57,7 +57,7 @@ def admin_or_supervisor_required(f):
         if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
         if current_user.role not in ['admin', 'supervisor']:
-            flash('Voc?? n??o tem permiss??o para acessar esta p??gina.', 'danger')
+            flash('Voc?? n??o tem permiss??o para acessar esta página.', 'danger')
             return redirect(url_for('weekly.index'))
         return f(*args, **kwargs)
     return decorated_function
@@ -67,7 +67,7 @@ def admin_or_supervisor_required(f):
 @login_required
 @admin_or_supervisor_required
 def index():
-    """Tela de importa????o de planejamento"""
+    """Tela de importação de planejamento"""
     projects = Project.query.filter_by(status='active').order_by(Project.name).all()
     return render_template('imports/index.html', projects=projects)
 
@@ -194,7 +194,7 @@ def upload():
                 else:
                     prof[f'{day}_status'] = 'presente'
             
-            # Buscar profissional no banco por nome ou matr??cula
+            # Buscar profissional no banco por nome ou matrícula
             db_prof = Professional.query.filter_by(
                 project_id=project_id,
                 status='active'
@@ -211,7 +211,7 @@ def upload():
                 prof['registered'] = False
                 professionals_not_in_system.append(prof)
         
-        # Extrair informa????es da semana
+        # Extrair informações da semana
         week_info = parsed_data['week_info']
         
         # Se n??o identificou semana, tentar pegar do nome do arquivo
@@ -228,7 +228,7 @@ def upload():
             start_date = week_info['dates'][0].strftime('%Y-%m-%d')
             end_date = (week_info['dates'][0] + timedelta(days=4)).strftime('%Y-%m-%d')
         
-        # Montar resultado da pr??via
+        # Montar resultado da prévia
         preview_data = {
             'week_label': week_info['week_label'],
             'start_date': start_date,
@@ -252,7 +252,7 @@ def upload():
             'parsed_data': preview_data
         }
         
-        # Retornar pr??via
+        # Retornar prévia
         return jsonify({
             'success': True,
             'preview': preview_data
@@ -266,14 +266,14 @@ def upload():
 @login_required
 @admin_or_supervisor_required
 def confirm():
-    """Confirma importa????o e gera quadro semanal"""
+    """Confirma importação e gera quadro semanal"""
     try:
         # Recuperar dados da sess??o
         import_data = session.get('import_data')
         if not import_data:
-            return jsonify({'error': 'Dados de importa????o n??o encontrados'}), 400
+            return jsonify({'error': 'Dados de importação n??o encontrados'}), 400
         
-        # Recuperar dados do formul??rio (pr??via editada)
+        # Recuperar dados do formul??rio (prévia editada)
         week_label = request.json.get('week_label')
         start_date = request.json.get('start_date')
         end_date = request.json.get('end_date')
@@ -377,7 +377,7 @@ def confirm():
 @login_required
 @admin_or_supervisor_required
 def cancel():
-    """Cancela importa????o e limpa arquivo tempor??rio"""
+    """Cancela importação e limpa arquivo tempor??rio"""
     try:
         import_data = session.get('import_data')
         if import_data:
@@ -481,7 +481,7 @@ def quick_register():
 @login_required
 @admin_or_supervisor_required
 def create_project():
-    """Cria????o r??pida de projeto durante importa????o"""
+    """Cria????o r??pida de projeto durante importação"""
     try:
         data = request.json
         project_name = data.get('name', '').strip()

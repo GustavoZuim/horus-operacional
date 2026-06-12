@@ -1,5 +1,5 @@
 """
-Rotas de indicadores e relat??rios
+Rotas de indicadores e relatórios
 """
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required
@@ -57,7 +57,7 @@ def get_metrics():
     
     attendances = query.all()
     
-    # Calcular m??tricas agregadas
+    # Calcular métricas agregadas
     total_valid = 0
     total_present = 0
     total_falta_j = 0

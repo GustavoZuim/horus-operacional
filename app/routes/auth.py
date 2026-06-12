@@ -12,7 +12,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    """P??gina de login"""
+    """Página de login"""
     if current_user.is_authenticated:
         return redirect(url_for('main.dashboard'))
     

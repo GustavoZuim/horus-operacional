@@ -141,7 +141,7 @@ def load_board():
 @bp.route('/api/save', methods=['POST'])
 @login_required
 def save_board():
-    """API: Salvar altera????es do quadro"""
+    """API: Salvar alterações do quadro"""
     if not current_user.is_supervisor():
         return jsonify({'error': 'Permiss??o negada'}), 403
     
@@ -164,27 +164,27 @@ def save_board():
         # Atualizar status
         if 'monday' in change:
             if change['monday'] not in valid_statuses:
-                return jsonify({'error': f'Status inv??lido: {change["monday"]}'}), 400
+                return jsonify({'error': f'Status invêlido: {change["monday"]}'}), 400
             attendance.monday_status = change['monday']
         
         if 'tuesday' in change:
             if change['tuesday'] not in valid_statuses:
-                return jsonify({'error': f'Status inv??lido: {change["tuesday"]}'}), 400
+                return jsonify({'error': f'Status invêlido: {change["tuesday"]}'}), 400
             attendance.tuesday_status = change['tuesday']
         
         if 'wednesday' in change:
             if change['wednesday'] not in valid_statuses:
-                return jsonify({'error': f'Status inv??lido: {change["wednesday"]}'}), 400
+                return jsonify({'error': f'Status invêlido: {change["wednesday"]}'}), 400
             attendance.wednesday_status = change['wednesday']
         
         if 'thursday' in change:
             if change['thursday'] not in valid_statuses:
-                return jsonify({'error': f'Status inv??lido: {change["thursday"]}'}), 400
+                return jsonify({'error': f'Status invêlido: {change["thursday"]}'}), 400
             attendance.thursday_status = change['thursday']
         
         if 'friday' in change:
             if change['friday'] not in valid_statuses:
-                return jsonify({'error': f'Status inv??lido: {change["friday"]}'}), 400
+                return jsonify({'error': f'Status invêlido: {change["friday"]}'}), 400
             attendance.friday_status = change['friday']
         
         if 'notes' in change:
@@ -208,7 +208,7 @@ def save_board():
     db.session.add(log)
     db.session.commit()
     
-    return jsonify({'success': True, 'message': 'Altera????es salvas com sucesso!'})
+    return jsonify({'success': True, 'message': 'Alterações salvas com sucesso!'})
 
 
 @bp.route('/api/generate', methods=['POST'])
@@ -257,7 +257,7 @@ def generate_planning():
     db.session.add(week)
     db.session.flush()
     
-    # Criar registros de presen??a para todos os profissionais ativos do projeto
+    # Criar registros de presença para todos os profissionais ativos do projeto
     professionals = Professional.query.filter_by(
         project_id=project_id,
         status='active'
@@ -328,7 +328,7 @@ def apply_holiday():
     }
     
     if weekday not in weekday_map:
-        return jsonify({'error': 'Dia inv??lido'}), 400
+        return jsonify({'error': 'Dia invêlido'}), 400
     
     column, offset = weekday_map[weekday]
     holiday_date = week.start_date + timedelta(days=offset)
@@ -352,7 +352,7 @@ def apply_holiday():
     )
     db.session.add(holiday)
     
-    # Atualizar todos os registros de presen??a para "Feriado"
+    # Atualizar todos os registros de presença para "Feriado"
     attendances = WeeklyAttendance.query.filter_by(planning_week_id=week_id).all()
     for att in attendances:
         setattr(att, column, 'Feriado')
@@ -457,13 +457,13 @@ def export_csv():
     # Cabe??alho
     writer.writerow([
         'Profissional',
-        'Matr??cula',
+        'Matrícula',
         f'Segunda ({week.start_date.strftime("%d/%m")})',
         f'Ter??a ({(week.start_date + timedelta(days=1)).strftime("%d/%m")})',
         f'Quarta ({(week.start_date + timedelta(days=2)).strftime("%d/%m")})',
         f'Quinta ({(week.start_date + timedelta(days=3)).strftime("%d/%m")})',
         f'Sexta ({week.end_date.strftime("%d/%m")})',
-        'Observa????es',
+        'Observações',
         'Dias V??lidos',
         'Dias Presentes',
         'Taxa (%)'

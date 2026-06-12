@@ -11,7 +11,7 @@ print(f'Projeto: {w.project.name}')
 
 # Registros dessa semana
 atts = WeeklyAttendance.query.filter_by(planning_week_id=w.id).all()
-print(f'\nRegistros de presen??a: {len(atts)}')
+print(f'\nRegistros de presença: {len(atts)}')
 
 for att in atts:
     print(f'\n{att.professional.name} (MG{att.professional.registration}):')

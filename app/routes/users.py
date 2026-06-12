@@ -1,5 +1,5 @@
 """
-Rotas de CRUD de usu??rios (Admin only)
+Rotas de CRUD de usuários (Admin only)
 """
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
@@ -26,7 +26,7 @@ def admin_required(f):
 @login_required
 @admin_required
 def index():
-    """Lista todos os usu??rios"""
+    """Lista todos os usuários"""
     users = User.query.order_by(User.created_at.desc()).all()
     return render_template('users/index.html', users=users)
 
@@ -42,7 +42,7 @@ def create():
         password = request.form.get('password')
         role = request.form.get('role', 'visualizador')
         
-        # Valida????es
+        # Validações
         if not name or not email or not password:
             flash('Todos os campos s??o obrigat??rios.', 'danger')
             return render_template('users/form.html')

@@ -47,10 +47,10 @@ def create():
             flash('Todos os campos s??o obrigat??rios.', 'danger')
             return render_template('professionals/form.html', projects=projects)
         
-        # Verificar se matr??cula j?? existe
+        # Verificar se matrícula j?? existe
         existing = Professional.query.filter_by(registration=registration).first()
         if existing:
-            flash('Matr??cula j?? cadastrada.', 'danger')
+            flash('Matrícula j?? cadastrada.', 'danger')
             return render_template('professionals/form.html', projects=projects)
         
         professional = Professional(

@@ -131,7 +131,7 @@
                 <thead>
                     <tr>
                         <th>Profissional</th>
-                        <th>Matr??cula</th>
+                        <th>Matrícula</th>
                         <th>Segunda</th>
                         <th>Ter??a</th>
                         <th>Quarta</th>
@@ -151,7 +151,7 @@
                 <i class="bi bi-x-circle"></i> Cancelar
             </button>
             <button type="button" class="btn btn-primary" id="btnConfirm">
-                <i class="bi bi-check-circle"></i> Confirmar importa????o
+                <i class="bi bi-check-circle"></i> Confirmar importação
             </button>
         </div>
     </div>
@@ -260,7 +260,7 @@ function showPreview(data) {
         const listDiv = document.getElementById('unregistered-list');
         
         listDiv.innerHTML = '<ul class="mb-0">' +
-            data.unregistered.map(p => `<li><strong>${p.name}</strong> (Matr??cula: ${p.registration})</li>`).join('') +
+            data.unregistered.map(p => `<li><strong>${p.name}</strong> (Matrícula: ${p.registration})</li>`).join('') +
             '</ul>';
         
         unregisteredDiv.style.display = 'block';
@@ -422,12 +422,12 @@ document.getElementById('btnConfirm').addEventListener('click', async () => {
         }, 1500);
         
     } catch (error) {
-        showToast('Erro ao confirmar importa????o: ' + error.message, 'danger');
+        showToast('Erro ao confirmar importação: ' + error.message, 'danger');
     }
 });
 
 document.getElementById('btnCancel').addEventListener('click', async () => {
-    if (!confirm('Deseja cancelar esta importa????o?')) {
+    if (!confirm('Deseja cancelar esta importação?')) {
         return;
     }
     
@@ -533,7 +533,7 @@ document.getElementById('btnCreateProject')?.addEventListener('click', async () 
                     <div id="quick-register-fields"></div>
                     <div class="alert alert-info mt-3">
                         <i class="bi bi-info-circle"></i> 
-                        Ap??s cadastrar, os profissionais aparecer??o automaticamente na prévia de importa????o.
+                        Ap??s cadastrar, os profissionais aparecer??o automaticamente na prévia de importação.
                     </div>
                 </form>
             </div>
@@ -570,7 +570,7 @@ document.getElementById('quickRegisterModal')?.addEventListener('show.bs.modal',
                                    data-index="${index}" data-field="name" required>
                         </div>
                         <div class="col-md-6 mb-2">
-                            <label class="form-label fw-bold">Matr??cula</label>
+                            <label class="form-label fw-bold">Matrícula</label>
                             <input type="text" class="form-control" value="${prof.registration}" 
                                    data-index="${index}" data-field="registration" required>
                         </div>
@@ -627,7 +627,7 @@ document.getElementById('btnQuickRegister')?.addEventListener('click', async () 
         const modal = bootstrap.Modal.getInstance(document.getElementById('quickRegisterModal'));
         modal.hide();
         
-        // Ocultar se????o de n??o cadastrados
+        // Ocultar seção de n??o cadastrados
         document.getElementById('unregistered-section').style.display = 'none';
         
         // Recarregar prévia com profissionais cadastrados
