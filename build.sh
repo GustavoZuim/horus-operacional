@@ -7,4 +7,7 @@ echo "Instalando dependencias..."
 pip install --upgrade pip
 pip install -r requirements.txt
 
+echo "Inicializando banco de dados..."
+python seed_database.py
+
 echo "Build concluido com sucesso!"
