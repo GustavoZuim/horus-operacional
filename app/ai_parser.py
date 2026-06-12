@@ -107,17 +107,23 @@ class PlanningAIParser:
         return result
     
     def extract_professionals_from_page(self, page_text: str) -> List[Dict]:
-        """Extrai profissionais com MÚLTIPLAS estratégias"""
+        """Extrai profissionais com MÚLTIPLAS estratégias - ULTRA FLEXÍVEL"""
         professionals = []
         lines = [l.strip() for l in page_text.split('\n') if l.strip()]
         
         # Estratégia 1: Buscar "Matrícula: XXXX" e pegar nome antes
         for i, line in enumerate(lines):
-            # Buscar matrículas em vários formatos
+            # Buscar matrículas em MUITOS formatos possíveis
             mat_patterns = [
-                r'Matr[íi]cula\s*[:\-]?\s*([A-Z]{1,3}\d+)',
+                r'Matr[íi]cula\s*[:\-]?\s*([A-Z]{1,3}\d+)',  # AB1234, ABC123
                 r'Matricula\s*[:\-]?\s*([A-Z]{1,3}\d+)',
                 r'Mat\s*[:\-]?\s*([A-Z]{1,3}\d+)',
+                r'Matr[íi]cula\s*[:\-]?\s*([a-z]+\.[a-z]+)',  # h.carmo (email-like)
+                r'Matricula\s*[:\-]?\s*([a-z]+\.[a-z]+)',
+                r'Matr[íi]cula\s*[:\-]?\s*(Mediador\s+[A-Z0-9]+)',  # Mediador MF36
+                r'Matricula\s*[:\-]?\s*(Mediador\s+[A-Z0-9]+)',
+                r'Matr[íi]cula\s*[:\-]?\s*([A-Z]\d+)',  # P01, A1, B2
+                r'Matricula\s*[:\-]?\s*([A-Z]\d+)',
                 r'\b([A-Z]{2}\d{4,})\b',  # Padrão direto: AB1234
             ]
             
