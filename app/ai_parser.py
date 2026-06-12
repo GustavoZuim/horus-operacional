@@ -188,6 +188,64 @@ class PlanningAIParser:
         
         return unique
     
+    def extract_activities_by_day(self, page_text: str) -> Dict[str, List[str]]:
+        """Extrai atividades agrupadas POR DIA da semana"""
+        activities_by_day = {
+            'monday': [],
+            'tuesday': [],
+            'wednesday': [],
+            'thursday': [],
+            'friday': []
+        }
+        
+        lines = [l.strip() for l in page_text.split('\n') if l.strip()]
+        
+        # Detectar cabeçalhos dos dias
+        day_patterns = {
+            'monday': [r'Segunda-feira', r'Segunda\s+feira', r'15/06'],
+            'tuesday': [r'Terça-feira', r'Terca-feira', r'Ter[çc]a\s+feira', r'16/06'],
+            'wednesday': [r'Quarta-feira', r'Quarta\s+feira', r'17/06'],
+            'thursday': [r'Quinta-feira', r'Quinta\s+feira', r'18/06'],
+            'friday': [r'Sexta-feira', r'Sexta\s+feira', r'19/06']
+        }
+        
+        # Palavras-chave que indicam atividades
+        activity_keywords = ['organização', 'teste', 'formação', 'treinamento', 'elaboração', 
+                            'relatório', 'vistoria', 'suporte', 'reunião', 'desenvolvimento',
+                            'atendimento', 'manutenção', 'análise', 'documentação', 'auditoria',
+                            'levantamento', 'weekly', 'abertura', 'fechamento', 'controle']
+        
+        current_day = None
+        
+        for i, line in enumerate(lines):
+            # Verificar se a linha é um cabeçalho de dia
+            for day, patterns in day_patterns.items():
+                for pattern in patterns:
+                    if re.search(pattern, line, re.IGNORECASE):
+                        current_day = day
+                        break
+                if current_day == day:
+                    break
+            
+            # Se estamos dentro de um dia, coletar atividades
+            if current_day:
+                line_lower = line.lower()
+                # Verificar se é uma atividade (não é cabeçalho, data, horário, etc.)
+                if (any(kw in line_lower for kw in activity_keywords) and 
+                    10 < len(line) < 200 and
+                    not re.search(r'^\d{2}/\d{2}$', line) and  # Não é data
+                    not re.search(r'^\d{2}:\d{2}$', line) and  # Não é horário
+                    not re.search(r'Horário|Matricula|Cargo|pág\.|Semana', line, re.IGNORECASE)):
+                    
+                    # Limpar
+                    clean = re.sub(r'^\s*[•\-\*]\s*', '', line)
+                    clean = re.sub(r'\s+', ' ', clean).strip()
+                    
+                    if clean and clean not in activities_by_day[current_day]:
+                        activities_by_day[current_day].append(clean)
+        
+        return activities_by_day
+    
     def extract_activities_simple(self, page_text: str) -> str:
         """Extrai atividades de forma simples - tudo que parece atividade"""
         lines = [l.strip() for l in page_text.split('\n') if l.strip()]
@@ -211,7 +269,7 @@ class PlanningAIParser:
         return '\n'.join(activities[:10])  # Máximo 10 atividades
     
     def parse_full_planning(self, registered_professionals: List[Dict]) -> Dict:
-        """Parse completo do PDF - lida com continuação de quadros entre páginas"""
+        """Parse completo do PDF - lida com continuação de quadros entre páginas POR DIA"""
         result = {
             'project_name': self.extract_project_name(),
             'week_info': self.extract_week_info(),
@@ -219,65 +277,61 @@ class PlanningAIParser:
             'alerts': []
         }
         
-        # Dicionário para acumular atividades de cada profissional
-        # (caso o quadro continue em outra página)
+        # Dicionário para acumular atividades de cada profissional POR DIA
+        # key = (name, registration), value = dict com atividades por dia
         prof_activities = {}
         
         # Processar cada página
         for page_num, page_text in enumerate(self.pages_text):
             page_professionals = self.extract_professionals_from_page(page_text)
             
-            # Extrair todas as atividades da página (podem ser de profissional anterior)
-            page_activities = self.extract_activities_simple(page_text)
+            # Extrair atividades AGRUPADAS POR DIA
+            page_activities_by_day = self.extract_activities_by_day(page_text)
             
             if page_professionals:
                 # Página tem profissionais identificados
                 for prof in page_professionals:
                     key = (prof['name'], prof['registration'])
                     
-                    # Se já existe, acumular atividades (continuação)
+                    # Se já existe, acumular atividades POR DIA (continuação)
                     if key in prof_activities:
                         existing = prof_activities[key]
-                        existing += '\n' + page_activities
-                        prof_activities[key] = existing
+                        for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
+                            existing[day].extend(page_activities_by_day[day])
                     else:
-                        # Novo profissional
-                        prof_activities[key] = page_activities
+                        # Novo profissional - copiar atividades por dia
+                        prof_activities[key] = {
+                            'monday': list(page_activities_by_day['monday']),
+                            'tuesday': list(page_activities_by_day['tuesday']),
+                            'wednesday': list(page_activities_by_day['wednesday']),
+                            'thursday': list(page_activities_by_day['thursday']),
+                            'friday': list(page_activities_by_day['friday'])
+                        }
             
-            elif page_activities and prof_activities:
+            elif any(page_activities_by_day.values()):
                 # Página SEM nome mas COM atividades = continuação
-                # Adicionar atividades ao ÚLTIMO profissional processado
+                # Adicionar atividades POR DIA ao ÚLTIMO profissional processado
                 if prof_activities:
                     last_key = list(prof_activities.keys())[-1]
-                    prof_activities[last_key] += '\n' + page_activities
+                    for day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']:
+                        prof_activities[last_key][day].extend(page_activities_by_day[day])
         
         # Converter dicionário em lista de profissionais
-        for (name, registration), all_activities in prof_activities.items():
-            # Criar profissional com atividades distribuídas nos 5 dias
+        days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+        
+        for (name, registration), day_activities in prof_activities.items():
+            # Criar profissional com atividades já separadas por dia
             prof_result = {
                 'name': name,
                 'registration': registration,
             }
             
-            # Dividir atividades entre os 5 dias
-            activity_lines = [a for a in all_activities.split('\n') if a.strip()]
-            days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
-            
-            if activity_lines:
-                acts_per_day = max(1, len(activity_lines) // 5)
+            # Para cada dia, adicionar status e atividades
+            for day in days:
+                day_acts = day_activities[day]
                 
-                for i, day in enumerate(days):
-                    start_idx = i * acts_per_day
-                    end_idx = start_idx + acts_per_day if i < 4 else len(activity_lines)
-                    day_acts = activity_lines[start_idx:end_idx]
-                    
-                    prof_result[day] = 'Presente'
-                    prof_result[f'{day}_activities'] = '\n'.join(day_acts) if day_acts else ''
-            else:
-                # Sem atividades específicas, todos presentes sem descrição
-                for day in days:
-                    prof_result[day] = 'Presente'
-                    prof_result[f'{day}_activities'] = ''
+                prof_result[day] = 'Presente'
+                prof_result[f'{day}_activities'] = '\n'.join(day_acts) if day_acts else ''
             
             result['professionals'].append(prof_result)
         
