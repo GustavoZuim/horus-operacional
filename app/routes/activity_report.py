@@ -11,7 +11,7 @@ from collections import defaultdict
 
 bp = Blueprint('activity_report', __name__, url_prefix='/activity-report')
 
-# TraduÜÜo de meses para português
+# Tradução de meses para português
 MONTHS_PT = {
     1: 'Janeiro', 2: 'Fevereiro', 3: 'MarÜo', 4: 'Abril',
     5: 'Maio', 6: 'Junho', 7: 'Julho', 8: 'Agosto',
@@ -70,7 +70,7 @@ def get_data():
     month = request.args.get('month')  # Formato: YYYY-MM
     
     if not month:
-        return jsonify({'error': 'MÜs nÜo especificado'}), 400
+        return jsonify({'error': 'MÜs não especificado'}), 400
     
     try:
         year, month_num = map(int, month.split('-'))

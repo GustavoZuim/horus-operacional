@@ -1,10 +1,10 @@
-# ÜÜ Guia de InÜcio RÜpido - HÜrus Operacional
+# ✅ Guia de InÜcio RÜpido - Hórus Operacional
 
 Este guia assume que vocÜ jÜ tem Python 3.13+ instalado no Windows.
 
 ---
 
-## Ü? InstalaÜÜo RÜpida (5 minutos)
+## ✓ Instalação Rápida (5 minutos)
 
 ### 1. Abra o PowerShell no diretÜrio do projeto
 
@@ -32,7 +32,7 @@ http://localhost:5000
 
 ---
 
-## ÜÜ Credenciais de Acesso
+## ✅ Credenciais de Acesso
 
 ### Admin (Acesso completo)
 - **Email:** `admin@example.com`
@@ -48,7 +48,7 @@ http://localhost:5000
 
 ---
 
-## ÜÜ Primeiro Uso
+## ✅ Primeiro Uso
 
 ### 1. FaÜa login como Admin
 
@@ -68,13 +68,13 @@ Escolha **"Semana 25 Ü 15/06 a 19/06"**.
 
 ### 5. Clique em "Carregar"
 
-O quadro serÜ preenchido com todos os profissionais comeÜando como "Presente".
+O quadro serÜ preenchido com todos os profissionais começando como "Presente".
 
 ### 6. Altere uma presenÜa
 
 Clique em qualquer dropdown e mude para "Falta justificada", "SaÜda antecipada", etc.
 
-### 7. Salve as alteraÜÜes
+### 7. Salve as alterações
 
 Clique em **"Salvar vigÜlia"** no topo.
 
@@ -84,18 +84,18 @@ A assiduidade serÜ recalculada automaticamente!
 
 ---
 
-## ÜÜ Aplicar um Feriado
+## ✅ Aplicar um Feriado
 
 1. No quadro semanal carregado, clique em **"Aplicar Feriado"**
 2. Selecione o dia da semana (ex: Quarta-feira)
-3. Digite uma descriÜÜo (ex: "Corpus Christi")
+3. Digite uma descri✅o (ex: "Corpus Christi")
 4. Clique em **"Aplicar"**
-5. Todos os profissionais serÜo marcados como "Feriado" naquele dia
-6. Os indicadores serÜo recalculados
+5. Todos os profissionais serão marcados como "Feriado" naquele dia
+6. Os indicadores serão recalculados
 
 ---
 
-## ÜÜ Exportar para CSV
+## ✅ Exportar para CSV
 
 1. Com o quadro carregado, clique em **"Exportar CSV"**
 2. Um arquivo `.csv` serÜ baixado
@@ -103,9 +103,9 @@ A assiduidade serÜ recalculada automaticamente!
 
 ---
 
-## ÜÜ Resetar Banco de Dados
+## ✅ Resetar Banco de Dados
 
-Se quiser resetar tudo e comeÜar do zero:
+Se quiser resetar tudo e começar do zero:
 
 ```powershell
 # Ative o ambiente virtual
@@ -127,7 +127,7 @@ python
 
 ---
 
-## ÜÜ Estrutura de Dados Inicial
+## ✅ Estrutura de Dados Inicial
 
 ### Projeto: Educaita
 - **Tipo:** Consultoria
@@ -135,24 +135,24 @@ python
 - **Status:** Ativo
 
 ### Profissionais:
-1. **AndrÜ Luiz GuimarÜes** (MatrÜcula: MI34)
-2. **Gustavo Zuim** (MatrÜcula: MI10)
-3. **Nathani** (MatrÜcula: MI11)
+1. **AndrÜ Luiz GuimarÜes** (Matrícula: MI34)
+2. **Gustavo Zuim** (Matrícula: MI10)
+3. **Nathani** (Matrícula: MI11)
 
 ### Semana 25:
-- **PerÜodo:** 15/06/2026 a 19/06/2026
+- **Período:** 15/06/2026 a 19/06/2026
 - **Label:** Semana 25
-- **Status:** Todos comeÜam "Presente"
+- **Status:** Todos começam "Presente"
 
 ---
 
-## Ü? Perguntas Frequentes
+## ✓ Perguntas Frequentes
 
 ### Como adicionar um novo profissional?
 
 1. VÜ para **"Profissionais"** no menu
 2. Clique em **"Novo Profissional"**
-3. Preencha nome, matrÜcula e selecione o projeto
+3. Preencha nome, matrícula e selecione o projeto
 4. Salve
 
 ### Como criar uma nova semana?
@@ -162,34 +162,34 @@ python
 3. Escolha uma semana futura
 4. Informe o rÜtulo (ex: "Semana 26")
 5. Clique em **"Gerar"**
-6. Todos os profissionais do projeto serÜo criados como "Presente"
+6. Todos os profissionais do projeto serão criados como "Presente"
 
 ### Como funciona a assiduidade?
 
 ```
-Assiduidade = (dias_presentes + saÜdas_antecipadas * 0.5) / dias_vÜlidos * 100
+Assiduidade = (dias_presentes + saÜdas_antecipadas * 0.5) / dias_vêlidos * 100
 
-Dias vÜlidos = Total de dias - (Feriados + Folgas + NÜo planejados)
+Dias vêlidos = Total de dias - (Feriados + Folgas + NÜo planejados)
 ```
 
 **Exemplo:**
 - Total: 15 dias (3 profissionais Ü 5 dias)
 - 1 falta justificada
 - 3 feriados (1 dia Ü 3 profissionais)
-- Dias vÜlidos: 15 - 3 = 12
+- Dias vêlidos: 15 - 3 = 12
 - Dias presentes: 11
 - Assiduidade: (11 / 12) Ü 100 = **91.67%**
 
 ### Quais sÜo os 8 status possÜveis?
 
-1. Ü? **Presente** Ü? Profissional esteve presente o dia todo
-2. ÜÜ **Falta justificada** Ü? Atestado, licenÜa, etc.
-3. Ü? **Falta nÜo justificada** Ü? AusÜncia sem justificativa
-4. ÜÜ **SaÜda antecipada** Ü? Saiu mais cedo (conta 0.5 dia)
-5. ÜÜ **Realocado** Ü? Transferido temporariamente para outro projeto
-6. ÜÜ **Feriado** Ü? Dia de feriado nacional/municipal
-7. ÜÜ **Folga** Ü? Dia de descanso programado
-8. ÜÜÜ **NÜo planejado** Ü? Profissional nÜo estava escalado
+1. ✓ **Presente** ✓ Profissional esteve presente o dia todo
+2. ✅ **Falta justificada** ✓ Atestado, licenÜa, etc.
+3. ✓ **Falta não justificada** ✓ AusÜncia sem justificativa
+4. ✅ **SaÜda antecipada** ✓ Saiu mais cedo (conta 0.5 dia)
+5. ✅ **Realocado** ✓ Transferido temporariamente para outro projeto
+6. ✅ **Feriado** ✓ Dia de feriado nacional/municipal
+7. ✅ **Folga** ✓ Dia de descanso programado
+8. ✅Ü **NÜo planejado** ✓ Profissional não estava escalado
 
 ### Posso deletar uma semana?
 
@@ -199,7 +199,7 @@ NÜo no MVP atual. Para "desfazer" uma semana, vocÜ pode:
 
 ---
 
-## ÜÜ Problemas Comuns
+## ✅ Problemas Comuns
 
 ### Erro: "Address already in use"
 
@@ -211,37 +211,37 @@ app.run(debug=True, host='0.0.0.0', port=5001)
 
 ### Erro: "Can't open database file"
 
-O diretÜrio `instance/` nÜo existe. Crie-o:
+O diretÜrio `instance/` não existe. Crie-o:
 
 ```powershell
 mkdir instance
 ```
 
-E recrie o banco de dados com os passos da seÜÜo "Resetar Banco de Dados".
+E recrie o banco de dados com os passos da se✅o "Resetar Banco de Dados".
 
-### As mudanÜas nÜo estÜo sendo salvas
+### As mudanças não estão sendo salvas
 
 Verifique:
-1. VocÜ estÜ logado como Admin ou Supervisor? (Visualizador nÜo pode editar)
+1. VocÜ estÜ logado como Admin ou Supervisor? (Visualizador não pode editar)
 2. VocÜ clicou em "Salvar vigÜlia"?
 3. Veja o console do navegador (F12) para erros JavaScript
 
 ---
 
-## ÜÜ PrÜximos Passos
+## ✅ PrÜximos Passos
 
 Agora que vocÜ jÜ sabe usar o bÜsico:
 
-1. Ü? Explore os outros menus (UsuÜrios, Projetos, Profissionais)
-2. Ü? Veja os **Logs de Auditoria** para ver todas as aÜÜes registradas
-3. Ü? Acesse **Indicadores** para ver relatÜrios agregados
-4. Ü? Teste com diferentes perfis (Admin, Supervisor, Visualizador)
-5. Ü? Leia o [`README.md`](README.md) para arquitetura detalhada
-6. Ü? Veja o [`TESTE_FUNCIONAL.md`](TESTE_FUNCIONAL.md) para testes validados
+1. ✓ Explore os outros menus (Usuários, Projetos, Profissionais)
+2. ✓ Veja os **Logs de Auditoria** para ver todas as ações registradas
+3. ✓ Acesse **Indicadores** para ver relatÜrios agregados
+4. ✓ Teste com diferentes perfis (Admin, Supervisor, Visualizador)
+5. ✓ Leia o [`README.md`](README.md) para arquitetura detalhada
+6. ✓ Veja o [`TESTE_FUNCIONAL.md`](TESTE_FUNCIONAL.md) para testes validados
 
 ---
 
-## ÜÜ Precisa de Ajuda?
+## ✅ Precisa de Ajuda?
 
 - **Email:** admin@example.com
 - **GitHub Issues:** [Criar issue](https://github.com/seu-usuario/horus-operacional/issues)
@@ -249,5 +249,5 @@ Agora que vocÜ jÜ sabe usar o bÜsico:
 ---
 
 <div align="center">
-  <strong>Bom uso! ÜÜ</strong>
+  <strong>Bom uso! ✅</strong>
 </div>

@@ -19,7 +19,7 @@ if pdf_files:
         print(f"\n=== {prof['name']} ===")
         
         days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
-        day_names = ['Segunda', 'TerÜa', 'Quarta', 'Quinta', 'Sexta']
+        day_names = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta']
         
         for day, name in zip(days, day_names):
             acts = prof[f'{day}_activities'].split('\n') if prof[f'{day}_activities'] else []

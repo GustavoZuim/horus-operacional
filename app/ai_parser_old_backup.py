@@ -13,7 +13,7 @@ class PlanningAIParser:
     # Dias da semana em português
     WEEKDAYS = {
         'segunda': 'monday',
-        'terÜa': 'tuesday',
+        'terça': 'tuesday',
         'quarta': 'wednesday',
         'quinta': 'thursday',
         'sexta': 'friday'
@@ -168,7 +168,7 @@ class PlanningAIParser:
         
         # PadrÜo 2: Buscar nome antes da matrícula
         # Formato comum: "Nome Completo\nMatricula: XXX"
-        name_matricula_pattern = r'([A-ZÜÜÜÜÜÜÜÜÜÜÜ][a-zÜÜÜÜÜÜÜÜÜÜÜ]+(?:\s+[A-ZÜÜÜÜÜÜÜÜÜÜÜ][a-zÜÜÜÜÜÜÜÜÜÜÜ]+)+)\s+Matr[Üi]cula:\s*([A-Z]{2}\d+)'
+        name_matricula_pattern = r'([A-Z✅✅✅✅✅Ü][a-z✅✅✅✅✅Ü]+(?:\s+[A-Z✅✅✅✅✅Ü][a-z✅✅✅✅✅Ü]+)+)\s+Matr[Üi]cula:\s*([A-Z]{2}\d+)'
         name_matricula_matches = re.findall(name_matricula_pattern, page_text, re.IGNORECASE)
         
         for name, matricula in name_matricula_matches:
@@ -204,7 +204,7 @@ class PlanningAIParser:
             return activities_by_day
         
         # Distribuir atividades sequencialmente pelos dias
-        # Assumindo que o PDF lista atividades em ordem: segunda, terÜa, quarta, quinta, sexta
+        # Assumindo que o PDF lista atividades em ordem: segunda, terça, quarta, quinta, sexta
         days_list = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         
         # Calcular quantas atividades por dia (divisÜo aproximada)
@@ -255,7 +255,7 @@ class PlanningAIParser:
                     for description in matches:
                         description = description.strip()
                         
-                        # Remover bullet e espaÜos extras
+                        # Remover bullet e espaços extras
                         description = re.sub(r'^[\s]*', '', description)
                         description = re.sub(r'\s+', ' ', description).strip()
                         
@@ -292,7 +292,7 @@ class PlanningAIParser:
         
         # PadrÜo melhorado: captura categoria e descrição
         # Ex: "Organização Cadastral\n CardÜpio da merenda..."
-        pattern = r'([A-ZÜÜÜÜÜÜÜÜÜÜÜ][^\n]{10,})\n\s*([^\n]{20,}?)(?:\nSem Unidade|\nEMEIEF|\nEMEI|\nCREI|\n[A-Z]{2,})'
+        pattern = r'([A-Z✅✅✅✅✅Ü][^\n]{10,})\n\s*([^\n]{20,}?)(?:\nSem Unidade|\nEMEIEF|\nEMEI|\nCREI|\n[A-Z]{2,})'
         matches = re.findall(pattern, section_text, re.MULTILINE)
         
         for category, description in matches:
@@ -306,16 +306,16 @@ class PlanningAIParser:
             # Formato: "Categoria: Descrição"
             activity_text = f"{category}: {description}"
             
-            # Limpar espaÜos mÜltiplos
+            # Limpar espaços mÜltiplos
             activity_text = re.sub(r'\s+', ' ', activity_text)
             
-            # Truncar descriÜÜes muito longas
+            # Truncar descrições muito longas
             if len(activity_text) > 200:
                 activity_text = activity_text[:197] + '...'
             
             activities.append(activity_text)
         
-        # Fallback: buscar linhas que comeÜam com bullet  ou categorias conhecidas
+        # Fallback: buscar linhas que começam com bullet  ou categorias conhecidas
         if not activities:
             for cat in self.ACTIVITY_CATEGORIES:
                 if cat in section_text:

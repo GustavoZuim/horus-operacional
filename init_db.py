@@ -1,6 +1,6 @@
 """
-Script de inicializaÜÜo do banco de dados
-Limpa todos os dados e cria um usuÜrio admin padrão
+Script de inicialização do banco de dados
+Limpa todos os dados e cria um usuário admin padrão
 """
 from app import create_app, db
 from app.models import User
@@ -12,20 +12,20 @@ def init_database():
     app = create_app()
     
     with app.app_context():
-        print('ÜÜÜ?  Limpando banco de dados...')
+        print('🗑️  Limpando banco de dados...')
         
         # Remover arquivo do banco se existir
         if os.path.exists('horus.db'):
             os.remove('horus.db')
-            print('   Ü? Banco antigo removido')
+            print('   ✓ Banco antigo removido')
         
         # Criar todas as tabelas
-        print('\nÜÜ Criando estrutura do banco...')
+        print('\n✅ Criando estrutura do banco...')
         db.create_all()
-        print('   Ü? Tabelas criadas')
+        print('   ✓ Tabelas criadas')
         
-        # Criar usuÜrio admin padrão
-        print('\nÜÜ Criando usuÜrio administrador...')
+        # Criar usuário admin padrão
+        print('\n✅ Criando usuário administrador...')
         admin = User(
             name='Administrador',
             email='admin@horus.local',
@@ -37,14 +37,14 @@ def init_database():
         db.session.add(admin)
         db.session.commit()
         
-        print('   Ü? Admin criado com sucesso!')
+        print('   ✓ Admin criado com sucesso!')
         print('\n' + '='*60)
-        print('Ü? BANCO DE DADOS INICIALIZADO COM SUCESSO!')
+        print('✓ BANCO DE DADOS INICIALIZADO COM SUCESSO!')
         print('='*60)
-        print('\nÜÜ Credenciais de acesso:')
+        print('\n✅ Credenciais de acesso:')
         print('   Email:   admin@horus.local')
         print('   Senha:   admin123')
-        print('\nÜÜÜ  IMPORTANTE: Altere a senha apÜs o primeiro login!')
+        print('\n✅Ü  IMPORTANTE: Altere a senha apÜs o primeiro login!')
         print('='*60)
 
 if __name__ == '__main__':

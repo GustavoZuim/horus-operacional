@@ -10,12 +10,12 @@
 <div class="kicker">Controle operacional</div>
 <h1>Quadro Semanal</h1>
 <p class="lead-small">
-  Todos comeÜam como <strong>Presente</strong>. Altere apenas as exceções.
+  Todos começam como <strong>Presente</strong>. Altere apenas as exceções.
 </p>
 {% endblock %}
 
 {% block content %}
-<!-- Filtros e AÜÜes -->
+<!-- Filtros e Ações -->
 <section class="card-h filters">
   <div class="row g-3 align-items-end">
     <div class="col-lg-3 col-md-6">
@@ -81,7 +81,7 @@
     <div class="card-h metric">
       <div class="metric-icon"><i class="bi bi-exclamation-triangle"></i></div>
       <div class="metric-value" id="metricFaltaNJ">0</div>
-      <div class="metric-label">Faltas nÜo justificadas</div>
+      <div class="metric-label">Faltas não justificadas</div>
     </div>
   </div>
   
@@ -135,7 +135,7 @@
           <th style="min-width:200px">Profissional</th>
           <th>Matrícula</th>
           <th id="thMonday">Segunda</th>
-          <th id="thTuesday">TerÜa</th>
+          <th id="thTuesday">Terça</th>
           <th id="thWednesday">Quarta</th>
           <th id="thThursday">Quinta</th>
           <th id="thFriday">Sexta</th>
@@ -171,9 +171,9 @@
         {% if current_user.is_supervisor() %}
         1. Selecione um projeto<br>
         2. Selecione uma semana ou gere um novo planejamento<br>
-        3. Clique em "Carregar" para comeÜar
+        3. Clique em "Carregar" para começar
         {% else %}
-        Aguardando configuraÜÜo do supervisor...
+        Aguardando configuração do supervisor...
         {% endif %}
       </div>
     </div>
@@ -249,7 +249,7 @@
             <select class="form-select" id="holidayWeekday" required>
               <option value="">Selecione</option>
               <option value="Monday">Segunda-feira</option>
-              <option value="Tuesday">TerÜa-feira</option>
+              <option value="Tuesday">Terça-feira</option>
               <option value="Wednesday">Quarta-feira</option>
               <option value="Thursday">Quinta-feira</option>
               <option value="Friday">Sexta-feira</option>

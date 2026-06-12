@@ -32,10 +32,10 @@ def detect_holiday_in_activities(activities):
         'feriado',
         'ponto facultativo',
         'folga',
-        'dia nÜo letivo',
+        'dia não letivo',
         'recesso',
         'emenda',
-        'nÜo haverÜ expediente',
+        'não haverÜ expediente',
         'sem expediente',
         'dispensado'
     ]
@@ -57,7 +57,7 @@ def admin_or_supervisor_required(f):
         if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
         if current_user.role not in ['admin', 'supervisor']:
-            flash('VocÜ nÜo tem permissÜo para acessar esta página.', 'danger')
+            flash('VocÜ não tem permissÜo para acessar esta página.', 'danger')
             return redirect(url_for('weekly.index'))
         return f(*args, **kwargs)
     return decorated_function
@@ -167,7 +167,7 @@ def upload():
         ai_parser = PlanningAIParser(filepath)
         parsed_data = ai_parser.parse_full_planning(registered_professionals)
         
-        # Separar profissionais cadastrados vs nÜo cadastrados
+        # Separar profissionais cadastrados vs não cadastrados
         registered_names = {p.name.lower().strip() for p in registered_professionals}
         registered_regs = {p.registration.strip() for p in registered_professionals}
         
@@ -214,7 +214,7 @@ def upload():
         # Extrair informações da semana
         week_info = parsed_data['week_info']
         
-        # Se nÜo identificou semana, tentar pegar do nome do arquivo
+        # Se não identificou semana, tentar pegar do nome do arquivo
         if not week_info['week_label']:
             week_match = re.search(r'semana[_\s]*(\d+)', filename, re.IGNORECASE)
             if week_match:
@@ -238,10 +238,10 @@ def upload():
             'alerts': parsed_data['alerts']
         }
         
-        # Adicionar alerta se houver profissionais nÜo cadastrados
+        # Adicionar alerta se houver profissionais não cadastrados
         if professionals_not_in_system:
             preview_data['alerts'].insert(0, 
-                f"{len(professionals_not_in_system)} profissional(is) nÜo cadastrado(s) no sistema")
+                f"{len(professionals_not_in_system)} profissional(is) não cadastrado(s) no sistema")
         
         # Armazenar dados na sessÜo para confirmar depois
         session['import_data'] = {
@@ -271,14 +271,14 @@ def confirm():
         # Recuperar dados da sessÜo
         import_data = session.get('import_data')
         if not import_data:
-            return jsonify({'error': 'Dados de importação nÜo encontrados'}), 400
+            return jsonify({'error': 'Dados de importação não encontrados'}), 400
         
-        # Recuperar dados do formulÜrio (prévia editada)
+        # Recuperar dados do formulário (prévia editada)
         week_label = request.json.get('week_label')
         start_date = request.json.get('start_date')
         end_date = request.json.get('end_date')
         professionals_data = request.json.get('professionals', [])
-        overwrite = request.json.get('overwrite', False)  # Nova opÜÜo
+        overwrite = request.json.get('overwrite', False)  # Nova opção
         
         if not week_label or not start_date or not end_date:
             return jsonify({'error': 'Preencha todos os campos obrigatÜrios'}), 400
@@ -412,7 +412,7 @@ def cancel():
 @login_required
 @admin_or_supervisor_required
 def quick_register():
-    """Cadastro rÜpido de profissionais nÜo cadastrados"""
+    """Cadastro rÜpido de profissionais não cadastrados"""
     try:
         data = request.json
         professionals_data = data.get('professionals', [])
@@ -481,7 +481,7 @@ def quick_register():
 @login_required
 @admin_or_supervisor_required
 def create_project():
-    """CriaÜÜo rÜpida de projeto durante importação"""
+    """Criação rápida de projeto durante importação"""
     try:
         data = request.json
         project_name = data.get('name', '').strip()

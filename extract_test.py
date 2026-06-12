@@ -6,7 +6,7 @@ if pdf_files:
     pdf_path = os.path.join('temp_uploads', pdf_files[0])
     parser = PlanningAIParser(pdf_path)
     
-    print('=== EXTRAÜÜO DE ATIVIDADES DA PÜGINA ===\n')
+    print('=== EXTRAÇÃO DE ATIVIDADES DA PÁGINA ===\n')
     
     # Pegar texto da primeira página (Mara)
     page_text = parser.pages_text[0]

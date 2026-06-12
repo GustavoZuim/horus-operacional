@@ -1,6 +1,6 @@
-# ÜÜÜ? HÜrus Operacional
+# 🗑️ Hórus Operacional
 
-> **O olho que vÜ a assiduidade**  
+> **O olho que vê a assiduidade**  
 > Sistema de controle de presenÜa operacional por projeto
 
 ![Status](https://img.shields.io/badge/status-MVP-yellow)
@@ -10,20 +10,20 @@
 
 ---
 
-## ÜÜ Sobre o Projeto
+## ✅ Sobre o Projeto
 
-O **HÜrus Operacional** Ü um sistema web para controle de assiduidade operacional por projeto. O nome vem da ideia do "olho que acompanha a operaÜÜo" - assim como o olho de HÜrus, sÜmbolo de proteÜÜo e vigilÜncia.
+O **Hórus Operacional** Ü um sistema web para controle de assiduidade operacional por projeto. O nome vem da ideia do "olho que acompanha a operação" - assim como o olho de Hórus, símbolo de proteção e vigilÜncia.
 
-### Conceito Principal: GestÜo por ExceÜÜo
+### Conceito Principal: Gestão por Exceção
 
-- Ü? Todos os profissionais comeÜam como **Presente** por padrÜo
-- Ü? A supervisÜo altera apenas as **exceÜÜes** (faltas, saÜdas, etc.)
-- Ü? CÜlculo automÜtico de assiduidade semanal, mensal e acumulada
-- Ü? Auditoria completa com logs de alteraÜÜes
+- ✓ Todos os profissionais começam como **Presente** por padrÜo
+- ✓ A supervisÜo altera apenas as **exce✅es** (faltas, saÜdas, etc.)
+- ✓ CÜlculo automÜtico de assiduidade semanal, mensal e acumulada
+- ✓ Auditoria completa com logs de alterações
 
 ---
 
-## ÜÜÜ? Stack TecnolÜgica
+## 🗑️ Stack TecnolÜgica
 
 ### Por que esta stack?
 
@@ -33,36 +33,36 @@ Escolhemos uma stack **simples, robusta e produtiva** para o MVP:
 |------------|--------|---------------|
 | **Python** | 3.10+ | CÜdigo limpo, lÜgica de negÜcio clara |
 | **Flask** | 3.0 | Minimalista mas poderoso, ideal para MVP |
-| **SQLite** | 3.x | Zero configuraÜÜo, arquivo Ünico, fÜcil backup |
+| **SQLite** | 3.x | Zero configuração, arquivo Ünico, fÜcil backup |
 | **Jinja2** | 3.x | Templates robustos com heranÜa |
 | **SQLAlchemy** | 2.x | ORM type-safe, migrations com Alembic |
-| **Flask-Login** | 0.6+ | AutenticaÜÜo segura e simples |
+| **Flask-Login** | 0.6+ | Autenticação segura e simples |
 | **Bootstrap** | 5.3 | UI responsiva e consistente |
 
-### Alternativas consideradas (e por que nÜo foram escolhidas)
+### Alternativas consideradas (e por que não foram escolhidas)
 
 - **Django**: Mais completo, mas pesado demais para este MVP
-- **FastAPI**: Excelente, mas foco em APIs REST (nÜo precisamos de SPA)
+- **FastAPI**: Excelente, mas foco em APIs REST (não precisamos de SPA)
 - **Node.js + Express**: Ütimo, mas preferimos Python para lÜgica de negÜcio
-- **PostgreSQL**: Melhor para produÜÜo, mas SQLite Ü perfeito para MVP
+- **PostgreSQL**: Melhor para produção, mas SQLite Ü perfeito para MVP
 - **React/Vue SPA**: Complexidade desnecessÜria - server-side rendering resolve bem
 
 ### Quando migrar para outra stack?
 
-Ü? **Manter** se:
-- AtÜ 50 usuÜrios simultÜneos
+✓ **Manter** se:
+- AtÜ 50 usuários simultÜneos
 - AtÜ 10.000 registros/mÜs
 - AtÜ 5 projetos ativos
 
-ÜÜÜ **Considerar migraÜÜo** quando:
-- Mais de 100 usuÜrios simultÜneos Ü? PostgreSQL + caching
-- API pÜblica necessÜria Ü? FastAPI ou GraphQL
-- Frontend complexo Ü? React + REST API
-- Multi-tenant Ü? Arquitetura de microserviÜos
+✅Ü **Considerar migração** quando:
+- Mais de 100 usuários simultÜneos ✓ PostgreSQL + caching
+- API pÜblica necessÜria ✓ FastAPI ou GraphQL
+- Frontend complexo ✓ React + REST API
+- Multi-tenant ✓ Arquitetura de microserviÜos
 
 ---
 
-## ÜÜ InstalaÜÜo e ConfiguraÜÜo
+## ✅ Instalação e Configuração
 
 ### PrÜ-requisitos
 
@@ -114,13 +114,13 @@ flask init-db
 ```
 
 Este comando cria:
-- Ü? Tabelas do banco
-- Ü? UsuÜrio admin
-- Ü? UsuÜrios de exemplo (supervisor e visualizador)
-- Ü? Projetos de exemplo
-- Ü? Profissionais de exemplo
+- ✓ Tabelas do banco
+- ✓ Usuário admin
+- ✓ Usuários de exemplo (supervisor e visualizador)
+- ✓ Projetos de exemplo
+- ✓ Profissionais de exemplo
 
-### 6. Rodar a aplicaÜÜo
+### 6. Rodar a aplicação
 
 ```bash
 python run.py
@@ -136,7 +136,7 @@ Acesse: **http://localhost:5000**
 
 ---
 
-## ÜÜ UsuÜrios de Teste
+## ✅ Usuários de Teste
 
 ApÜs inicializar o banco, vocÜ terÜ:
 
@@ -146,98 +146,98 @@ ApÜs inicializar o banco, vocÜ terÜ:
 | **Supervisor** | nathani@horus.local | supervisor123 | Editar quadros, indicadores |
 | **Visualizador** | viewer@horus.local | viewer123 | Apenas visualizar |
 
-ÜÜÜ **Importante**: Troque estas senhas antes de colocar em produÜÜo!
+✅Ü **Importante**: Troque estas senhas antes de colocar em produção!
 
 ---
 
-## ÜÜ Arquitetura do Sistema
+## ✅ Arquitetura do Sistema
 
 ### Estrutura de Pastas
 
 ```
 horus-operacional/
-ÜÜÜÜ? app/
-Ü?   ÜÜÜÜ? __init__.py          # Factory da aplicaÜÜo
-Ü?   ÜÜÜÜ? models.py            # Modelos SQLAlchemy
-Ü?   ÜÜÜÜ? routes/
-Ü?   Ü?   ÜÜÜÜ? __init__.py
-Ü?   Ü?   ÜÜÜÜ? auth.py          # Rotas de autenticaÜÜo
-Ü?   Ü?   ÜÜÜÜ? main.py          # Rotas principais
-Ü?   ÜÜÜÜ? templates/           # Templates Jinja2
-Ü?   Ü?   ÜÜÜÜ? base.html        # Template base
-Ü?   Ü?   ÜÜÜÜ? index.html       # Landing page
-Ü?   Ü?   ÜÜÜÜ? dashboard.html   # Dashboard principal
-Ü?   Ü?   ÜÜÜÜ? auth/
-Ü?   Ü?       ÜÜÜÜ? login.html   # PÜgina de login
-Ü?   ÜÜÜÜ? static/
-Ü?   Ü?   ÜÜÜÜ? css/
-Ü?   Ü?   Ü?   ÜÜÜÜ? horus.css    # Estilos customizados
-Ü?   Ü?   ÜÜÜÜ? js/
-Ü?   Ü?       ÜÜÜÜ? horus.js     # JavaScript core
-Ü?   ÜÜÜÜ? utils/
-Ü?       ÜÜÜÜ? init_data.py     # Dados iniciais
-ÜÜÜÜ? config.py                # ConfiguraÜÜes
-ÜÜÜÜ? run.py                   # Entrada da aplicaÜÜo
-ÜÜÜÜ? requirements.txt         # DependÜncias
-ÜÜÜÜ? .env.example             # Exemplo de variÜveis
-ÜÜÜÜ? .gitignore
-ÜÜÜÜ? README.md
+Ü🗑️ app/
+✓   Ü🗑️ __init__.py          # Factory da aplicação
+✓   Ü🗑️ models.py            # Modelos SQLAlchemy
+✓   Ü🗑️ routes/
+✓   ✓   Ü🗑️ __init__.py
+✓   ✓   Ü🗑️ auth.py          # Rotas de autenticação
+✓   ✓   Ü🗑️ main.py          # Rotas principais
+✓   Ü🗑️ templates/           # Templates Jinja2
+✓   ✓   Ü🗑️ base.html        # Template base
+✓   ✓   Ü🗑️ index.html       # Landing page
+✓   ✓   Ü🗑️ dashboard.html   # Dashboard principal
+✓   ✓   Ü🗑️ auth/
+✓   ✓       Ü🗑️ login.html   # PÜgina de login
+✓   Ü🗑️ static/
+✓   ✓   Ü🗑️ css/
+✓   ✓   ✓   Ü🗑️ horus.css    # Estilos customizados
+✓   ✓   Ü🗑️ js/
+✓   ✓       Ü🗑️ horus.js     # JavaScript core
+✓   Ü🗑️ utils/
+✓       Ü🗑️ init_data.py     # Dados iniciais
+Ü🗑️ config.py                # Configurações
+Ü🗑️ run.py                   # Entrada da aplicação
+Ü🗑️ requirements.txt         # DependÜncias
+Ü🗑️ .env.example             # Exemplo de variÜveis
+Ü🗑️ .gitignore
+Ü🗑️ README.md
 ```
 
 ### Modelo de Dados
 
 ```
 users
-ÜÜÜ id
-ÜÜÜ email (unique)
-ÜÜÜ password_hash
-ÜÜÜ name
-ÜÜÜ role (admin/supervisor/visualizador)
-ÜÜÜ active
+✅Ü id
+✅Ü email (unique)
+✅Ü password_hash
+✅Ü name
+✅Ü role (admin/supervisor/visualizador)
+✅Ü active
 
 projects                     planning_weeks
-ÜÜÜ id                       ÜÜÜ id
-ÜÜÜ name                     ÜÜÜ project_id (FK)
-ÜÜÜ code (unique)            ÜÜÜ week_number
-ÜÜÜ active                   ÜÜÜ week_start (segunda)
-                            ÜÜÜ week_end (sexta)
-                            ÜÜÜ created_by (FK users)
-                                    Ü?
-professionals                       ÜÜÜÜ? planning_allocations
-ÜÜÜ id                              ÜÜÜ id
-ÜÜÜ name                            ÜÜÜ planning_week_id (FK)
-ÜÜÜ registration (unique)           ÜÜÜ professional_id (FK)
-ÜÜÜ role_description                ÜÜÜ observation
-ÜÜÜ active                                  Ü?
-                                          ÜÜÜÜ? daily_statuses
-                                              ÜÜÜ id
-                                              ÜÜÜ allocation_id (FK)
-                                              ÜÜÜ date
-                                              ÜÜÜ status (enum)
-                                              ÜÜÜ observation
-                                              ÜÜÜ updated_by (FK users)
-                                              ÜÜÜ updated_at
+✅Ü id                       ✅Ü id
+✅Ü name                     ✅Ü project_id (FK)
+✅Ü code (unique)            ✅Ü week_number
+✅Ü active                   ✅Ü week_start (segunda)
+                            ✅Ü week_end (sexta)
+                            ✅Ü created_by (FK users)
+                                    ✓
+professionals                       Ü🗑️ planning_allocations
+✅Ü id                              ✅Ü id
+✅Ü name                            ✅Ü planning_week_id (FK)
+✅Ü registration (unique)           ✅Ü professional_id (FK)
+✅Ü role_description                ✅Ü observation
+✅Ü active                                  ✓
+                                          Ü🗑️ daily_statuses
+                                              ✅Ü id
+                                              ✅Ü allocation_id (FK)
+                                              ✅Ü date
+                                              ✅Ü status (enum)
+                                              ✅Ü observation
+                                              ✅Ü updated_by (FK users)
+                                              ✅Ü updated_at
 ```
 
 ### Regras de NegÜcio
 
 #### Status DisponÜveis
 
-1. Ü? **Presente** (padrÜo)
-2. ÜÜ **Falta justificada**
-3. Ü? **Falta nÜo justificada**
-4. Ü? **SaÜda antecipada**
-5. ÜÜ **Realocado**
-6. ÜÜ **Feriado**
-7. ÜÜÜ? **Folga**
-8. ÜÜ **NÜo planejado**
+1. ✓ **Presente** (padrÜo)
+2. ✅ **Falta justificada**
+3. ✓ **Falta não justificada**
+4. ✓ **SaÜda antecipada**
+5. ✅ **Realocado**
+6. ✅ **Feriado**
+7. 🗑️ **Folga**
+8. ✅ **NÜo planejado**
 
 #### CÜlculo de Assiduidade
 
-**Entram no denominador** (dias vÜlidos):
+**Entram no denominador** (dias vêlidos):
 - Presente
 - Falta justificada
-- Falta nÜo justificada
+- Falta não justificada
 - SaÜda antecipada
 - Realocado
 
@@ -247,9 +247,9 @@ professionals                       ÜÜÜÜ? planning_allocations
 - NÜo planejado
 
 **Contam como presenÜa**:
-- Ü? Presente
-- Ü? SaÜda antecipada
-- Ü? Realocado
+- ✓ Presente
+- ✓ SaÜda antecipada
+- ✓ Realocado
 
 **FÜrmula**:
 ```
@@ -258,17 +258,17 @@ taxa_assiduidade = (dias_presentes / dias_validos) Ü 100
 Se dias_validos = 0, exibir "N/A"
 ```
 
-### Perfis de UsuÜrio
+### Perfis de Usuário
 
-#### ÜÜ Admin
+#### ✅ Admin
 - Acessa tudo
-- Cadastra usuÜrios, projetos e profissionais
+- Cadastra usuários, projetos e profissionais
 - Gera planejamentos
 - Edita quadro semanal
 - Aplica feriados
 - VÜ indicadores e logs
 
-#### ÜÜÜ? Supervisor
+#### 🗑️ Supervisor
 - Acessa dashboard
 - Acessa quadro semanal
 - Altera status dos profissionais
@@ -276,57 +276,57 @@ Se dias_validos = 0, exibir "N/A"
 - Aplica feriados
 - VÜ indicadores
 
-#### ÜÜ Visualizador
+#### ✅ Visualizador
 - Acessa dashboard
 - VÜ indicadores
 - **NÜo edita nada**
 
 ---
 
-## ÜÜ SeguranÜa
+## ✅ SeguranÜa
 
-Ü? Senhas com hash bcrypt (Werkzeug)  
-Ü? Flask-Login para sessÜes seguras  
-Ü? ProteÜÜo CSRF em formulÜrios  
-Ü? Cookies HttpOnly e SameSite  
-Ü? SQLAlchemy protege contra SQL injection  
-Ü? Logs de auditoria (quem alterou o quÜ)  
+✓ Senhas com hash bcrypt (Werkzeug)  
+✓ Flask-Login para sessÜes seguras  
+✓ Prote✅o CSRF em formulários  
+✓ Cookies HttpOnly e SameSite  
+✓ SQLAlchemy protege contra SQL injection  
+✓ Logs de auditoria (quem alterou o quÜ)  
 
-ÜÜÜ **Antes de produÜÜo**:
+✅Ü **Antes de produção**:
 - [ ] Trocar `SECRET_KEY` por valor forte
 - [ ] Configurar `SESSION_COOKIE_SECURE=True` (requer HTTPS)
 - [ ] Migrar para PostgreSQL
 - [ ] Configurar rate limiting
 - [ ] Habilitar HTTPS
-- [ ] Revisar permissÜes de usuÜrios
+- [ ] Revisar permissÜes de usuários
 
 ---
 
-## ÜÜ ImportaÜÜo de Planejamento em PDF
+## ✅ Importação de Planejamento em PDF
 
 ### VisÜo Geral
 
-O sistema permite **upload semanal de planejamentos em PDF** com prÜvia revisÜvel antes da gravaÜÜo. Isso evita digitaÜÜo manual e garante seguranÜa na importaÜÜo.
+O sistema permite **upload semanal de planejamentos em PDF** com prévia revisível antes da gravação. Isso evita digitação manual e garante seguranÜa na importação.
 
-### Fluxo de ImportaÜÜo
+### Fluxo de Importação
 
 ```
-1. Upload do PDF Ü? 2. ExtraÜÜo de texto Ü? 3. Parser inteligente Ü? 
-4. PrÜvia editÜvel Ü? 5. ConfirmaÜÜo Ü? 6. GeraÜÜo do quadro semanal
+1. Upload do PDF ✓ 2. Extração de texto ✓ 3. Parser inteligente ✓ 
+4. Prévia editÜvel ✓ 5. Confirmação ✓ 6. Geração do quadro semanal
 ```
 
 ### Biblioteca Utilizada
 
 **PyMuPDF (fitz)** - Escolhida por:
-- Ü? RÜpida e eficiente
-- Ü? Extrai texto diretamente (sem OCR)
-- Ü? Bem mantida e documentada
-- Ü? LicenÜa compatÜvel (AGPL)
+- ✓ Rápida e eficiente
+- ✓ Extrai texto diretamente (sem OCR)
+- ✓ Bem mantida e documentada
+- ✓ LicenÜa compatÜvel (AGPL)
 
 ### Como Usar
 
-#### 1. Acessar ImportaÜÜo
-- Menu lateral Ü? **Importar planejamento**
+#### 1. Acessar Importação
+- Menu lateral ✓ **Importar planejamento**
 - Apenas **Admin** e **Supervisor** tÜm acesso
 
 #### 2. Fazer Upload
@@ -334,28 +334,28 @@ O sistema permite **upload semanal de planejamentos em PDF** com prÜvia revisÜ
 2. Fazer upload do arquivo PDF (mÜx. 10MB)
 3. Clicar em "Processar PDF"
 
-#### 3. Revisar PrÜvia
+#### 3. Revisar Prévia
 O sistema tenta identificar automaticamente:
-- Ü? NÜmero da semana (ex: "Semana 25")
-- Ü? Datas (dd/mm/yyyy)
-- Ü? Profissionais cadastrados
-- Ü? MatrÜculas
-- Ü? Feriados e folgas
+- ✓ NÜmero da semana (ex: "Semana 25")
+- ✓ Datas (dd/mm/yyyy)
+- ✓ Profissionais cadastrados
+- ✓ Matrículas
+- ✓ Feriados e folgas
 
 **Alertas exibidos:**
-- ÜÜÜ Semana nÜo identificada Ü? preencher manualmente
-- ÜÜÜ Datas nÜo identificadas Ü? preencher manualmente
-- ÜÜÜ Profissionais nÜo encontrados no PDF
-- ÜÜÜ Profissionais ativos nÜo identificados
+- ✅Ü Semana não identificada ✓ preencher manualmente
+- ✅Ü Datas não identificadas ✓ preencher manualmente
+- ✅Ü Profissionais não encontrados no PDF
+- ✅Ü Profissionais ativos não identificados
 
 #### 4. Editar Status
-Na tabela de prÜvia, vocÜ pode:
+Na tabela de prévia, vocÜ pode:
 - Alterar status de qualquer dia (Segunda a Sexta)
-- Adicionar observaÜÜes
+- Adicionar observações
 - Corrigir dados automaticamente identificados
 
-#### 5. Confirmar ImportaÜÜo
-- Clicar em "Confirmar importaÜÜo"
+#### 5. Confirmar Importação
+- Clicar em "Confirmar importação"
 - Sistema gera quadro semanal no banco
 - Redirecionamento automÜtico para visualizar
 
@@ -367,26 +367,26 @@ O parser busca no texto do PDF:
 |----------|-----------------|---------|
 | Semana | `Semana (\d+)` | "Semana 25" |
 | Datas | `dd/mm/yyyy` | 15/06/2026 |
-| MatrÜcula | `[A-Z]{2}\d+` | MI34, PM001 |
+| Matrícula | `[A-Z]{2}\d+` | MI34, PM001 |
 | Feriado | palavra "feriado" | "Quarta: Feriado" |
 | Folga | palavra "folga" | "Quinta: Folga" |
 
-### Regras de ImportaÜÜo
+### Regras de Importação
 
-Ü? **PadrÜo Ü "Presente"**: Todos os dias comeÜam como Presente  
-Ü? **Feriado para todos**: Se identificar feriado em um dia, aplica a todos os profissionais  
-Ü? **Folga individual**: Revisar manualmente na prÜvia  
-Ü? **Profissionais novos**: Alertar se encontrar matrÜcula nÜo cadastrada  
-Ü? **NÜo sobrescrever**: Se jÜ existe planejamento da mesma semana, avisa e bloqueia  
+✓ **PadrÜo Ü "Presente"**: Todos os dias começam como Presente  
+✓ **Feriado para todos**: Se identificar feriado em um dia, aplica a todos os profissionais  
+✓ **Folga individual**: Revisar manualmente na prévia  
+✓ **Profissionais novos**: Alertar se encontrar matrícula não cadastrada  
+✓ **NÜo sobrescrever**: Se jÜ existe planejamento da mesma semana, avisa e bloqueia  
 
-### LimitaÜÜes Conhecidas
+### Limitações Conhecidas
 
-Ü? **NÜo faz OCR**: Apenas extrai texto jÜ digitÜvel do PDF  
-Ü? **PDFs escaneados**: NÜo funcionam (texto Ü imagem)  
-Ü? **Layouts muito complexos**: Parser pode nÜo identificar tudo  
-Ü? **Tabelas complexas**: Melhor revisar a prÜvia  
+✓ **NÜo faz OCR**: Apenas extrai texto jÜ digitÜvel do PDF  
+✓ **PDFs escaneados**: NÜo funcionam (texto Ü imagem)  
+✓ **Layouts muito complexos**: Parser pode não identificar tudo  
+✓ **Tabelas complexas**: Melhor revisar a prévia  
 
-**SoluÜÜo**: A prÜvia editÜvel permite corrigir qualquer problema antes da gravaÜÜo.
+**Solu✅o**: A prévia editÜvel permite corrigir qualquer problema antes da gravação.
 
 ### Criar PDF de Teste
 
@@ -402,7 +402,7 @@ python create_sample_pdf.py
 
 Isso cria `exemplo_planejamento_semana25.pdf` com:
 - Semana 25
-- PerÜodo: 15/06/2026 a 19/06/2026
+- Período: 15/06/2026 a 19/06/2026
 - 3 profissionais (AndrÜ, Gustavo, Nathani)
 - Feriado na quarta-feira (Corpus Christi)
 - Folga para Nathani na quinta
@@ -412,13 +412,13 @@ Isso cria `exemplo_planejamento_semana25.pdf` com:
 - [ ] Suporte a OCR para PDFs escaneados (Tesseract)
 - [ ] Parser mais inteligente com ML
 - [ ] Mapeamento de layouts customizados por projeto
-- [ ] ImportaÜÜo de atividades planejadas (alÜm de status)
+- [ ] Importação de atividades planejadas (alÜm de status)
 - [ ] Preview com diff se jÜ existir planejamento
 - [ ] HistÜrico de arquivos importados
 
 ---
 
-## ÜÜ Testando a AplicaÜÜo
+## ✅ Testando a Aplicação
 
 ### Health Check
 
@@ -430,36 +430,36 @@ Resposta esperada:
 ```json
 {
   "status": "ok",
-  "app": "HÜrus Operacional",
+  "app": "Hórus Operacional",
   "version": "1.0.0"
 }
 ```
 
-### Testando AutenticaÜÜo
+### Testando Autenticação
 
 1. Acesse: http://localhost:5000
 2. Clique em "Entrar na vigÜlia"
-3. Use um dos usuÜrios de teste
+3. Use um dos usuários de teste
 4. Verifique o dashboard
 
 ### Testando PermissÜes
 
-- **Como Visualizador**: nÜo deve ver "Importar" nem "Salvar"
+- **Como Visualizador**: não deve ver "Importar" nem "Salvar"
 - **Como Supervisor**: deve ver quadro editÜvel
 - **Como Admin**: deve ver menu de "Cadastros"
 
 ---
 
-## ÜÜ Deploy
+## ✅ Deploy
 
-### OpÜÜes Recomendadas
+### Op✅es Recomendadas
 
 | Plataforma | PrÜs | Contras | Custo |
 |------------|------|---------|-------|
 | **Railway** | Setup fÜcil, PostgreSQL grÜtis | Limite de horas grÜtis | $5/mÜs |
 | **Render** | CI/CD automÜtico, SSL grÜtis | Cold start em plano free | $7/mÜs |
 | **PythonAnywhere** | Simples, Python nativo | Menos flexÜvel | $5/mÜs |
-| **Fly.io** | Global, PostgreSQL incluÜdo | ConfiguraÜÜo manual | $0-10/mÜs |
+| **Fly.io** | Global, PostgreSQL incluÜdo | Configuração manual | $0-10/mÜs |
 | **Heroku** | Maduro, muitos addons | Caro | $7/mÜs |
 
 ### Deploy no Railway (Recomendado)
@@ -493,7 +493,7 @@ railway up
 
 ---
 
-## ÜÜÜ? PrÜximos Passos de ImplementaÜÜo
+## 🗑️ PrÜximos Passos de Implementação
 
 Este MVP contÜm a base funcional. As prÜximas etapas sÜo:
 
@@ -504,37 +504,37 @@ Este MVP contÜm a base funcional. As prÜximas etapas sÜo:
 - [ ] Aplicar feriado em lote
 - [ ] CÜlculo de assiduidade em tempo real
 
-### Fase 2 - GestÜo (Semana 3)
+### Fase 2 - Gestão (Semana 3)
 - [ ] CRUD de Projetos
 - [ ] CRUD de Profissionais
-- [ ] CRUD de UsuÜrios (admin)
-- [ ] ValidaÜÜes de formulÜrios
+- [ ] CRUD de Usuários (admin)
+- [ ] Validações de formulários
 
 ### Fase 3 - Indicadores (Semana 4)
 - [ ] RelatÜrio semanal
 - [ ] RelatÜrio mensal
-- [ ] RelatÜrio por perÜodo customizado
+- [ ] RelatÜrio por período customizado
 - [ ] Exportar CSV
 - [ ] GrÜficos de tendÜncia
 
 ### Fase 4 - Auditoria e Melhorias (Semana 5)
-- [ ] Logs de alteraÜÜes
-- [ ] ObservaÜÜes por dia/profissional
+- [ ] Logs de alterações
+- [ ] Observações por dia/profissional
 - [ ] Filtros avanÜados
 - [ ] Busca de profissionais
-- [ ] PaginaÜÜo
+- [ ] Paginação
 
-### Fase 5 - ProduÜÜo (Semana 6)
-- [ ] MigraÜÜo para PostgreSQL
+### Fase 5 - Produção (Semana 6)
+- [ ] Migração para PostgreSQL
 - [ ] Testes automatizados
 - [ ] CI/CD
 - [ ] Backup automÜtico
 - [ ] Monitoramento
-- [ ] DocumentaÜÜo de API
+- [ ] Documentação de API
 
 ---
 
-## ÜÜ Comandos Üteis
+## ✅ Comandos Üteis
 
 ```bash
 # Ativar ambiente virtual
@@ -547,16 +547,16 @@ pip install -r requirements.txt
 # Inicializar banco
 flask init-db
 
-# Rodar aplicaÜÜo
+# Rodar aplicação
 python run.py
 flask run                      # alternativa
 
 # Flask shell (interativo)
 flask shell
 
-# Criar migraÜÜo (apÜs alterar models)
+# Criar migração (apÜs alterar models)
 flask db init                  # primeira vez
-flask db migrate -m "descriÜÜo"
+flask db migrate -m "descri✅o"
 flask db upgrade
 
 # Rodar em modo debug
@@ -570,14 +570,14 @@ flask run --port 8000
 
 ---
 
-## ÜÜ Contribuindo
+## ✅ Contribuindo
 
 Este Ü um MVP em desenvolvimento. SugestÜes e melhorias sÜo bem-vindas!
 
 ### Reportar Bugs
 
 Abra uma issue com:
-- DescriÜÜo do problema
+- Descri✅o do problema
 - Passos para reproduzir
 - Comportamento esperado vs. atual
 - Screenshots (se aplicÜvel)
@@ -591,29 +591,29 @@ Use issues com label `enhancement`:
 
 ---
 
-## ÜÜ LicenÜa
+## ✅ LicenÜa
 
 MIT License - veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
-## ÜÜ Autores
+## ✅ Autores
 
 Desenvolvido como MVP para controle de assiduidade operacional.
 
 **VersÜo**: 1.0.0 (MVP)  
 **Status**: Em desenvolvimento ativo  
-**Ültima atualizaÜÜo**: Junho 2026
+**Ültima atualização**: Junho 2026
 
 ---
 
-## ÜÜ Agradecimentos
+## ✅ Agradecimentos
 
 - Bootstrap pela UI responsiva
 - Flask pela simplicidade e poder
-- SQLAlchemy pela excelente abstraÜÜo de banco
+- SQLAlchemy pela excelente abstração de banco
 - A equipe operacional que inspirou este sistema
 
 ---
 
-**ÜÜÜ? Que o olho de HÜrus vigie suas operaÜÜes!**
+**🗑️ Que o olho de Hórus vigie suas operações!**

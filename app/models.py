@@ -9,12 +9,12 @@ from app import db, login_manager
 
 @login_manager.user_loader
 def load_user(user_id):
-    """Callback para Flask-Login carregar usuÜrio"""
+    """Callback para Flask-Login carregar usuário"""
     return User.query.get(int(user_id))
 
 
 class User(UserMixin, db.Model):
-    """Modelo de usuÜrio com autenticaÜÜo"""
+    """Modelo de usuário com autenticação"""
     
     __tablename__ = 'users'
     
@@ -120,7 +120,7 @@ class WeeklyAttendance(db.Model):
     # Status possÜveis
     STATUS_PRESENTE = 'Presente'
     STATUS_FALTA_JUSTIFICADA = 'Falta justificada'
-    STATUS_FALTA_NAO_JUSTIFICADA = 'Falta nÜo justificada'
+    STATUS_FALTA_NAO_JUSTIFICADA = 'Falta não justificada'
     STATUS_SAIDA_ANTECIPADA = 'SaÜda antecipada'
     STATUS_REALOCADO = 'Realocado'
     STATUS_FERIADO = 'Feriado'
@@ -145,7 +145,7 @@ class WeeklyAttendance(db.Model):
     monday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
     monday_activities = db.Column(db.Text)  # Atividades detalhadas da segunda
     tuesday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
-    tuesday_activities = db.Column(db.Text)  # Atividades detalhadas da terÜa
+    tuesday_activities = db.Column(db.Text)  # Atividades detalhadas da terça
     wednesday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
     wednesday_activities = db.Column(db.Text)  # Atividades detalhadas da quarta
     thursday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
@@ -237,7 +237,7 @@ class AuditLog(db.Model):
     action = db.Column(db.String(50), nullable=False)  # login, create, update, delete, export, etc
     entity = db.Column(db.String(50), nullable=False)  # user, project, professional, planning, attendance, etc
     entity_id = db.Column(db.Integer)  # ID da entidade afetada
-    details = db.Column(db.Text)  # JSON com detalhes da aÜÜo
+    details = db.Column(db.Text)  # JSON com detalhes da ação
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     # Relacionamentos

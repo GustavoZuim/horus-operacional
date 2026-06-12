@@ -38,12 +38,12 @@ def create_sample_planning_pdf(filename="exemplo_planejamento_semana25.pdf"):
     
     elements.append(Paragraph("<b>Projeto:</b> Educaita", info_style))
     elements.append(Paragraph("<b>Semana 25</b>", info_style))
-    elements.append(Paragraph("<b>PerÜodo:</b> 15/06/2026 a 19/06/2026", info_style))
+    elements.append(Paragraph("<b>Período:</b> 15/06/2026 a 19/06/2026", info_style))
     elements.append(Spacer(1, 0.3*inch))
     
     # Tabela de profissionais
     data = [
-        ['Profissional', 'Matrícula', 'Segunda\n15/06', 'TerÜa\n16/06', 'Quarta\n17/06', 'Quinta\n18/06', 'Sexta\n19/06'],
+        ['Profissional', 'Matrícula', 'Segunda\n15/06', 'Terça\n16/06', 'Quarta\n17/06', 'Quinta\n18/06', 'Sexta\n19/06'],
         ['AndrÜ Luiz GuimarÜes', 'MI34', 'Presente', 'Presente', 'Feriado', 'Presente', 'Presente'],
         ['Gustavo Zuim', 'MI10', 'Presente', 'Presente', 'Feriado', 'Presente', 'Presente'],
         ['Nathani', 'MI11', 'Presente', 'Presente', 'Feriado', 'Folga', 'Presente'],
@@ -85,9 +85,9 @@ def create_sample_planning_pdf(filename="exemplo_planejamento_semana25.pdf"):
     )
     
     elements.append(Paragraph("<b>Observações:</b>", info_style))
-    elements.append(Paragraph("Ü? Quarta-feira (17/06): Corpus Christi - Feriado Nacional", obs_style))
-    elements.append(Paragraph("Ü? Nathani: Folga compensatÜria na quinta-feira", obs_style))
-    elements.append(Paragraph("Ü? Todos os profissionais devem estar presentes nos demais dias", obs_style))
+    elements.append(Paragraph("✓ Quarta-feira (17/06): Corpus Christi - Feriado Nacional", obs_style))
+    elements.append(Paragraph("✓ Nathani: Folga compensatória na quinta-feira", obs_style))
+    elements.append(Paragraph("✓ Todos os profissionais devem estar presentes nos demais dias", obs_style))
     
     # Build PDF
     doc.build(elements)

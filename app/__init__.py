@@ -1,5 +1,5 @@
 """
-Factory da aplicaÜÜo Flask - Hórus Operacional
+Factory da aplicação Flask - Hórus Operacional
 """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -14,7 +14,7 @@ migrate = Migrate()
 
 
 def create_app(config_name='development'):
-    """Factory pattern para criar a aplicaÜÜo"""
+    """Factory pattern para criar a aplicação"""
     
     app = Flask(__name__)
     app.config.from_object(config[config_name])
@@ -46,7 +46,7 @@ def create_app(config_name='development'):
     app.register_blueprint(imports.bp)
     app.register_blueprint(activity_report.bp)
     
-    # Criar tabelas se nÜo existirem
+    # Criar tabelas se não existirem
     with app.app_context():
         db.create_all()
     

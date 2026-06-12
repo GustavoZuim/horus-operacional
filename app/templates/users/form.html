@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}{{ 'Editar' if user else 'Novo' }} UsuÜrio - Hórus Operacional{% endblock %}
+{% block title %}{{ 'Editar' if user else 'Novo' }} Usuário - Hórus Operacional{% endblock %}
 
 {% block page_header %}
-<div class="kicker">AdministraÜÜo</div>
-<h1>{{ 'Editar' if user else 'Novo' }} UsuÜrio</h1>
+<div class="kicker">Administração</div>
+<h1>{{ 'Editar' if user else 'Novo' }} Usuário</h1>
 {% endblock %}
 
 {% block content %}
@@ -44,7 +44,7 @@
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" name="active" 
                  {{ 'checked' if user.active else '' }}>
-          <label class="form-check-label">UsuÜrio ativo</label>
+          <label class="form-check-label">Usuário ativo</label>
         </div>
         {% endif %}
         

@@ -1,4 +1,4 @@
-# RelatÜrio de Testes Funcionais - HÜrus Operacional MVP
+# RelatÜrio de Testes Funcionais - Hórus Operacional MVP
 
 **Data:** 11/06/2026  
 **VersÜo:** 1.0  
@@ -6,21 +6,21 @@
 
 ---
 
-## Ü? Resumo Executivo
+## ✓ Resumo Executivo
 
 Todos os testes crÜticos passaram com sucesso. O MVP estÜ funcional e pronto para uso.
 
 ---
 
-## ÜÜ Testes Realizados
+## ✅ Testes Realizados
 
-### 1. Ü? AutenticaÜÜo
-- **Login como Admin:** Ü? Funcionou
-  - UsuÜrio: `admin@example.com`
+### 1. ✓ Autenticação
+- **Login como Admin:** ✓ Funcionou
+  - Usuário: `admin@example.com`
   - Redirecionamento correto para `/weekly/`
   - SessÜo criada com sucesso
   
-- **Seed Data:** Ü? Correto
+- **Seed Data:** ✓ Correto
   - Gustavo Zuim (Admin)
   - Nathani (Supervisor)
   - Visualizador
@@ -30,56 +30,56 @@ Todos os testes crÜticos passaram com sucesso. O MVP estÜ funcional e pronto p
 
 ---
 
-### 2. Ü? Quadro Semanal - Carregamento
+### 2. ✓ Quadro Semanal - Carregamento
 
 **Passo a passo:**
-1. Selecionou projeto "Educaita" Ü? Ü? Semanas carregadas via AJAX
-2. Selecionou "Semana 25" Ü? Ü? BotÜo "Carregar" habilitado
-3. Clicou em "Carregar" Ü? Ü? Quadro renderizado
+1. Selecionou projeto "Educaita" ✓ ✓ Semanas carregadas via AJAX
+2. Selecionou "Semana 25" ✓ ✓ BotÜo "Carregar" habilitado
+3. Clicou em "Carregar" ✓ ✓ Quadro renderizado
 
 **Dados carregados:**
-- Ü? 3 profissionais exibidos
-- Ü? Todos iniciaram com status "Presente"
-- Ü? 5 colunas de dias (seg-sex) com datas corretas
-- Ü? Indicadores iniciais: Assiduidade 100%, 0 faltas
+- ✓ 3 profissionais exibidos
+- ✓ Todos iniciaram com status "Presente"
+- ✓ 5 colunas de dias (seg-sex) com datas corretas
+- ✓ Indicadores iniciais: Assiduidade 100%, 0 faltas
 
-**RequisiÜÜes HTTP:**
+**Requisi✅es HTTP:**
 ```
-GET /weekly/api/weeks?project_id=1 Ü? 200 OK
-GET /weekly/api/load?week_id=1 Ü? 200 OK
+GET /weekly/api/weeks?project_id=1 ✓ 200 OK
+GET /weekly/api/load?week_id=1 ✓ 200 OK
 ```
 
 ---
 
-### 3. Ü? EdiÜÜo de Status
+### 3. ✓ Edi✅o de Status
 
 **Teste realizado:**
-- Alterou AndrÜ Luiz, segunda-feira Ü? "Falta justificada"
+- Alterou AndrÜ Luiz, segunda-feira ✓ "Falta justificada"
 - Clicou em "Salvar vigÜlia"
 
 **Resultados:**
-- Ü? MudanÜa registrada no array `changes` (JavaScript)
-- Ü? Toast "AlteraÜÜes salvas com sucesso!" exibido
-- Ü? POST retornou 200 OK
-- Ü? Quadro recarregado automaticamente
+- ✓ Mudança registrada no array `changes` (JavaScript)
+- ✓ Toast "Alterações salvas com sucesso!" exibido
+- ✓ POST retornou 200 OK
+- ✓ Quadro recarregado automaticamente
 
-**RequisiÜÜo HTTP:**
+**Requisi✅o HTTP:**
 ```
-POST /weekly/api/save Ü? 200 OK
+POST /weekly/api/save ✓ 200 OK
 Body: [{"id": 1, "monday": "Falta justificada"}]
 ```
 
 ---
 
-### 4. Ü? PersistÜncia de Dados
+### 4. ✓ PersistÜncia de Dados
 
 **Teste realizado:**
 - Recarregou pÜgina completa
-- Carregou novamente Educaita Ü? Semana 25
+- Carregou novamente Educaita ✓ Semana 25
 
 **Resultados:**
-- Ü? AndrÜ Luiz mantÜm "Falta justificada" na segunda-feira
-- Ü? Indicadores atualizados:
+- ✓ AndrÜ Luiz mantÜm "Falta justificada" na segunda-feira
+- ✓ Indicadores atualizados:
   - Assiduidade: **93.33%** (era 100%)
   - Faltas justificadas: **1** (era 0)
   - Profissionais: 3
@@ -93,119 +93,119 @@ Assiduidade = (14 / 15) * 100 = 93.33%
 
 ---
 
-### 5. Ü? AplicaÜÜo de Feriado
+### 5. ✓ Aplicação de Feriado
 
 **Teste realizado:**
 1. Clicou em "Aplicar Feriado"
 2. Selecionou "Quarta-feira"
-3. DescriÜÜo: "Corpus Christi"
+3. Descri✅o: "Corpus Christi"
 4. Clicou em "Aplicar"
 
 **Resultados:**
-- Ü? Modal abriu corretamente
-- Ü? Campos preenchidos
-- Ü? POST retornou 200 OK
-- Ü? Todos os 3 profissionais receberam "Feriado" na quarta-feira
-- Ü? Badge informativo apareceu: "Feriado informado: quarta-feira, 17/06 Ü? Corpus Christi"
-- Ü? BotÜo "Remover" disponÜvel
-- Ü? Indicadores atualizados:
+- ✓ Modal abriu corretamente
+- ✓ Campos preenchidos
+- ✓ POST retornou 200 OK
+- ✓ Todos os 3 profissionais receberam "Feriado" na quarta-feira
+- ✓ Badge informativo apareceu: "Feriado informado: quarta-feira, 17/06 ✓ Corpus Christi"
+- ✓ BotÜo "Remover" disponÜvel
+- ✓ Indicadores atualizados:
   - Assiduidade: **91.67%** (era 93.33%)
   - Feriados: **3** (era 0)
-  - Total de dias vÜlidos agora: 15 - 3 = 12
+  - Total de dias vêlidos agora: 15 - 3 = 12
   - Total de presenÜas efetivas: 11 (14 - 3 feriados)
 
-**RequisiÜÜo HTTP:**
+**Requisi✅o HTTP:**
 ```
-POST /weekly/api/holiday/apply Ü? 200 OK
+POST /weekly/api/holiday/apply ✓ 200 OK
 Body: {"week_id": 1, "weekday": "Wednesday", "description": "Corpus Christi"}
 ```
 
 **CÜlculo verificado:**
 ```
-Dias vÜlidos = 15 - 3 (feriados) = 12
+Dias vêlidos = 15 - 3 (feriados) = 12
 PresenÜas = 11
 Assiduidade = (11 / 12) * 100 = 91.67%
 ```
 
 ---
 
-### 6. Ü? CorreÜÜes Aplicadas Durante Testes
+### 6. ✓ Corre✅es Aplicadas Durante Testes
 
 **Bug 1: VariÜvel Jinja2 em arquivo JS estÜtico**
 - **Problema:** `let isSupervisor = {{ 'true' if ... }};` em `weekly.js`
-- **CorreÜÜo:** Movido para `<script>` inline no template HTML
-- **Status:** Ü? Corrigido
+- **Corre✅o:** Movido para `<script>` inline no template HTML
+- **Status:** ✓ Corrigido
 
 **Bug 2: JSON.dumps em JavaScript**
-- **Problema:** `JSON.dumps()` nÜo existe em JavaScript
-- **CorreÜÜo:** Alterado para `JSON.stringify()`
-- **Status:** Ü? Corrigido
+- **Problema:** `JSON.dumps()` não existe em JavaScript
+- **Corre✅o:** Alterado para `JSON.stringify()`
+- **Status:** ✓ Corrigido
 
 ---
 
-## ÜÜ Indicadores Finais Validados
+## ✅ Indicadores Finais Validados
 
 | Indicador | Valor | Status |
 |-----------|-------|--------|
-| Assiduidade | 91.67% | Ü? |
-| Profissionais | 3 | Ü? |
-| Faltas justificadas | 1 | Ü? |
-| Faltas nÜo justificadas | 0 | Ü? |
-| RealocaÜÜes | 0 | Ü? |
-| Feriados | 3 | Ü? |
+| Assiduidade | 91.67% | ✓ |
+| Profissionais | 3 | ✓ |
+| Faltas justificadas | 1 | ✓ |
+| Faltas não justificadas | 0 | ✓ |
+| Realocações | 0 | ✓ |
+| Feriados | 3 | ✓ |
 
 ---
 
-## ÜÜ Logs do Servidor (Terminal)
+## ✅ Logs do Servidor (Terminal)
 
 ```
-POST /auth/login Ü? 302 (redirect)
-GET /weekly/ Ü? 200
-GET /weekly/api/weeks?project_id=1 Ü? 200
-GET /weekly/api/load?week_id=1 Ü? 200
-POST /weekly/api/save Ü? 200
-POST /weekly/api/holiday/apply Ü? 200
-GET /weekly/api/load?week_id=1 Ü? 200 (reload apÜs aplicar feriado)
+POST /auth/login ✓ 302 (redirect)
+GET /weekly/ ✓ 200
+GET /weekly/api/weeks?project_id=1 ✓ 200
+GET /weekly/api/load?week_id=1 ✓ 200
+POST /weekly/api/save ✓ 200
+POST /weekly/api/holiday/apply ✓ 200
+GET /weekly/api/load?week_id=1 ✓ 200 (reload apÜs aplicar feriado)
 ```
 
 Nenhum erro 500 ou 404 encontrado nas rotas testadas.
 
 ---
 
-## ÜÜÜ Testes NÜO Realizados (Sugeridos para Teste Manual)
+## ✅Ü Testes NÜO Realizados (Sugeridos para Teste Manual)
 
 1. **Gerar Planejamento:** Criar nova semana
 2. **Export CSV:** Download do arquivo
 3. **Remover Feriado:** Clicar no botÜo "Remover"
-4. **CRUD de UsuÜrios:** Criar/Editar/Deletar usuÜrios
+4. **CRUD de Usuários:** Criar/Editar/Deletar usuários
 5. **CRUD de Projetos:** Criar/Editar/Deletar projetos
 6. **CRUD de Profissionais:** Criar/Editar/Deletar profissionais
 7. **RelatÜrios/Indicadores:** PÜgina de indicadores com filtros
-8. **Logs de Auditoria:** VisualizaÜÜo de logs
+8. **Logs de Auditoria:** Visualização de logs
 9. **PermissÜes:** Login como Supervisor e Visualizador
 10. **SaÜda Antecipada, Realocado, Folga:** Outros status
 
 ---
 
-## ÜÜ ConclusÜo
+## ✅ ConclusÜo
 
-O **HÜrus Operacional MVP** estÜ **funcional e pronto** para os seguintes casos de uso:
+O **Hórus Operacional MVP** estÜ **funcional e pronto** para os seguintes casos de uso:
 
-Ü? Login com autenticaÜÜo  
-Ü? Carregamento de quadro semanal  
-Ü? EdiÜÜo de status de presenÜa  
-Ü? PersistÜncia em banco SQLite  
-Ü? AplicaÜÜo de feriados  
-Ü? CÜlculo correto de indicadores  
-Ü? Interface responsiva e interativa  
-Ü? Logs automÜticos de aÜÜes (backend)  
+✓ Login com autenticação  
+✓ Carregamento de quadro semanal  
+✓ Edi✅o de status de presenÜa  
+✓ PersistÜncia em banco SQLite  
+✓ Aplicação de feriados  
+✓ CÜlculo correto de indicadores  
+✓ Interface responsiva e interativa  
+✓ Logs automÜticos de ações (backend)  
 
 ---
 
-## ÜÜ RecomendaÜÜes
+## ✅ Recomendações
 
 1. **Testes manuais complementares:** Realizar os 10 testes sugeridos acima
-2. **ValidaÜÜo de permissÜes:** Testar com os 3 perfis (Admin, Supervisor, Visualizador)
+2. **Validação de permissÜes:** Testar com os 3 perfis (Admin, Supervisor, Visualizador)
 3. **Teste de carga:** Criar mais semanas e profissionais
 4. **Export CSV:** Validar formato e conteÜdo do arquivo
 5. **Testes de navegadores:** Chrome, Firefox, Edge, Safari
@@ -213,6 +213,6 @@ O **HÜrus Operacional MVP** estÜ **funcional e pronto** para os seguintes caso
 
 ---
 
-**MVP Validado:** Ü?  
-**Pronto para demonstraÜÜo:** Ü?  
-**PrÜximas etapas:** Testes manuais + Deploy em produÜÜo
+**MVP Validado:** ✓  
+**Pronto para demonstração:** ✓  
+**PrÜximas etapas:** Testes manuais + Deploy em produção

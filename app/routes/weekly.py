@@ -76,7 +76,7 @@ def load_board():
         total_valid += valid_days
         total_present += present_days
         total_falta_j += statuses.count('Falta justificada')
-        total_falta_nj += statuses.count('Falta nÜo justificada')
+        total_falta_nj += statuses.count('Falta não justificada')
         total_saida += statuses.count('SaÜda antecipada')
         total_realoc += statuses.count('Realocado')
         total_feriados += statuses.count('Feriado')
@@ -444,7 +444,7 @@ def export_csv():
     week_id = request.args.get('week_id', type=int)
     
     if not week_id:
-        flash('Semana nÜo especificada.', 'danger')
+        flash('Semana não especificada.', 'danger')
         return redirect(url_for('weekly.index'))
     
     week = PlanningWeek.query.get_or_404(week_id)
@@ -459,7 +459,7 @@ def export_csv():
         'Profissional',
         'Matrícula',
         f'Segunda ({week.start_date.strftime("%d/%m")})',
-        f'TerÜa ({(week.start_date + timedelta(days=1)).strftime("%d/%m")})',
+        f'Terça ({(week.start_date + timedelta(days=1)).strftime("%d/%m")})',
         f'Quarta ({(week.start_date + timedelta(days=2)).strftime("%d/%m")})',
         f'Quinta ({(week.start_date + timedelta(days=3)).strftime("%d/%m")})',
         f'Sexta ({week.end_date.strftime("%d/%m")})',

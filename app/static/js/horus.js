@@ -1,13 +1,13 @@
 /**
- * HÜrus Operacional - JavaScript Core
+ * Hórus Operacional - JavaScript Core
  * LÜgica de cÜlculo de assiduidade
  */
 
-// Status e suas classificaÜÜes
+// Status e suas classificações
 const statuses = [
   "Presente",
   "Falta justificada",
-  "Falta nÜo justificada",
+  "Falta não justificada",
   "SaÜda antecipada",
   "Realocado",
   "Feriado",
@@ -18,7 +18,7 @@ const statuses = [
 const statusClasses = {
   "Presente": "s-presente",
   "Falta justificada": "s-falta-j",
-  "Falta nÜo justificada": "s-falta-nj",
+  "Falta não justificada": "s-falta-nj",
   "SaÜda antecipada": "s-saida",
   "Realocado": "s-realocado",
   "Feriado": "s-feriado",
@@ -30,7 +30,7 @@ const statusClasses = {
 const validDays = new Set([
   "Presente",
   "Falta justificada",
-  "Falta nÜo justificada",
+  "Falta não justificada",
   "SaÜda antecipada",
   "Realocado"
 ]);
@@ -71,7 +71,7 @@ function calculateAttendanceRate(validCount, presentCount) {
 }
 
 /**
- * Formata taxa de assiduidade para exibiÜÜo
+ * Formata taxa de assiduidade para exibição
  */
 function formatRate(rate) {
   if (rate === null) {

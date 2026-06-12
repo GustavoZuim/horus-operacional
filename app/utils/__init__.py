@@ -1,5 +1,5 @@
 """
-UtilitÜrios para inicializaÜÜo do banco de dados
+Utilitários para inicialização do banco de dados
 """
 from app import db
 from app.models import User, Project, Professional
@@ -16,7 +16,7 @@ def initialize_database(app):
         admin_exists = User.query.filter_by(email=app.config['ADMIN_EMAIL']).first()
         
         if not admin_exists:
-            # Criar usuÜrio admin
+            # Criar usuário admin
             admin = User(
                 email=app.config['ADMIN_EMAIL'],
                 name=app.config['ADMIN_NAME'],
@@ -81,9 +81,9 @@ def initialize_database(app):
                 db.session.add(prof)
             
             db.session.commit()
-            print('Ü? Dados iniciais criados!')
-            print(f'Ü? Admin: {app.config["ADMIN_EMAIL"]} / {app.config["ADMIN_PASSWORD"]}')
-            print('Ü? Supervisor: nathani@horus.local / supervisor123')
-            print('Ü? Visualizador: viewer@horus.local / viewer123')
+            print('✓ Dados iniciais criados!')
+            print(f'✓ Admin: {app.config["ADMIN_EMAIL"]} / {app.config["ADMIN_PASSWORD"]}')
+            print('✓ Supervisor: nathani@horus.local / supervisor123')
+            print('✓ Visualizador: viewer@horus.local / viewer123')
         else:
             print('! Banco jÜ inicializado.')

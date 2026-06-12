@@ -1,6 +1,6 @@
 /**
- * HÜrus Operacional - Identidade Visual MÜstica
- * Paleta: Olho de HÜrus - O olho que tudo vÜ
+ * Hórus Operacional - Identidade Visual MÜstica
+ * Paleta: Olho de Hórus - O olho que tudo vê
  * Inspirado no misticismo egÜpcio e na vigilÜncia divina
  */
 
@@ -135,7 +135,7 @@ body::before {
   box-shadow: 0 14px 38px rgba(216, 162, 58, .25);
 }
 
-/* === Olho de HÜrus Animado === */
+/* === Olho de Hórus Animado === */
 .eye {
   width: 42px;
   height: 26px;
@@ -225,7 +225,7 @@ body::before {
   text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
 }
 
-/* === NavegaÜÜo === */
+/* === Navegação === */
 .nav-section {
   color: var(--mystic-smoke);
   font-size: 11px;

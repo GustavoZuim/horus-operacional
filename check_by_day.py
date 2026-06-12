@@ -12,7 +12,7 @@ if att:
     
     days = {
         'Segunda': att.monday_activities,
-        'TerÜa': att.tuesday_activities,
+        'Terça': att.tuesday_activities,
         'Quarta': att.wednesday_activities,
         'Quinta': att.thursday_activities,
         'Sexta': att.friday_activities

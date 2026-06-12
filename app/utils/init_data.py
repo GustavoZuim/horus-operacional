@@ -1,5 +1,5 @@
 """
-UtilitÜrios para inicializaÜÜo do banco de dados
+Utilitários para inicialização do banco de dados
 """
 from datetime import date
 from app import db
@@ -18,7 +18,7 @@ def initialize_database(app):
         if not admin_exists:
             print('Criando dados iniciais...')
             
-            # Criar usuÜrio admin
+            # Criar usuário admin
             admin = User(
                 name='Gustavo Zuim',
                 email='admin@example.com',
@@ -97,7 +97,7 @@ def initialize_database(app):
             db.session.commit()
             
             # Criar registros de presença para todos os profissionais
-            # Todos comeÜam como "Presente" de segunda a sexta
+            # Todos começam como "Presente" de segunda a sexta
             for prof in professionals:
                 attendance = WeeklyAttendance(
                     planning_week_id=week_25.id,
@@ -114,12 +114,12 @@ def initialize_database(app):
             
             db.session.commit()
             
-            print('Ü? Dados iniciais criados!')
-            print('Ü? Admin: admin@example.com / admin123 (Gustavo Zuim)')
-            print('Ü? Supervisor: nathani@example.com / nathani123 (Nathani)')
-            print('Ü? Visualizador: visualizador@example.com / visualizador123')
-            print('Ü? Projeto: Educaita')
-            print('Ü? Profissionais: 3 cadastrados')
-            print('Ü? Semana 25: 15/06/2026 a 19/06/2026 (todos presentes)')
+            print('✓ Dados iniciais criados!')
+            print('✓ Admin: admin@example.com / admin123 (Gustavo Zuim)')
+            print('✓ Supervisor: nathani@example.com / nathani123 (Nathani)')
+            print('✓ Visualizador: visualizador@example.com / visualizador123')
+            print('✓ Projeto: Educaita')
+            print('✓ Profissionais: 3 cadastrados')
+            print('✓ Semana 25: 15/06/2026 a 19/06/2026 (todos presentes)')
         else:
             print('! Banco jÜ inicializado.')

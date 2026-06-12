@@ -35,7 +35,7 @@ def index():
 @login_required
 @admin_required
 def create():
-    """Criar novo usuÜrio"""
+    """Criar novo usuário"""
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
@@ -53,7 +53,7 @@ def create():
             flash('Email jÜ cadastrado.', 'danger')
             return render_template('users/form.html')
         
-        # Criar usuÜrio
+        # Criar usuário
         user = User(
             name=name,
             email=email,
@@ -76,7 +76,7 @@ def create():
         db.session.add(log)
         db.session.commit()
         
-        flash(f'UsuÜrio {name} criado com sucesso!', 'success')
+        flash(f'Usuário {name} criado com sucesso!', 'success')
         return redirect(url_for('users.index'))
     
     return render_template('users/form.html')
@@ -86,7 +86,7 @@ def create():
 @login_required
 @admin_required
 def edit(id):
-    """Editar usuÜrio"""
+    """Editar usuário"""
     user = User.query.get_or_404(id)
     
     if request.method == 'POST':
@@ -113,7 +113,7 @@ def edit(id):
         db.session.add(log)
         db.session.commit()
         
-        flash(f'UsuÜrio {user.name} atualizado!', 'success')
+        flash(f'Usuário {user.name} atualizado!', 'success')
         return redirect(url_for('users.index'))
     
     return render_template('users/form.html', user=user)
@@ -123,12 +123,12 @@ def edit(id):
 @login_required
 @admin_required
 def delete(id):
-    """Desativar usuÜrio"""
+    """Desativar usuário"""
     user = User.query.get_or_404(id)
     
     # NÜo permitir desativar a si mesmo
     if user.id == current_user.id:
-        flash('VocÜ nÜo pode desativar seu prÜprio usuÜrio.', 'danger')
+        flash('VocÜ não pode desativar seu prÜprio usuário.', 'danger')
         return redirect(url_for('users.index'))
     
     user.active = False
@@ -145,5 +145,5 @@ def delete(id):
     db.session.add(log)
     db.session.commit()
     
-    flash(f'UsuÜrio {user.name} desativado.', 'warning')
+    flash(f'Usuário {user.name} desativado.', 'warning')
     return redirect(url_for('users.index'))

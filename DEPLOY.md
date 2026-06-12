@@ -1,6 +1,6 @@
-# ÜÜ Guia de Deploy - HÜrus Operacional
+# ✅ Guia de Deploy - Hórus Operacional
 
-## Ü? Quick Start (Desenvolvimento)
+## ✓ Quick Start (Desenvolvimento)
 
 ```bash
 # 1. Clone e entre no diretÜrio
@@ -25,13 +25,13 @@ python run.py
 - Email: `admin@horus.local`
 - Senha: `admin123`
 
-ÜÜÜ **Altere a senha apÜs o primeiro login!**
+✅Ü **Altere a senha apÜs o primeiro login!**
 
 ---
 
-## ÜÜ Deploy em ProduÜÜo
+## ✅ Deploy em Produção
 
-### OpÜÜo 1: VPS/Servidor Linux
+### Opção 1: VPS/Servidor Linux
 
 #### 1. Preparar o Servidor
 
@@ -42,7 +42,7 @@ sudo apt update && sudo apt upgrade -y
 # Instalar Python 3.10+
 sudo apt install python3.10 python3.10-venv python3-pip nginx -y
 
-# Criar usuÜrio para aplicaÜÜo
+# Criar usuário para aplicação
 sudo adduser horus
 sudo usermod -aG sudo horus
 su - horus
@@ -160,7 +160,7 @@ sudo certbot --nginx -d seu-dominio.com
 
 ---
 
-### OpÜÜo 2: Docker
+### Opção 2: Docker
 
 #### 1. Criar Dockerfile
 
@@ -208,7 +208,7 @@ docker-compose up -d
 
 ---
 
-### OpÜÜo 3: Heroku
+### Opção 3: Heroku
 
 #### 1. Criar Procfile
 
@@ -234,7 +234,7 @@ heroku open
 
 ---
 
-## ÜÜ Checklist de SeguranÜa
+## ✅ Checklist de SeguranÜa
 
 - [ ] Alterar `SECRET_KEY` para valor aleatÜrio forte
 - [ ] Alterar senha do admin padrÜo
@@ -251,13 +251,13 @@ heroku open
 
 ---
 
-## ÜÜ Banco de Dados
+## ✅ Banco de Dados
 
 ### SQLite (Desenvolvimento/Pequeno Porte)
-- **Vantagens**: Zero configuraÜÜo, arquivo Ünico, fÜcil backup
-- **LimitaÜÜes**: ConcorrÜncia limitada, sem rede
+- **Vantagens**: Zero configuração, arquivo Ünico, fÜcil backup
+- **Limitações**: ConcorrÜncia limitada, sem rede
 
-### PostgreSQL (Recomendado para ProduÜÜo)
+### PostgreSQL (Recomendado para Produção)
 
 ```bash
 # Instalar PostgreSQL
@@ -276,7 +276,7 @@ DATABASE_URL=postgresql://horus_user:senha-forte@localhost/horus_db
 
 ---
 
-## ÜÜ AtualizaÜÜes
+## ✅ Atualizações
 
 ### Deploy de Nova VersÜo
 
@@ -285,7 +285,7 @@ cd /home/horus/horus-operacional
 git pull origin main
 source venv/bin/activate
 pip install -r requirements.txt
-flask db upgrade  # Se houver migraÜÜes
+flask db upgrade  # Se houver migrações
 sudo systemctl restart horus
 ```
 
@@ -301,7 +301,7 @@ pg_dump horus_db > horus_backup_$(date +%Y%m%d).sql
 
 ---
 
-## ÜÜ Monitoramento
+## ✅ Monitoramento
 
 ### Logs
 
@@ -323,7 +323,7 @@ Considere integrar:
 
 ---
 
-## ÜÜ Troubleshooting
+## ✅ Troubleshooting
 
 ### Erro 502 Bad Gateway
 ```bash
@@ -339,7 +339,7 @@ sudo systemctl restart horus
 # Restaurar backup
 cp horus_backup_YYYYMMDD.db horus.db
 
-# Ou reinicializar (ATENÜÜO: perde dados!)
+# Ou reinicializar (ATENÇÃO: perde dados!)
 python init_db.py
 ```
 
@@ -352,8 +352,8 @@ sudo chmod -R 755 /home/horus/horus-operacional
 
 ---
 
-## ÜÜ Suporte
+## ✅ Suporte
 
-Para dÜvidas sobre deploy, consulte a documentaÜÜo ou entre em contato com o desenvolvedor.
+Para dÜvidas sobre deploy, consulte a documentação ou entre em contato com o desenvolvedor.
 
-**HÜrus Operacional** - Pronto para ProduÜÜo! ÜÜ
+**Hórus Operacional** - Pronto para Produção! ✅

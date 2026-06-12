@@ -1,5 +1,5 @@
 """
-Configurações da aplicaÜÜo Hórus Operacional
+Configurações da aplicação Hórus Operacional
 """
 import os
 from datetime import timedelta
@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Config:
-    """ConfiguraÜÜo base"""
+    """Configuração base"""
     
     # Configurações bÜsicas
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
@@ -34,13 +34,13 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    """ConfiguraÜÜo de desenvolvimento"""
+    """Configuração de desenvolvimento"""
     DEBUG = True
     TESTING = False
 
 
 class ProductionConfig(Config):
-    """ConfiguraÜÜo de produÜÜo"""
+    """Configuração de produção"""
     DEBUG = False
     TESTING = False
     SESSION_COOKIE_SECURE = True  # Requer HTTPS

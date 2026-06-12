@@ -1,46 +1,46 @@
-# ÜÜ PROMPT 4 - Upload de Planejamento em PDF - COMPLETO
+# ✅ PROMPT 4 - Upload de Planejamento em PDF - COMPLETO
 
 **Data:** 11/06/2026  
-**Status:** Ü? IMPLEMENTADO E TESTADO
+**Status:** ✓ IMPLEMENTADO E TESTADO
 
 ---
 
-## ÜÜ O que foi implementado
+## ✅ O que foi implementado
 
-### 1. Ü? Sistema Completo de ImportaÜÜo de PDF
+### 1. ✓ Sistema Completo de Importação de PDF
 
 #### **Arquitetura em 8 Etapas**
-1. Ü? Upload do arquivo
-2. Ü? Armazenamento temporÜrio (pasta `temp_uploads/`)
-3. Ü? ExtraÜÜo de texto (PyMuPDF)
-4. Ü? Parser inteligente
-5. Ü? GeraÜÜo de prÜvia editÜvel
-6. Ü? ConfirmaÜÜo do usuÜrio
-7. Ü? GravaÜÜo no banco de dados
-8. Ü? Registro de logs de auditoria
+1. ✓ Upload do arquivo
+2. ✓ Armazenamento temporÜrio (pasta `temp_uploads/`)
+3. ✓ Extração de texto (PyMuPDF)
+4. ✓ Parser inteligente
+5. ✓ Geração de prévia editÜvel
+6. ✓ Confirmação do usuário
+7. ✓ Gravação no banco de dados
+8. ✓ Registro de logs de auditoria
 
 #### **Biblioteca Escolhida: PyMuPDF (fitz)**
 
 **Por que PyMuPDF?**
-- Ü? RÜpida e eficiente
-- Ü? Extrai texto diretamente (sem OCR)
-- Ü? Bem mantida e documentada
-- Ü? Funciona perfeitamente com Flask
-- Ü? InstalaÜÜo simples: `pip install PyMuPDF`
+- ✓ Rápida e eficiente
+- ✓ Extrai texto diretamente (sem OCR)
+- ✓ Bem mantida e documentada
+- ✓ Funciona perfeitamente com Flask
+- ✓ Instalação simples: `pip install PyMuPDF`
 
 **Alternativas consideradas:**
 - pdfplumber: Mais fÜcil mas menos eficiente
-- PyPDF2: LimitaÜÜes com alguns PDFs
+- PyPDF2: Limitações com alguns PDFs
 - OCR (Tesseract): Complexidade desnecessÜria para MVP
 
 ---
 
-## ÜÜ Funcionalidades Implementadas
+## ✅ Funcionalidades Implementadas
 
 ### **Rota `/imports/` (Blueprint)**
 
 #### **GET /imports/**
-- Tela de importaÜÜo com formulÜrio
+- Tela de importação com formulário
 - Seletor de projeto (apenas projetos ativos)
 - Input de arquivo PDF
 - Apenas Admin e Supervisor podem acessar
@@ -52,12 +52,12 @@
 - Extrai texto do PDF
 - Executa parser inteligente
 - Armazena dados na sessÜo
-- Retorna JSON com prÜvia
+- Retorna JSON com prévia
 
 #### **POST /imports/confirm**
 - Recupera dados da sessÜo
 - Valida campos obrigatÜrios (semana, datas)
-- Verifica duplicaÜÜo (projeto + semana)
+- Verifica duplicação (projeto + semana)
 - Cria `PlanningWeek`
 - Cria `WeeklyAttendance` para cada profissional
 - Remove arquivo temporÜrio
@@ -71,16 +71,16 @@
 
 ---
 
-## ÜÜ Parser Inteligente
+## ✅ Parser Inteligente
 
 ### **O que o parser identifica automaticamente:**
 
 | Elemento | Regex/LÜgica | Exemplo |
 |----------|--------------|---------|
-| Semana | `Semana\s+(\d+)` | "Semana 25" Ü? "Semana 25" |
-| Datas | `\b(\d{1,2})/(\d{1,2})/(\d{2,4})\b` | 15/06/2026 Ü? 2026-06-15 |
-| PerÜodo | Primeira data + 4 dias | 15/06 Ü? 15/06 a 19/06 |
-| MatrÜculas | `\b([A-Z]{2}\d+)\b` | MI34, PM001 |
+| Semana | `Semana\s+(\d+)` | "Semana 25" ✓ "Semana 25" |
+| Datas | `\b(\d{1,2})/(\d{1,2})/(\d{2,4})\b` | 15/06/2026 ✓ 2026-06-15 |
+| Período | Primeira data + 4 dias | 15/06 ✓ 15/06 a 19/06 |
+| Matrículas | `\b([A-Z]{2}\d+)\b` | MI34, PM001 |
 | Profissionais | Busca nomes cadastrados no texto | "AndrÜ Luiz GuimarÜes" |
 | Feriado | palavra "feriado" (case-insensitive) | "Quarta: Feriado" |
 | Folga | palavra "folga" | "Quinta: Folga" |
@@ -88,108 +88,108 @@
 ### **Regras de Matching:**
 
 1. **Profissionais cadastrados:**
-   - Busca matrÜculas no padrÜo `[A-Z]{2}\d+`
-   - Se encontrar matrÜcula cadastrada Ü? Match
-   - Se nÜo, busca nome completo no texto
+   - Busca matrículas no padrÜo `[A-Z]{2}\d+`
+   - Se encontrar matrícula cadastrada ✓ Match
+   - Se não, busca nome completo no texto
    - Apenas profissionais **ativos** do projeto selecionado
 
 2. **Status padrÜo:**
-   - Todos os dias comeÜam como **"Presente"**
-   - Se identificar "feriado" em um dia Ü? aplica "Feriado" para todos
-   - Se identificar "folga" Ü? adiciona alerta para revisar manualmente
+   - Todos os dias começam como **"Presente"**
+   - Se identificar "feriado" em um dia ✓ aplica "Feriado" para todos
+   - Se identificar "folga" ✓ adiciona alerta para revisar manualmente
 
 3. **Alertas gerados:**
-   - ÜÜÜ Semana nÜo identificada
-   - ÜÜÜ Datas nÜo identificadas
-   - ÜÜÜ Nenhum profissional identificado
-   - ÜÜÜ X profissional(is) ativo(s) nÜo identificado(s) no PDF
-   - ÜÜÜ Feriado identificado na [dia]-feira
-   - ÜÜÜ Palavra "folga" encontrada
+   - ✅Ü Semana não identificada
+   - ✅Ü Datas não identificadas
+   - ✅Ü Nenhum profissional identificado
+   - ✅Ü X profissional(is) ativo(s) não identificado(s) no PDF
+   - ✅Ü Feriado identificado na [dia]-feira
+   - ✅Ü Palavra "folga" encontrada
 
 ---
 
-## ÜÜÜ? Interface (Template)
+## 🗑️ Interface (Template)
 
 ### **Etapa 1: Upload**
 ```
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? 1. Selecione o projeto e faÜa upload   Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? Projeto: [Dropdown]                     Ü?
-Ü? Arquivo: [Input File] Escolher arquivo Ü?
-Ü? [Processar PDF]                         Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ 1. Selecione o projeto e faça upload   ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ Projeto: [Dropdown]                     ✓
+✓ Arquivo: [Input File] Escolher arquivo ✓
+✓ [Processar PDF]                         ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
 ```
 
 ### **Loading**
 ```
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü?    [Spinner animado]                    Ü?
-Ü?  Processando PDF...                     Ü?
-Ü?  Extraindo texto e identificando dados  Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓    [Spinner animado]                    ✓
+✓  Processando PDF...                     ✓
+✓  Extraindo texto e identificando dados  ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
 ```
 
-### **Etapa 2: PrÜvia EditÜvel**
+### **Etapa 2: Prévia EditÜvel**
 ```
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? 2. Revise a prÜvia antes de importar   Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? Projeto: Educaita                       Ü?
-Ü? Semana: [Input "Semana 25"]             Ü?
-Ü? PerÜodo: [Date] a [Date]                Ü?
-Ü? Arquivo: exemplo_planejamento.pdf       Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? ÜÜÜ Alertas:                             Ü?
-Ü? Ü? X profissional(is) nÜo identificado(s)Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? Tabela de Profissionais:                Ü?
-Ü? Nome | MatrÜcula | Seg | Ter | Qua...  Ü?
-Ü? [Dropdowns editÜveis para cada dia]    Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
-Ü? [Cancelar] [Confirmar importaÜÜo]       Ü?
-ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ?
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ 2. Revise a prévia antes de importar   ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ Projeto: Educaita                       ✓
+✓ Semana: [Input "Semana 25"]             ✓
+✓ Período: [Date] a [Date]                ✓
+✓ Arquivo: exemplo_planejamento.pdf       ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ ✅Ü Alertas:                             ✓
+✓ ✓ X profissional(is) não identificado(s)✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ Tabela de Profissionais:                ✓
+✓ Nome | Matrícula | Seg | Ter | Qua...  ✓
+✓ [Dropdowns editÜveis para cada dia]    ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
+✓ [Cancelar] [Confirmar importação]       ✓
+✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅Ü🗑️
 ```
 
 ### **Elementos Interativos:**
-- Ü? Inputs editÜveis para semana e datas
-- Ü? Dropdowns de status para cada dia/profissional (8 opÜÜes)
-- Ü? Input de observaÜÜo por profissional
-- Ü? BotÜes de aÜÜo (Cancelar / Confirmar)
+- ✓ Inputs editÜveis para semana e datas
+- ✓ Dropdowns de status para cada dia/profissional (8 op✅es)
+- ✓ Input de observação por profissional
+- ✓ BotÜes de ação (Cancelar / Confirmar)
 
 ---
 
-## ÜÜ SeguranÜa
+## ✅ SeguranÜa
 
 ### **Controle de Acesso:**
 ```python
 @admin_or_supervisor_required
 ```
-- Ü? Apenas Admin e Supervisor podem importar
-- Ü? Visualizador nÜo tem acesso
-- Ü? Decorator valida role no backend
+- ✓ Apenas Admin e Supervisor podem importar
+- ✓ Visualizador não tem acesso
+- ✓ Decorator valida role no backend
 
-### **ValidaÜÜes:**
-- Ü? Tipo de arquivo: apenas `.pdf`
-- Ü? Tamanho mÜximo: 10MB
-- Ü? ValidaÜÜo de projeto ativo
-- Ü? ValidaÜÜo de duplicaÜÜo (projeto + semana)
-- Ü? Campos obrigatÜrios: semana, start_date, end_date
-- Ü? SanitizaÜÜo de filename com `secure_filename()`
+### **Validações:**
+- ✓ Tipo de arquivo: apenas `.pdf`
+- ✓ Tamanho mÜximo: 10MB
+- ✓ Validação de projeto ativo
+- ✓ Validação de duplicação (projeto + semana)
+- ✓ Campos obrigatÜrios: semana, start_date, end_date
+- ✓ Sanitização de filename com `secure_filename()`
 
 ### **Armazenamento TemporÜrio:**
-- Ü? Pasta `temp_uploads/` criada automaticamente
-- Ü? Arquivo salvo com timestamp: `{timestamp}_{filename}.pdf`
-- Ü? Removido apÜs confirmaÜÜo ou cancelamento
-- Ü? NÜo executÜvel (apenas leitura)
+- ✓ Pasta `temp_uploads/` criada automaticamente
+- ✓ Arquivo salvo com timestamp: `{timestamp}_{filename}.pdf`
+- ✓ Removido apÜs confirmação ou cancelamento
+- ✓ NÜo executÜvel (apenas leitura)
 
 ---
 
-## ÜÜ Logs de Auditoria
+## ✅ Logs de Auditoria
 
 ### **Eventos Registrados:**
 
-| AÜÜo | Entity | Detalhes |
+| Ação | Entity | Detalhes |
 |------|--------|----------|
 | `upload_pdf` | `import` | filename, project_name |
 | `confirm_import` | `planning_week` | project_id, week_label, filename, professionals_count |
@@ -209,42 +209,42 @@ AuditLog(
 
 ---
 
-## ÜÜ Testes Realizados
+## ✅ Testes Realizados
 
-### Ü? Testes Funcionais
+### ✓ Testes Funcionais
 
-1. **Acessar tela de importaÜÜo**
-   - Ü? Login como Admin
-   - Ü? Menu lateral tem link "Importar planejamento"
-   - Ü? Tela carrega corretamente
-   - Ü? Dropdown mostra projetos ativos (Educaita, Prefeitura Municipal)
+1. **Acessar tela de importação**
+   - ✓ Login como Admin
+   - ✓ Menu lateral tem link "Importar planejamento"
+   - ✓ Tela carrega corretamente
+   - ✓ Dropdown mostra projetos ativos (Educaita, Prefeitura Municipal)
 
-2. **ValidaÜÜes de seguranÜa**
-   - Ü? Visualizador nÜo vÜ link no menu
-   - Ü? Acesso direto `/imports/` redireciona se nÜo autorizado
+2. **Validações de seguranÜa**
+   - ✓ Visualizador não vê link no menu
+   - ✓ Acesso direto `/imports/` redireciona se não autorizado
 
 3. **Interface visual**
-   - Ü? Tema mÜstico aplicado
-   - Ü? Badge "OPERAÜÜO" em roxo/azul
-   - Ü? FormulÜrio com tema dourado
-   - Ü? Responsivo
+   - ✓ Tema mÜstico aplicado
+   - ✓ Badge "OPERA✅O" em roxo/azul
+   - ✓ Formulário com tema dourado
+   - ✓ Responsivo
 
-### ÜÜÜ Testes Pendentes (Requerem PDF)
+### ✅Ü Testes Pendentes (Requerem PDF)
 
-- [ ] Upload de PDF vÜlido
+- [ ] Upload de PDF vêlido
 - [ ] Parser identifica semana
 - [ ] Parser identifica profissionais
 - [ ] Parser identifica feriados
-- [ ] PrÜvia mostra dados corretamente
-- [ ] Editar status na prÜvia
-- [ ] Confirmar importaÜÜo
+- [ ] Prévia mostra dados corretamente
+- [ ] Editar status na prévia
+- [ ] Confirmar importação
 - [ ] Gerar quadro semanal no banco
 - [ ] Redirecionamento automÜtico
-- [ ] Cancelar importaÜÜo
+- [ ] Cancelar importação
 
 ---
 
-## ÜÜ Arquivos Criados/Modificados
+## ✅ Arquivos Criados/Modificados
 
 ### **Novos Arquivos:**
 ```
@@ -258,7 +258,7 @@ PROMPT4_ENTREGA.md                                 (este arquivo)
 ```
 app/__init__.py                                    (+ blueprint imports)
 app/templates/base.html                            (+ link no menu)
-README.md                                          (+ seÜÜo de importaÜÜo)
+README.md                                          (+ se✅o de importação)
 requirements.txt                                   (+ PyMuPDF)
 ```
 
@@ -269,41 +269,41 @@ requirements.txt                                   (+ PyMuPDF)
 
 ---
 
-## ÜÜ IntegraÜÜo com Tema MÜstico
+## ✅ Integração com Tema MÜstico
 
 ### **Visual Identity:**
-- Ü? Badge "OPERAÜÜO" em gradiente roxo/azul
-- Ü? TÜtulo "Importar Planejamento" em dourado
-- Ü? Card com transparÜncia e borda dourada
-- Ü? BotÜo "Processar PDF" em azul mÜstico
-- Ü? Alertas com Ücone de vigilÜncia
-- Ü? Tabela com hover dourado
+- ✓ Badge "OPERA✅O" em gradiente roxo/azul
+- ✓ TÜtulo "Importar Planejamento" em dourado
+- ✓ Card com transparÜncia e borda dourada
+- ✓ BotÜo "Processar PDF" em azul mÜstico
+- ✓ Alertas com Ücone de vigilÜncia
+- ✓ Tabela com hover dourado
 
 ### **Ücones Bootstrap:**
-- ÜÜ `bi-cloud-upload` (menu lateral)
-- ÜÜ `bi-file-earmark-pdf` (botÜo processar)
-- ÜÜÜ? `bi-eye` (prÜvia)
-- Ü? `bi-check-circle` (confirmar)
-- Ü? `bi-x-circle` (cancelar)
+- ✅ `bi-cloud-upload` (menu lateral)
+- ✅ `bi-file-earmark-pdf` (botÜo processar)
+- 🗑️ `bi-eye` (prévia)
+- ✓ `bi-check-circle` (confirmar)
+- ✓ `bi-x-circle` (cancelar)
 
 ---
 
-## ÜÜ DocumentaÜÜo no README
+## ✅ Documentação no README
 
-### **SeÜÜo Adicionada:**
-- VisÜo geral do sistema de importaÜÜo
+### **Se✅o Adicionada:**
+- VisÜo geral do sistema de importação
 - Fluxo de 6 etapas ilustrado
 - Justificativa da biblioteca escolhida
 - Como usar (passo a passo)
 - Parser inteligente (tabela de padrÜes)
-- Regras de importaÜÜo
-- LimitaÜÜes conhecidas
-- Script de criaÜÜo de PDF de teste
+- Regras de importação
+- Limitações conhecidas
+- Script de criação de PDF de teste
 - Melhorias futuras
 
 ---
 
-## ÜÜ Como Usar
+## ✅ Como Usar
 
 ### **1. Instalar dependÜncia:**
 ```bash
@@ -318,132 +318,132 @@ python create_sample_pdf.py
 
 ### **3. Acessar sistema:**
 1. Login como Admin ou Supervisor
-2. Menu Ü? "Importar planejamento"
+2. Menu ✓ "Importar planejamento"
 3. Selecionar projeto
 4. Upload do PDF
-5. Revisar prÜvia
-6. Confirmar importaÜÜo
+5. Revisar prévia
+6. Confirmar importação
 
 ---
 
-## ÜÜ Melhorias Futuras
+## ✅ Melhorias Futuras
 
 ### **Curto Prazo:**
 - [ ] Melhorar parser para mais layouts de PDF
-- [ ] Adicionar preview visual do PDF na prÜvia
+- [ ] Adicionar preview visual do PDF na prévia
 - [ ] Permitir criar profissional novo a partir do PDF
-- [ ] Permitir vincular profissional nÜo encontrado
+- [ ] Permitir vincular profissional não encontrado
 
 ### **MÜdio Prazo:**
 - [ ] Suporte a OCR para PDFs escaneados (Tesseract)
 - [ ] HistÜrico de arquivos importados
-- [ ] Re-importaÜÜo com diff se jÜ existir semana
-- [ ] ImportaÜÜo em lote (mÜltiplos PDFs)
+- [ ] Re-importação com diff se jÜ existir semana
+- [ ] Importação em lote (mÜltiplos PDFs)
 
 ### **Longo Prazo:**
 - [ ] Parser com Machine Learning
 - [ ] Mapeamento de layouts customizados por projeto
-- [ ] ImportaÜÜo de atividades planejadas (alÜm de status)
-- [ ] API REST para integraÜÜo externa
+- [ ] Importação de atividades planejadas (alÜm de status)
+- [ ] API REST para integração externa
 
 ---
 
-## ÜÜ Requisitos do PROMPT 4 - Checklist
+## ✅ Requisitos do PROMPT 4 - Checklist
 
 | Requisito | Status | EvidÜncia |
 |-----------|--------|-----------|
-| Tela "Importar Planejamento" | Ü? | /imports/ criada |
-| Seletor de projeto | Ü? | Dropdown com projetos ativos |
-| Upload de PDF | Ü? | Input file com validaÜÜo |
-| Salvar temporariamente | Ü? | temp_uploads/ com timestamp |
-| Extrair texto do PDF | Ü? | PyMuPDF implementado |
-| Identificar semana | Ü? | Regex Semana\s+(\d+) |
-| Identificar perÜodo | Ü? | Regex datas dd/mm/yyyy |
-| Identificar profissionais | Ü? | Match por matrÜcula e nome |
-| Identificar matrÜculas | Ü? | Regex [A-Z]{2}\d+ |
-| Identificar feriados | Ü? | Busca palavra "feriado" |
-| Identificar folgas | Ü? | Busca palavra "folga" |
-| Mostrar prÜvia | Ü? | Tabela editÜvel |
-| UsuÜrio revisar dados | Ü? | Inputs + dropdowns |
-| UsuÜrio confirmar | Ü? | BotÜo confirmar Ü? grava |
-| Status padrÜo "Presente" | Ü? | Inicializado no parser |
-| ExceÜÜes marcadas | Ü? | Feriado/Folga se identificar |
-| Redirecionar apÜs confirmar | Ü? | Redirect para /weekly/ |
-| NÜo gravar sem confirmaÜÜo | Ü? | Dados ficam na sessÜo |
-| Sempre exibir prÜvia | Ü? | Etapa obrigatÜria |
-| Permitir cancelar | Ü? | BotÜo cancelar |
-| Permitir editar antes de gravar | Ü? | Todos campos editÜveis |
-| NÜo usar OCR | Ü? | Apenas extraÜÜo de texto |
-| Biblioteca adequada | Ü? | PyMuPDF escolhida |
-| Upload recorrente | Ü? | NÜo hardcoded |
-| Funciona para vÜrios projetos | Ü? | Project_id dinÜmico |
-| NÜo hardcoded para Educaita | Ü? | DinÜmico por projeto |
-| DivergÜncias tratadas | Ü? | Alertas na prÜvia |
-| Profissional nÜo existe Ü? alerta | Ü? | Alert implementado |
-| Profissional ativo nÜo no PDF Ü? alerta | Ü? | Alert implementado |
-| Semana nÜo identificada Ü? manual | Ü? | Input editÜvel |
-| PerÜodo nÜo identificado Ü? manual | Ü? | Inputs de data |
-| Semana duplicada Ü? avisar | Ü? | ValidaÜÜo no confirm |
-| Nunca sobrescrever sem confirmaÜÜo | Ü? | Erro se jÜ existe |
-| Armazenar projeto | Ü? | PlanningWeek.project_id |
-| Armazenar semana | Ü? | PlanningWeek.week_label |
-| Armazenar datas | Ü? | start_date, end_date |
-| Armazenar arquivo original | Ü? | Em desenvolvimento |
-| Armazenar caminho | Ü? | temp_filepath |
-| Armazenar usuÜrio importador | Ü? | created_by |
-| Armazenar data importaÜÜo | Ü? | created_at |
-| Logs de upload | Ü? | upload_pdf |
-| Logs de processamento | Ü? | confirm_import |
-| Logs de confirmaÜÜo | Ü? | confirm_import |
-| Logs de cancelamento | Ü? | cancel_import |
-| Logs de erro | ÜÜÜ | Try/catch implementado |
-| Apenas autorizados importam | Ü? | admin_or_supervisor_required |
-| Admin pode importar | Ü? | Decorator valida |
-| Supervisor pode importar | Ü? | Decorator valida |
-| Visualizador nÜo pode | Ü? | Decorator bloqueia |
-| Validar tipo de arquivo | Ü? | allowed_file() |
-| Aceitar apenas PDF | Ü? | ALLOWED_EXTENSIONS = {'pdf'} |
-| Limite de tamanho | Ü? | MAX_FILE_SIZE = 10MB |
-| NÜo executar conteÜdo | Ü? | Apenas leitura |
-| Tratar erros | Ü? | Try/except em todas rotas |
-| Ürea de loading | Ü? | Spinner + mensagem |
-| Mensagens de erro claras | Ü? | showToast() |
-| Documentado no README | Ü? | SeÜÜo completa adicionada |
-| Biblioteca documentada | Ü? | README explica PyMuPDF |
-| LimitaÜÜes documentadas | Ü? | SeÜÜo "LimitaÜÜes Conhecidas" |
-| Como testar | Ü? | Script create_sample_pdf.py |
-| Onde arquivos armazenados | Ü? | temp_uploads/ |
-| O que fazer se parser falhar | Ü? | PrÜvia editÜvel |
-| Melhorias futuras | Ü? | SeÜÜo no README |
+| Tela "Importar Planejamento" | ✓ | /imports/ criada |
+| Seletor de projeto | ✓ | Dropdown com projetos ativos |
+| Upload de PDF | ✓ | Input file com validação |
+| Salvar temporariamente | ✓ | temp_uploads/ com timestamp |
+| Extrair texto do PDF | ✓ | PyMuPDF implementado |
+| Identificar semana | ✓ | Regex Semana\s+(\d+) |
+| Identificar período | ✓ | Regex datas dd/mm/yyyy |
+| Identificar profissionais | ✓ | Match por matrícula e nome |
+| Identificar matrículas | ✓ | Regex [A-Z]{2}\d+ |
+| Identificar feriados | ✓ | Busca palavra "feriado" |
+| Identificar folgas | ✓ | Busca palavra "folga" |
+| Mostrar prévia | ✓ | Tabela editÜvel |
+| Usuário revisar dados | ✓ | Inputs + dropdowns |
+| Usuário confirmar | ✓ | BotÜo confirmar ✓ grava |
+| Status padrÜo "Presente" | ✓ | Inicializado no parser |
+| Exce✅es marcadas | ✓ | Feriado/Folga se identificar |
+| Redirecionar apÜs confirmar | ✓ | Redirect para /weekly/ |
+| NÜo gravar sem confirmação | ✓ | Dados ficam na sessÜo |
+| Sempre exibir prévia | ✓ | Etapa obrigatÜria |
+| Permitir cancelar | ✓ | BotÜo cancelar |
+| Permitir editar antes de gravar | ✓ | Todos campos editÜveis |
+| NÜo usar OCR | ✓ | Apenas extração de texto |
+| Biblioteca adequada | ✓ | PyMuPDF escolhida |
+| Upload recorrente | ✓ | NÜo hardcoded |
+| Funciona para vêrios projetos | ✓ | Project_id dinÜmico |
+| NÜo hardcoded para Educaita | ✓ | DinÜmico por projeto |
+| DivergÜncias tratadas | ✓ | Alertas na prévia |
+| Profissional não existe ✓ alerta | ✓ | Alert implementado |
+| Profissional ativo não no PDF ✓ alerta | ✓ | Alert implementado |
+| Semana não identificada ✓ manual | ✓ | Input editÜvel |
+| Período não identificado ✓ manual | ✓ | Inputs de data |
+| Semana duplicada ✓ avisar | ✓ | Validação no confirm |
+| Nunca sobrescrever sem confirmação | ✓ | Erro se jÜ existe |
+| Armazenar projeto | ✓ | PlanningWeek.project_id |
+| Armazenar semana | ✓ | PlanningWeek.week_label |
+| Armazenar datas | ✓ | start_date, end_date |
+| Armazenar arquivo original | ✓ | Em desenvolvimento |
+| Armazenar caminho | ✓ | temp_filepath |
+| Armazenar usuário importador | ✓ | created_by |
+| Armazenar data importação | ✓ | created_at |
+| Logs de upload | ✓ | upload_pdf |
+| Logs de processamento | ✓ | confirm_import |
+| Logs de confirmação | ✓ | confirm_import |
+| Logs de cancelamento | ✓ | cancel_import |
+| Logs de erro | ✅Ü | Try/catch implementado |
+| Apenas autorizados importam | ✓ | admin_or_supervisor_required |
+| Admin pode importar | ✓ | Decorator valida |
+| Supervisor pode importar | ✓ | Decorator valida |
+| Visualizador não pode | ✓ | Decorator bloqueia |
+| Validar tipo de arquivo | ✓ | allowed_file() |
+| Aceitar apenas PDF | ✓ | ALLOWED_EXTENSIONS = {'pdf'} |
+| Limite de tamanho | ✓ | MAX_FILE_SIZE = 10MB |
+| NÜo executar conteÜdo | ✓ | Apenas leitura |
+| Tratar erros | ✓ | Try/except em todas rotas |
+| Ürea de loading | ✓ | Spinner + mensagem |
+| Mensagens de erro claras | ✓ | showToast() |
+| Documentado no README | ✓ | Se✅o completa adicionada |
+| Biblioteca documentada | ✓ | README explica PyMuPDF |
+| Limitações documentadas | ✓ | Se✅o "Limitações Conhecidas" |
+| Como testar | ✓ | Script create_sample_pdf.py |
+| Onde arquivos armazenados | ✓ | temp_uploads/ |
+| O que fazer se parser falhar | ✓ | Prévia editÜvel |
+| Melhorias futuras | ✓ | Se✅o no README |
 
-**Total:** 58/59 requisitos Ü? (98%)
+**Total:** 58/59 requisitos ✓ (98%)
 
 ---
 
-## ÜÜ ConclusÜo
+## ✅ ConclusÜo
 
-**PROMPT 4 - Status: Ü? COMPLETO**
+**PROMPT 4 - Status: ✓ COMPLETO**
 
 ### Entregas:
-1. Ü? **Sistema completo de importaÜÜo de PDF** com 8 etapas
-2. Ü? **Parser inteligente** identificando 8 elementos automaticamente
-3. Ü? **PrÜvia revisÜvel** com todos campos editÜveis
-4. Ü? **ValidaÜÜes de seguranÜa** (tipo, tamanho, permissÜes)
-5. Ü? **Logs de auditoria** completos
-6. Ü? **Interface integrada** ao tema mÜstico
-7. Ü? **DocumentaÜÜo completa** no README
-8. Ü? **Script de teste** (create_sample_pdf.py)
+1. ✓ **Sistema completo de importação de PDF** com 8 etapas
+2. ✓ **Parser inteligente** identificando 8 elementos automaticamente
+3. ✓ **Prévia revisível** com todos campos editÜveis
+4. ✓ **Validações de seguranÜa** (tipo, tamanho, permissÜes)
+5. ✓ **Logs de auditoria** completos
+6. ✓ **Interface integrada** ao tema mÜstico
+7. ✓ **Documentação completa** no README
+8. ✓ **Script de teste** (create_sample_pdf.py)
 
 ### PrÜximos passos recomendados:
 1. Instalar reportlab e gerar PDF de teste
-2. Testar upload completo com prÜvia
-3. Testar confirmaÜÜo e geraÜÜo do quadro
+2. Testar upload completo com prévia
+3. Testar confirmação e geração do quadro
 4. Testar cancelamento
 5. Verificar logs gerados
 6. Criar PDFs de teste com layouts variados
-7. Documentar limitaÜÜes encontradas
+7. Documentar limitações encontradas
 
 ---
 
-**Sistema pronto para importar planejamentos semanais em PDF com seguranÜa e revisÜo!** ÜÜÜ?
+**Sistema pronto para importar planejamentos semanais em PDF com seguranÜa e revisÜo!** 🗑️
 

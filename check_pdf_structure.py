@@ -11,7 +11,7 @@ if pdf_files:
     # Procurar por dias da semana
     print('=== ESTRUTURA DO PDF ===\n')
     
-    days = ['Segunda-feira', 'TerÜa-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira']
+    days = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira']
     
     for day in days:
         if day in text:
