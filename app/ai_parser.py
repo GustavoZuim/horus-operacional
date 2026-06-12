@@ -240,45 +240,63 @@ class PlanningAIParser:
             doc.close()
             return activities_by_day
         
-        # 2. Tipos de cards
-        activity_types = [
-            'Elaboração de Relatórios',
-            'Organização Cadastral',
-            'Vistoria à Unidade',
-            'Teste de Funcionalidade',
-            'Ação de Formação e Treinamento'
-        ]
+        # 2. Mapeamento de patterns (flexível) para tipos normalizados (fixos)
+        # Chave: pattern a buscar (case-insensitive), Valor: tipo a salvar
+        pattern_to_type = {
+            'elaboração de relatórios': 'Elaboração de Relatórios',
+            'elaboracao de relatorios': 'Elaboração de Relatórios',
+            'organização de cadastros': 'Organização Cadastral',
+            'organizacao de cadastros': 'Organização Cadastral',
+            'organização cadastral': 'Organização Cadastral',
+            'organizacao cadastral': 'Organização Cadastral',
+            'vistoria à unidade': 'Vistoria à Unidade',
+            'vistoria a unidade': 'Vistoria à Unidade',
+            'vistoria à setores': 'Vistoria à Unidade',
+            'vistoria a setores': 'Vistoria à Unidade',
+            'teste de funcionalidade': 'Teste de Funcionalidade',
+            'ação de formação': 'Ação de Formação e Treinamento',
+            'acao de formacao': 'Ação de Formação e Treinamento',
+            'reconhecimento facial': 'Reconhecimento Facial',
+            'monitoramento': 'Monitoramento'
+        }
         
         # 3. Detectar TODOS os cards e mapear para dia mais próximo
-    y_threshold = 80  # Threshold mais baixo para pegar todos os cards
+        y_threshold = 80  # Threshold mais baixo para pegar todos os cards
         
         for block in blocks:
             if block['type'] == 0:
                 for line in block['lines']:
                     for span in line['spans']:
                         text = span['text'].strip()
+                        text_lower = text.lower()  # Case-insensitive
                         x = span['bbox'][0]
                         y = span['bbox'][1]
                         
                         if y > y_threshold:
-                            for act_type in activity_types:
-                                if act_type in text:
-                                    # Determinar qual cabeçalho de dia está mais próximo
-                                    closest_day = None
-                                    min_distance = float('inf')
-                                    
-                                    for day, header_x in day_headers.items():
-                                        distance = abs(x - header_x)
-                                        if distance < min_distance:
-                                            min_distance = distance
-                                            closest_day = day
-                                    
-                                    if closest_day:
-                                        # Chave única para evitar duplicatas exatas
-                                        card_key = f"{closest_day}_{act_type}_{int(y)}"
-                                        if card_key not in detected_cards:
-                                            activities_by_day[closest_day].append(act_type)
-                                            detected_cards[card_key] = True
+                            # Buscar pattern que faça match
+                            matched_type = None
+                            for pattern, normalized_type in pattern_to_type.items():
+                                if pattern in text_lower:
+                                    matched_type = normalized_type
+                                    break  # Primeiro match vence
+                            
+                            if matched_type:
+                                # Determinar qual cabeçalho de dia está mais próximo
+                                closest_day = None
+                                min_distance = float('inf')
+                                
+                                for day, header_x in day_headers.items():
+                                    distance = abs(x - header_x)
+                                    if distance < min_distance:
+                                        min_distance = distance
+                                        closest_day = day
+                                
+                                if closest_day:
+                                    # Chave única para evitar duplicatas (usa tipo normalizado)
+                                    card_key = f"{closest_day}_{matched_type}_{int(y)}"
+                                    if card_key not in detected_cards:
+                                        activities_by_day[closest_day].append(matched_type)
+                                        detected_cards[card_key] = True
         
         doc.close()
         return activities_by_day
