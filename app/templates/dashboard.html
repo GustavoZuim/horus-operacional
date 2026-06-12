@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Home - H??rus Operacional{% endblock %}
+{% block title %}Home - Hórus Operacional{% endblock %}
 
 {% block page_header %}
 <div class="kicker">Bem-vindo ao sistema</div>
 <h1><i class="bi bi-house-door"></i> Painel de Controle</h1>
 <p class="lead-small">
-  Acesse rapidamente as funcionalidades do sistema <strong>H??rus Operacional</strong>.
+  Acesse rapidamente as funcionalidades do sistema <strong>Hórus Operacional</strong>.
 </p>
 {% endblock %}
 
@@ -112,14 +112,14 @@
     </a>
   </div>
   
-  <!-- Usu??rios -->
+  <!-- Usuários -->
   <div class="col-lg-4 col-md-6">
     <a href="{{ url_for('users.index') }}" class="card mystic-card card-hover text-decoration-none">
       <div class="card-body text-center">
         <div class="mb-3">
           <i class="bi bi-person-lock" style="font-size: 3rem; color: var(--mystic-indigo);"></i>
         </div>
-        <h5 class="card-title">Usu??rios</h5>
+        <h5 class="card-title">Usuários</h5>
         <p class="card-text text-muted">
           Gerencie usu??rios e permiss??es do sistema
         </p>
@@ -195,7 +195,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <p class="text-muted mb-1">Usu??rios Cadastrados</p>
+            <p class="text-muted mb-1">Usuários Cadastrados</p>
             <h3 class="mb-0">{{ stats.total_users }}</h3>
           </div>
           <i class="bi bi-person-check" style="font-size: 2.5rem; color: var(--eye-teal); opacity: 0.3;"></i>
