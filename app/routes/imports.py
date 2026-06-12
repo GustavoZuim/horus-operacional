@@ -320,10 +320,38 @@ def confirm():
         db.session.flush()  # Para obter o ID
         
         # Criar WeeklyAttendance para cada profissional
+        # AUTO-CADASTRAR profissionais novos se não existirem
         for prof_data in professionals_data:
+            prof_id = prof_data.get('id')
+            
+            # Se não tem ID, é um profissional novo - criar automaticamente
+            if not prof_id:
+                new_professional = Professional(
+                    name=prof_data['name'],
+                    registration=prof_data['registration'],
+                    project_id=project_id
+                )
+                db.session.add(new_professional)
+                db.session.flush()  # Para obter o ID
+                prof_id = new_professional.id
+                
+                # Log do cadastro automático
+                auto_log = AuditLog(
+                    user_id=current_user.id,
+                    action='auto_create_professional',
+                    entity='professional',
+                    entity_id=prof_id,
+                    details=json.dumps({
+                        'name': prof_data['name'],
+                        'registration': prof_data['registration'],
+                        'source': 'pdf_import'
+                    })
+                )
+                db.session.add(auto_log)
+            
             attendance = WeeklyAttendance(
                 project_id=project_id,
-                professional_id=prof_data['id'],
+                professional_id=prof_id,
                 planning_week_id=planning_week.id,
                 monday_status=prof_data.get('monday', 'Presente'),
                 monday_activities=prof_data.get('monday_activities', ''),

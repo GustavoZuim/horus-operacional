@@ -189,7 +189,17 @@ class PlanningAIParser:
         return unique
     
     def extract_activities_by_day(self, page_text: str) -> Dict[str, List[str]]:
-        """Extrai atividades agrupadas POR DIA da semana"""
+        """DEPRECADO - use extract_activities_by_day_v3"""
+        return {'monday': [], 'tuesday': [], 'wednesday': [], 'thursday': [], 'friday': []}
+    
+    def extract_activities_by_day_v3(self, page_num: int) -> Dict[str, List[str]]:
+        """Extrai atividades usando coordenadas X/Y - conta CARDS, não linhas
+        
+        ESTRATÉGIA FINAL:
+        - Detecta posições X dos cabeçalhos dos dias
+        - Detecta cards pelos cabeçalhos de tipo
+        - Para cada card, determina qual cabeçalho de dia está mais próximo
+        """
         activities_by_day = {
             'monday': [],
             'tuesday': [],
@@ -198,52 +208,79 @@ class PlanningAIParser:
             'friday': []
         }
         
-        lines = [l.strip() for l in page_text.split('\n') if l.strip()]
+        doc = fitz.open(self.pdf_path)
+        if page_num >= len(doc):
+            doc.close()
+            return activities_by_day
         
-        # Detectar cabeçalhos dos dias
-        day_patterns = {
-            'monday': [r'Segunda-feira', r'Segunda\s+feira', r'15/06'],
-            'tuesday': [r'Terça-feira', r'Terca-feira', r'Ter[çc]a\s+feira', r'16/06'],
-            'wednesday': [r'Quarta-feira', r'Quarta\s+feira', r'17/06'],
-            'thursday': [r'Quinta-feira', r'Quinta\s+feira', r'18/06'],
-            'friday': [r'Sexta-feira', r'Sexta\s+feira', r'19/06']
-        }
+        page = doc[page_num]
+        blocks = page.get_text("dict")["blocks"]
         
-        # Palavras-chave que indicam atividades
-        activity_keywords = ['organização', 'teste', 'formação', 'treinamento', 'elaboração', 
-                            'relatório', 'vistoria', 'suporte', 'reunião', 'desenvolvimento',
-                            'atendimento', 'manutenção', 'análise', 'documentação', 'auditoria',
-                            'levantamento', 'weekly', 'abertura', 'fechamento', 'controle']
+        # 1. Detectar posições X dos cabeçalhos dos dias
+        day_headers = {}
+        for block in blocks:
+            if block['type'] == 0:
+                for line in block['lines']:
+                    for span in line['spans']:
+                        text = span['text'].strip()
+                        x = span['bbox'][0]
+                        
+                        if 'Segunda-feira' in text:
+                            day_headers['monday'] = x
+                        elif 'Terça-feira' in text or 'Terca-feira' in text:
+                            day_headers['tuesday'] = x
+                        elif 'Quarta-feira' in text:
+                            day_headers['wednesday'] = x
+                        elif 'Quinta-feira' in text:
+                            day_headers['thursday'] = x
+                        elif 'Sexta-feira' in text:
+                            day_headers['friday'] = x
         
-        current_day = None
+        if not day_headers:
+            doc.close()
+            return activities_by_day
         
-        for i, line in enumerate(lines):
-            # Verificar se a linha é um cabeçalho de dia
-            for day, patterns in day_patterns.items():
-                for pattern in patterns:
-                    if re.search(pattern, line, re.IGNORECASE):
-                        current_day = day
-                        break
-                if current_day == day:
-                    break
-            
-            # Se estamos dentro de um dia, coletar atividades
-            if current_day:
-                line_lower = line.lower()
-                # Verificar se é uma atividade (não é cabeçalho, data, horário, etc.)
-                if (any(kw in line_lower for kw in activity_keywords) and 
-                    10 < len(line) < 200 and
-                    not re.search(r'^\d{2}/\d{2}$', line) and  # Não é data
-                    not re.search(r'^\d{2}:\d{2}$', line) and  # Não é horário
-                    not re.search(r'Horário|Matricula|Cargo|pág\.|Semana', line, re.IGNORECASE)):
-                    
-                    # Limpar
-                    clean = re.sub(r'^\s*[•\-\*]\s*', '', line)
-                    clean = re.sub(r'\s+', ' ', clean).strip()
-                    
-                    if clean and clean not in activities_by_day[current_day]:
-                        activities_by_day[current_day].append(clean)
+        # 2. Tipos de cards
+        activity_types = [
+            'Elaboração de Relatórios',
+            'Organização Cadastral',
+            'Vistoria à Unidade',
+            'Teste de Funcionalidade',
+            'Ação de Formação e Treinamento'
+        ]
         
+        # 3. Detectar TODOS os cards e mapear para dia mais próximo
+    y_threshold = 80  # Threshold mais baixo para pegar todos os cards
+        
+        for block in blocks:
+            if block['type'] == 0:
+                for line in block['lines']:
+                    for span in line['spans']:
+                        text = span['text'].strip()
+                        x = span['bbox'][0]
+                        y = span['bbox'][1]
+                        
+                        if y > y_threshold:
+                            for act_type in activity_types:
+                                if act_type in text:
+                                    # Determinar qual cabeçalho de dia está mais próximo
+                                    closest_day = None
+                                    min_distance = float('inf')
+                                    
+                                    for day, header_x in day_headers.items():
+                                        distance = abs(x - header_x)
+                                        if distance < min_distance:
+                                            min_distance = distance
+                                            closest_day = day
+                                    
+                                    if closest_day:
+                                        # Chave única para evitar duplicatas exatas
+                                        card_key = f"{closest_day}_{act_type}_{int(y)}"
+                                        if card_key not in detected_cards:
+                                            activities_by_day[closest_day].append(act_type)
+                                            detected_cards[card_key] = True
+        
+        doc.close()
         return activities_by_day
     
     def extract_activities_simple(self, page_text: str) -> str:
@@ -285,8 +322,8 @@ class PlanningAIParser:
         for page_num, page_text in enumerate(self.pages_text):
             page_professionals = self.extract_professionals_from_page(page_text)
             
-            # Extrair atividades AGRUPADAS POR DIA
-            page_activities_by_day = self.extract_activities_by_day(page_text)
+            # Extrair atividades AGRUPADAS POR DIA usando coordenadas X/Y
+            page_activities_by_day = self.extract_activities_by_day_v3(page_num)
             
             if page_professionals:
                 # Página tem profissionais identificados
