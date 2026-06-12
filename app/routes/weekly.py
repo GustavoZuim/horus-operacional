@@ -76,8 +76,8 @@ def load_board():
         total_valid += valid_days
         total_present += present_days
         total_falta_j += statuses.count('Falta justificada')
-        total_falta_nj += statuses.count('Falta n??o justificada')
-        total_saida += statuses.count('Sa??da antecipada')
+        total_falta_nj += statuses.count('Falta nÜo justificada')
+        total_saida += statuses.count('SaÜda antecipada')
         total_realoc += statuses.count('Realocado')
         total_feriados += statuses.count('Feriado')
         
@@ -105,7 +105,7 @@ def load_board():
             'attendance_rate': round(attendance_rate, 1)
         })
     
-    # Taxa de assiduidade m??dia (m??dia das taxas individuais)
+    # Taxa de assiduidade mÜdia (mÜdia das taxas individuais)
     individual_rates = [att['attendance_rate'] for att in attendance_data if att['attendance_rate'] > 0]
     avg_rate = sum(individual_rates) / len(individual_rates) if individual_rates else None
     
@@ -143,7 +143,7 @@ def load_board():
 def save_board():
     """API: Salvar alterações do quadro"""
     if not current_user.is_supervisor():
-        return jsonify({'error': 'Permiss??o negada'}), 403
+        return jsonify({'error': 'PermissÜo negada'}), 403
     
     data = request.get_json()
     week_id = data.get('week_id')
@@ -216,7 +216,7 @@ def save_board():
 def generate_planning():
     """API: Gerar planejamento semanal"""
     if not current_user.is_supervisor():
-        return jsonify({'error': 'Permiss??o negada'}), 403
+        return jsonify({'error': 'PermissÜo negada'}), 403
     
     data = request.get_json()
     project_id = data.get('project_id')
@@ -237,14 +237,14 @@ def generate_planning():
     if start_date.weekday() != 0 or end_date.weekday() != 4:
         return jsonify({'error': 'Deve ser segunda a sexta-feira'}), 400
     
-    # Verificar se j?? existe
+    # Verificar se jÜ existe
     existing = PlanningWeek.query.filter_by(
         project_id=project_id,
         start_date=start_date
     ).first()
     
     if existing:
-        return jsonify({'error': 'Planejamento j?? existe para esta semana'}), 400
+        return jsonify({'error': 'Planejamento jÜ existe para esta semana'}), 400
     
     # Criar planejamento
     week = PlanningWeek(
@@ -306,7 +306,7 @@ def generate_planning():
 def apply_holiday():
     """API: Aplicar feriado em um dia da semana"""
     if not current_user.is_supervisor():
-        return jsonify({'error': 'Permiss??o negada'}), 403
+        return jsonify({'error': 'PermissÜo negada'}), 403
     
     data = request.get_json()
     week_id = data.get('week_id')
@@ -333,14 +333,14 @@ def apply_holiday():
     column, offset = weekday_map[weekday]
     holiday_date = week.start_date + timedelta(days=offset)
     
-    # Verificar se j?? existe
+    # Verificar se jÜ existe
     existing = Holiday.query.filter_by(
         planning_week_id=week_id,
         date=holiday_date
     ).first()
     
     if existing:
-        return jsonify({'error': 'Feriado j?? aplicado neste dia'}), 400
+        return jsonify({'error': 'Feriado jÜ aplicado neste dia'}), 400
     
     # Criar feriado
     holiday = Holiday(
@@ -387,7 +387,7 @@ def apply_holiday():
 def remove_holiday():
     """API: Remover feriado"""
     if not current_user.is_supervisor():
-        return jsonify({'error': 'Permiss??o negada'}), 403
+        return jsonify({'error': 'PermissÜo negada'}), 403
     
     data = request.get_json()
     holiday_id = data.get('holiday_id')
@@ -444,7 +444,7 @@ def export_csv():
     week_id = request.args.get('week_id', type=int)
     
     if not week_id:
-        flash('Semana n??o especificada.', 'danger')
+        flash('Semana nÜo especificada.', 'danger')
         return redirect(url_for('weekly.index'))
     
     week = PlanningWeek.query.get_or_404(week_id)
@@ -454,17 +454,17 @@ def export_csv():
     output = StringIO()
     writer = csv.writer(output)
     
-    # Cabe??alho
+    # CabeÜalho
     writer.writerow([
         'Profissional',
         'Matrícula',
         f'Segunda ({week.start_date.strftime("%d/%m")})',
-        f'Ter??a ({(week.start_date + timedelta(days=1)).strftime("%d/%m")})',
+        f'TerÜa ({(week.start_date + timedelta(days=1)).strftime("%d/%m")})',
         f'Quarta ({(week.start_date + timedelta(days=2)).strftime("%d/%m")})',
         f'Quinta ({(week.start_date + timedelta(days=3)).strftime("%d/%m")})',
         f'Sexta ({week.end_date.strftime("%d/%m")})',
         'Observações',
-        'Dias V??lidos',
+        'Dias VÜlidos',
         'Dias Presentes',
         'Taxa (%)'
     ])

@@ -1,12 +1,12 @@
-# ???? Guia de In??cio R??pido - H??rus Operacional
+# ÜÜ Guia de InÜcio RÜpido - HÜrus Operacional
 
-Este guia assume que voc?? j?? tem Python 3.13+ instalado no Windows.
+Este guia assume que vocÜ jÜ tem Python 3.13+ instalado no Windows.
 
 ---
 
-## ??? Instala????o R??pida (5 minutos)
+## Ü? InstalaÜÜo RÜpida (5 minutos)
 
-### 1. Abra o PowerShell no diret??rio do projeto
+### 1. Abra o PowerShell no diretÜrio do projeto
 
 ```powershell
 cd C:\Users\Gustavo\Desktop\horus-operacional
@@ -32,13 +32,13 @@ http://localhost:5000
 
 ---
 
-## ???? Credenciais de Acesso
+## ÜÜ Credenciais de Acesso
 
 ### Admin (Acesso completo)
 - **Email:** `admin@example.com`
 - **Senha:** `admin123`
 
-### Supervisor (Pode editar presen??as)
+### Supervisor (Pode editar presenÜas)
 - **Email:** `nathani@example.com`
 - **Senha:** `nathani123`
 
@@ -48,13 +48,13 @@ http://localhost:5000
 
 ---
 
-## ???? Primeiro Uso
+## ÜÜ Primeiro Uso
 
-### 1. Fa??a login como Admin
+### 1. FaÜa login como Admin
 
 Use as credenciais acima.
 
-### 2. V?? para o Quadro Semanal
+### 2. VÜ para o Quadro Semanal
 
 Clique em "Quadro Semanal" no menu lateral.
 
@@ -64,48 +64,48 @@ Escolha **"Educaita"** no dropdown.
 
 ### 4. Selecione a semana
 
-Escolha **"Semana 25 ?? 15/06 a 19/06"**.
+Escolha **"Semana 25 Ü 15/06 a 19/06"**.
 
 ### 5. Clique em "Carregar"
 
-O quadro ser?? preenchido com todos os profissionais come??ando como "Presente".
+O quadro serÜ preenchido com todos os profissionais comeÜando como "Presente".
 
-### 6. Altere uma presen??a
+### 6. Altere uma presenÜa
 
-Clique em qualquer dropdown e mude para "Falta justificada", "Sa??da antecipada", etc.
+Clique em qualquer dropdown e mude para "Falta justificada", "SaÜda antecipada", etc.
 
-### 7. Salve as altera????es
+### 7. Salve as alteraÜÜes
 
-Clique em **"Salvar vig??lia"** no topo.
+Clique em **"Salvar vigÜlia"** no topo.
 
 ### 8. Veja os indicadores atualizarem
 
-A assiduidade ser?? recalculada automaticamente!
+A assiduidade serÜ recalculada automaticamente!
 
 ---
 
-## ???? Aplicar um Feriado
+## ÜÜ Aplicar um Feriado
 
 1. No quadro semanal carregado, clique em **"Aplicar Feriado"**
 2. Selecione o dia da semana (ex: Quarta-feira)
-3. Digite uma descri????o (ex: "Corpus Christi")
+3. Digite uma descriÜÜo (ex: "Corpus Christi")
 4. Clique em **"Aplicar"**
-5. Todos os profissionais ser??o marcados como "Feriado" naquele dia
-6. Os indicadores ser??o recalculados
+5. Todos os profissionais serÜo marcados como "Feriado" naquele dia
+6. Os indicadores serÜo recalculados
 
 ---
 
-## ???? Exportar para CSV
+## ÜÜ Exportar para CSV
 
 1. Com o quadro carregado, clique em **"Exportar CSV"**
-2. Um arquivo `.csv` ser?? baixado
-3. Abra no Excel ou Google Sheets para an??lise
+2. Um arquivo `.csv` serÜ baixado
+3. Abra no Excel ou Google Sheets para anÜlise
 
 ---
 
-## ???? Resetar Banco de Dados
+## ÜÜ Resetar Banco de Dados
 
-Se quiser resetar tudo e come??ar do zero:
+Se quiser resetar tudo e comeÜar do zero:
 
 ```powershell
 # Ative o ambiente virtual
@@ -127,7 +127,7 @@ python
 
 ---
 
-## ???? Estrutura de Dados Inicial
+## ÜÜ Estrutura de Dados Inicial
 
 ### Projeto: Educaita
 - **Tipo:** Consultoria
@@ -135,24 +135,24 @@ python
 - **Status:** Ativo
 
 ### Profissionais:
-1. **Andr?? Luiz Guimar??es** (Matr??cula: MI34)
-2. **Gustavo Zuim** (Matr??cula: MI10)
-3. **Nathani** (Matr??cula: MI11)
+1. **AndrÜ Luiz GuimarÜes** (MatrÜcula: MI34)
+2. **Gustavo Zuim** (MatrÜcula: MI10)
+3. **Nathani** (MatrÜcula: MI11)
 
 ### Semana 25:
-- **Per??odo:** 15/06/2026 a 19/06/2026
+- **PerÜodo:** 15/06/2026 a 19/06/2026
 - **Label:** Semana 25
-- **Status:** Todos come??am "Presente"
+- **Status:** Todos comeÜam "Presente"
 
 ---
 
-## ??? Perguntas Frequentes
+## Ü? Perguntas Frequentes
 
 ### Como adicionar um novo profissional?
 
-1. V?? para **"Profissionais"** no menu
+1. VÜ para **"Profissionais"** no menu
 2. Clique em **"Novo Profissional"**
-3. Preencha nome, matr??cula e selecione o projeto
+3. Preencha nome, matrÜcula e selecione o projeto
 4. Salve
 
 ### Como criar uma nova semana?
@@ -160,50 +160,50 @@ python
 1. No Quadro Semanal, clique em **"Gerar Planejamento"**
 2. Selecione o projeto
 3. Escolha uma semana futura
-4. Informe o r??tulo (ex: "Semana 26")
+4. Informe o rÜtulo (ex: "Semana 26")
 5. Clique em **"Gerar"**
-6. Todos os profissionais do projeto ser??o criados como "Presente"
+6. Todos os profissionais do projeto serÜo criados como "Presente"
 
 ### Como funciona a assiduidade?
 
 ```
-Assiduidade = (dias_presentes + sa??das_antecipadas * 0.5) / dias_v??lidos * 100
+Assiduidade = (dias_presentes + saÜdas_antecipadas * 0.5) / dias_vÜlidos * 100
 
-Dias v??lidos = Total de dias - (Feriados + Folgas + N??o planejados)
+Dias vÜlidos = Total de dias - (Feriados + Folgas + NÜo planejados)
 ```
 
 **Exemplo:**
-- Total: 15 dias (3 profissionais ?? 5 dias)
+- Total: 15 dias (3 profissionais Ü 5 dias)
 - 1 falta justificada
-- 3 feriados (1 dia ?? 3 profissionais)
-- Dias v??lidos: 15 - 3 = 12
+- 3 feriados (1 dia Ü 3 profissionais)
+- Dias vÜlidos: 15 - 3 = 12
 - Dias presentes: 11
-- Assiduidade: (11 / 12) ?? 100 = **91.67%**
+- Assiduidade: (11 / 12) Ü 100 = **91.67%**
 
-### Quais s??o os 8 status poss??veis?
+### Quais sÜo os 8 status possÜveis?
 
-1. ??? **Presente** ??? Profissional esteve presente o dia todo
-2. ???? **Falta justificada** ??? Atestado, licen??a, etc.
-3. ??? **Falta n??o justificada** ??? Aus??ncia sem justificativa
-4. ???? **Sa??da antecipada** ??? Saiu mais cedo (conta 0.5 dia)
-5. ???? **Realocado** ??? Transferido temporariamente para outro projeto
-6. ???? **Feriado** ??? Dia de feriado nacional/municipal
-7. ???? **Folga** ??? Dia de descanso programado
-8. ?????? **N??o planejado** ??? Profissional n??o estava escalado
+1. Ü? **Presente** Ü? Profissional esteve presente o dia todo
+2. ÜÜ **Falta justificada** Ü? Atestado, licenÜa, etc.
+3. Ü? **Falta nÜo justificada** Ü? AusÜncia sem justificativa
+4. ÜÜ **SaÜda antecipada** Ü? Saiu mais cedo (conta 0.5 dia)
+5. ÜÜ **Realocado** Ü? Transferido temporariamente para outro projeto
+6. ÜÜ **Feriado** Ü? Dia de feriado nacional/municipal
+7. ÜÜ **Folga** Ü? Dia de descanso programado
+8. ÜÜÜ **NÜo planejado** Ü? Profissional nÜo estava escalado
 
 ### Posso deletar uma semana?
 
-N??o no MVP atual. Para "desfazer" uma semana, voc?? pode:
-- Marcar todos como "N??o planejado"
+NÜo no MVP atual. Para "desfazer" uma semana, vocÜ pode:
+- Marcar todos como "NÜo planejado"
 - Ou resetar o banco de dados
 
 ---
 
-## ???? Problemas Comuns
+## ÜÜ Problemas Comuns
 
 ### Erro: "Address already in use"
 
-Outro processo est?? usando a porta 5000. Feche-o ou mude a porta em `run.py`:
+Outro processo estÜ usando a porta 5000. Feche-o ou mude a porta em `run.py`:
 
 ```python
 app.run(debug=True, host='0.0.0.0', port=5001)
@@ -211,37 +211,37 @@ app.run(debug=True, host='0.0.0.0', port=5001)
 
 ### Erro: "Can't open database file"
 
-O diret??rio `instance/` n??o existe. Crie-o:
+O diretÜrio `instance/` nÜo existe. Crie-o:
 
 ```powershell
 mkdir instance
 ```
 
-E recrie o banco de dados com os passos da se????o "Resetar Banco de Dados".
+E recrie o banco de dados com os passos da seÜÜo "Resetar Banco de Dados".
 
-### As mudan??as n??o est??o sendo salvas
+### As mudanÜas nÜo estÜo sendo salvas
 
 Verifique:
-1. Voc?? est?? logado como Admin ou Supervisor? (Visualizador n??o pode editar)
-2. Voc?? clicou em "Salvar vig??lia"?
+1. VocÜ estÜ logado como Admin ou Supervisor? (Visualizador nÜo pode editar)
+2. VocÜ clicou em "Salvar vigÜlia"?
 3. Veja o console do navegador (F12) para erros JavaScript
 
 ---
 
-## ???? Pr??ximos Passos
+## ÜÜ PrÜximos Passos
 
-Agora que voc?? j?? sabe usar o b??sico:
+Agora que vocÜ jÜ sabe usar o bÜsico:
 
-1. ??? Explore os outros menus (Usu??rios, Projetos, Profissionais)
-2. ??? Veja os **Logs de Auditoria** para ver todas as a????es registradas
-3. ??? Acesse **Indicadores** para ver relat??rios agregados
-4. ??? Teste com diferentes perfis (Admin, Supervisor, Visualizador)
-5. ??? Leia o [`README.md`](README.md) para arquitetura detalhada
-6. ??? Veja o [`TESTE_FUNCIONAL.md`](TESTE_FUNCIONAL.md) para testes validados
+1. Ü? Explore os outros menus (UsuÜrios, Projetos, Profissionais)
+2. Ü? Veja os **Logs de Auditoria** para ver todas as aÜÜes registradas
+3. Ü? Acesse **Indicadores** para ver relatÜrios agregados
+4. Ü? Teste com diferentes perfis (Admin, Supervisor, Visualizador)
+5. Ü? Leia o [`README.md`](README.md) para arquitetura detalhada
+6. Ü? Veja o [`TESTE_FUNCIONAL.md`](TESTE_FUNCIONAL.md) para testes validados
 
 ---
 
-## ???? Precisa de Ajuda?
+## ÜÜ Precisa de Ajuda?
 
 - **Email:** admin@example.com
 - **GitHub Issues:** [Criar issue](https://github.com/seu-usuario/horus-operacional/issues)
@@ -249,5 +249,5 @@ Agora que voc?? j?? sabe usar o b??sico:
 ---
 
 <div align="center">
-  <strong>Bom uso! ????</strong>
+  <strong>Bom uso! ÜÜ</strong>
 </div>

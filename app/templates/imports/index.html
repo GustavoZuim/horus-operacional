@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<!-- Etapa 2: Pr??via -->
+<!-- Etapa 2: PrÜvia -->
 <div id="step-preview" class="card mystic-card mb-4" style="display: none;">
     <div class="card-body">
         <h5 class="card-title"><i class="bi bi-eye"></i> 2. Revise a prévia antes de importar</h5>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <strong>Per??odo:</strong>
+                    <strong>PerÜodo:</strong>
                     <div class="d-flex gap-2">
                         <input type="date" class="form-control form-control-sm" id="info-start">
                         <input type="date" class="form-control form-control-sm" id="info-end">
@@ -113,12 +113,12 @@
         <!-- Alertas -->
         <div id="preview-alerts" style="display: none;"></div>
         
-        <!-- Profissionais n??o cadastrados -->
+        <!-- Profissionais nÜo cadastrados -->
         <div id="unregistered-section" class="alert alert-danger" style="display: none;">
             <h6 class="alert-heading">
-                <i class="bi bi-exclamation-triangle"></i> Profissionais n??o cadastrados no sistema
+                <i class="bi bi-exclamation-triangle"></i> Profissionais nÜo cadastrados no sistema
             </h6>
-            <p class="mb-3">Os seguintes profissionais foram identificados no PDF mas n??o est??o cadastrados no projeto:</p>
+            <p class="mb-3">Os seguintes profissionais foram identificados no PDF mas nÜo estÜo cadastrados no projeto:</p>
             <div id="unregistered-list" class="mb-3"></div>
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#quickRegisterModal">
                 <i class="bi bi-person-plus"></i> Cadastrar profissionais
@@ -133,11 +133,11 @@
                         <th>Profissional</th>
                         <th>Matrícula</th>
                         <th>Segunda</th>
-                        <th>Ter??a</th>
+                        <th>TerÜa</th>
                         <th>Quarta</th>
                         <th>Quinta</th>
                         <th>Sexta</th>
-                        <th>Observa????o</th>
+                        <th>ObservaÜÜo</th>
                     </tr>
                 </thead>
                 <tbody id="preview-tbody">
@@ -145,7 +145,7 @@
             </table>
         </div>
         
-        <!-- Bot??es de a????o -->
+        <!-- BotÜes de aÜÜo -->
         <div class="d-flex gap-2 justify-content-end">
             <button type="button" class="btn btn-secondary" id="btnCancel">
                 <i class="bi bi-x-circle"></i> Cancelar
@@ -183,12 +183,12 @@
 const statusOptions = [
     'Presente',
     'Falta justificada',
-    'Falta n??o justificada',
-    'Sa??da antecipada',
+    'Falta nÜo justificada',
+    'SaÜda antecipada',
     'Realocado',
     'Feriado',
     'Folga',
-    'N??o planejado'
+    'NÜo planejado'
 ];
 
 let previewData = null;
@@ -246,13 +246,13 @@ function showPreview(data) {
     // Alertas
     if (data.alerts && data.alerts.length > 0) {
         const alertsDiv = document.getElementById('preview-alerts');
-        alertsDiv.innerHTML = '<div class="alert alert-warning"><strong>Aten????o:</strong><ul class="mb-0">' +
+        alertsDiv.innerHTML = '<div class="alert alert-warning"><strong>AtenÜÜo:</strong><ul class="mb-0">' +
             data.alerts.map(a => `<li>${a}</li>`).join('') +
             '</ul></div>';
         alertsDiv.style.display = 'block';
     }
     
-    // Profissionais n??o cadastrados
+    // Profissionais nÜo cadastrados
     if (data.unregistered && data.unregistered.length > 0) {
         unregisteredProfessionals = data.unregistered;
         
@@ -318,7 +318,7 @@ function renderDayCell(index, day, prof) {
 }
 
 function renderStatusSelect(index, day, currentValue) {
-    // Fun????o legada - agora usa renderDayCell
+    // FunÜÜo legada - agora usa renderDayCell
     const select = `<select class="form-select form-select-sm status-select" data-index="${index}" data-field="${day}">` +
         statusOptions.map(status => 
             `<option value="${status}" ${status === currentValue ? 'selected' : ''}>${status}</option>`
@@ -334,11 +334,11 @@ document.getElementById('btnConfirm').addEventListener('click', async () => {
     const endDate = document.getElementById('info-end').value;
     
     if (!weekLabel || !startDate || !endDate) {
-        showToast('Preencha semana e per??odo', 'warning');
+        showToast('Preencha semana e perÜodo', 'warning');
         return;
     }
     
-    // Coletar dados dos profissionais (com edi????es)
+    // Coletar dados dos profissionais (com ediÜÜes)
     const professionals = previewData.professionals.map((prof, index) => {
         return {
             id: prof.id,
@@ -358,7 +358,7 @@ document.getElementById('btnConfirm').addEventListener('click', async () => {
         };
     });
     
-    // Enviar confirma????o
+    // Enviar confirmaÜÜo
     try {
         const response = await fetch('/imports/confirm', {
             method: 'POST',
@@ -377,8 +377,8 @@ document.getElementById('btnConfirm').addEventListener('click', async () => {
         const data = await response.json();
         
         if (response.status === 409 && data.can_overwrite) {
-            // J?? existe semana - perguntar se quer sobrescrever
-            if (confirm(`${data.error}\n\nDeseja SOBRESCREVER a semana existente?\n\nATEN????O: Todos os dados anteriores ser??o perdidos!`)) {
+            // JÜ existe semana - perguntar se quer sobrescrever
+            if (confirm(`${data.error}\n\nDeseja SOBRESCREVER a semana existente?\n\nATENÜÜO: Todos os dados anteriores serÜo perdidos!`)) {
                 // Reenviar com flag de sobrescrever
                 const overwriteResponse = await fetch('/imports/confirm', {
                     method: 'POST',
@@ -457,7 +457,7 @@ document.getElementById('btnCancel').addEventListener('click', async () => {
                     </div>
                     <div class="alert alert-info">
                         <i class="bi bi-info-circle"></i> 
-                        O projeto ser?? criado com status Ativo
+                        O projeto serÜ criado com status Ativo
                     </div>
                 </form>
             </div>
@@ -527,13 +527,13 @@ document.getElementById('btnCreateProject')?.addEventListener('click', async () 
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p class="text-muted mb-3">Cadastre os profissionais n??o encontrados no sistema:</p>
+                <p class="text-muted mb-3">Cadastre os profissionais nÜo encontrados no sistema:</p>
                 <form id="quickRegisterForm">
                     <input type="hidden" id="quick-project-id">
                     <div id="quick-register-fields"></div>
                     <div class="alert alert-info mt-3">
                         <i class="bi bi-info-circle"></i> 
-                        Ap??s cadastrar, os profissionais aparecer??o automaticamente na prévia de importação.
+                        ApÜs cadastrar, os profissionais aparecerÜo automaticamente na prévia de importação.
                     </div>
                 </form>
             </div>
@@ -548,10 +548,10 @@ document.getElementById('btnCreateProject')?.addEventListener('click', async () 
 </div>
 
 <script>
-// Vari??veis globais para profissionais n??o cadastrados
+// VariÜveis globais para profissionais nÜo cadastrados
 let unregisteredProfessionals = [];
 
-// Abrir modal de cadastro r??pido
+// Abrir modal de cadastro rÜpido
 document.getElementById('quickRegisterModal')?.addEventListener('show.bs.modal', function() {
     const projectId = document.getElementById('project_id').value;
     document.getElementById('quick-project-id').value = projectId;
@@ -596,7 +596,7 @@ document.getElementById('btnQuickRegister')?.addEventListener('click', async () 
         updates[index][field] = input.value;
     });
     
-    // Atualizar profissionais n??o cadastrados
+    // Atualizar profissionais nÜo cadastrados
     Object.keys(updates).forEach(index => {
         Object.assign(unregisteredProfessionals[index], updates[index]);
     });
@@ -627,7 +627,7 @@ document.getElementById('btnQuickRegister')?.addEventListener('click', async () 
         const modal = bootstrap.Modal.getInstance(document.getElementById('quickRegisterModal'));
         modal.hide();
         
-        // Ocultar seção de n??o cadastrados
+        // Ocultar seção de nÜo cadastrados
         document.getElementById('unregistered-section').style.display = 'none';
         
         // Recarregar prévia com profissionais cadastrados
@@ -639,7 +639,7 @@ document.getElementById('btnQuickRegister')?.addEventListener('click', async () 
 });
 
 async function reloadPreview() {
-    // Re-submeter o formul??rio para atualizar a prévia
+    // Re-submeter o formulÜrio para atualizar a prévia
     const projectId = document.getElementById('project_id').value;
     const fileInput = document.getElementById('pdf_file');
     

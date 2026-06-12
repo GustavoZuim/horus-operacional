@@ -5,7 +5,7 @@
 {% block page_header %}
 <div class="kicker">Relatórios</div>
 <h1>Indicadores de Assiduidade</h1>
-<p class="lead-small">Visualize métricas por per??odo, projeto ou profissional</p>
+<p class="lead-small">Visualize métricas por perÜodo, projeto ou profissional</p>
 {% endblock %}
 
 {% block content %}
@@ -69,7 +69,7 @@
     <div class="card-h metric">
       <div class="metric-icon"><i class="bi bi-calendar-check"></i></div>
       <div class="metric-value" id="globalValid">--</div>
-      <div class="metric-label">Dias V??lidos</div>
+      <div class="metric-label">Dias VÜlidos</div>
     </div>
   </div>
   <div class="col-md-3">
@@ -89,7 +89,7 @@
         <tr>
           <th>Profissional</th>
           <th>Matrícula</th>
-          <th class="text-center">Dias V??lidos</th>
+          <th class="text-center">Dias VÜlidos</th>
           <th class="text-center">Dias Presentes</th>
           <th class="text-center">Faltas J.</th>
           <th class="text-center">Faltas N.J.</th>
@@ -124,7 +124,7 @@ document.getElementById('applyFiltersBtn').addEventListener('click', async () =>
         const response = await fetch(`/reports/api/metrics?${params}`);
         const data = await response.json();
         
-        // M??tricas globais
+        // MÜtricas globais
         const g = data.global;
         document.getElementById('globalRate').textContent = g.rate ? `${g.rate}%` : 'N/A';
         document.getElementById('globalPresent').textContent = g.total_present;

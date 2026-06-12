@@ -10,12 +10,12 @@
 <div class="kicker">Controle operacional</div>
 <h1>Quadro Semanal</h1>
 <p class="lead-small">
-  Todos come??am como <strong>Presente</strong>. Altere apenas as exceções.
+  Todos comeÜam como <strong>Presente</strong>. Altere apenas as exceções.
 </p>
 {% endblock %}
 
 {% block content %}
-<!-- Filtros e A????es -->
+<!-- Filtros e AÜÜes -->
 <section class="card-h filters">
   <div class="row g-3 align-items-end">
     <div class="col-lg-3 col-md-6">
@@ -51,7 +51,7 @@
   </div>
 </section>
 
-<!-- M??tricas -->
+<!-- MÜtricas -->
 <section class="row g-3 mt-2" id="metricsSection" style="display: none;">
   <div class="col-xl-2 col-md-4 col-6">
     <div class="card-h metric">
@@ -81,7 +81,7 @@
     <div class="card-h metric">
       <div class="metric-icon"><i class="bi bi-exclamation-triangle"></i></div>
       <div class="metric-value" id="metricFaltaNJ">0</div>
-      <div class="metric-label">Faltas n??o justificadas</div>
+      <div class="metric-label">Faltas nÜo justificadas</div>
     </div>
   </div>
   
@@ -111,7 +111,7 @@
     </div>
     <div class="d-flex flex-wrap gap-2">
       <span class="status-pill bg-success-subtle text-success">
-        <i class="bi bi-check-circle me-1"></i> Padr??o: Presente
+        <i class="bi bi-check-circle me-1"></i> PadrÜo: Presente
       </span>
       {% if current_user.is_supervisor() %}
       <button class="btn btn-sm btn-outline-warning btn-round" data-bs-toggle="modal" data-bs-target="#holidayModal">
@@ -135,7 +135,7 @@
           <th style="min-width:200px">Profissional</th>
           <th>Matrícula</th>
           <th id="thMonday">Segunda</th>
-          <th id="thTuesday">Ter??a</th>
+          <th id="thTuesday">TerÜa</th>
           <th id="thWednesday">Quarta</th>
           <th id="thThursday">Quinta</th>
           <th id="thFriday">Sexta</th>
@@ -171,9 +171,9 @@
         {% if current_user.is_supervisor() %}
         1. Selecione um projeto<br>
         2. Selecione uma semana ou gere um novo planejamento<br>
-        3. Clique em "Carregar" para come??ar
+        3. Clique em "Carregar" para comeÜar
         {% else %}
-        Aguardando configura????o do supervisor...
+        Aguardando configuraÜÜo do supervisor...
         {% endif %}
       </div>
     </div>
@@ -249,7 +249,7 @@
             <select class="form-select" id="holidayWeekday" required>
               <option value="">Selecione</option>
               <option value="Monday">Segunda-feira</option>
-              <option value="Tuesday">Ter??a-feira</option>
+              <option value="Tuesday">TerÜa-feira</option>
               <option value="Wednesday">Quarta-feira</option>
               <option value="Thursday">Quinta-feira</option>
               <option value="Friday">Sexta-feira</option>

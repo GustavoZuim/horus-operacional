@@ -1,189 +1,189 @@
-# ???? MVP H??rus Operacional - Entrega Final
+# ÜÜ MVP HÜrus Operacional - Entrega Final
 
-## ??? Status: COMPLETO E FUNCIONAL
+## Ü? Status: COMPLETO E FUNCIONAL
 
 **Data de entrega:** 11/06/2026  
-**Vers??o:** 1.0 MVP  
+**VersÜo:** 1.0 MVP  
 **Desenvolvedor:** GitHub Copilot + Gustavo Zuim  
 
 ---
 
-## ???? O que foi constru??do
+## ÜÜ O que foi construÜdo
 
 ### 1. Sistema Web Completo
-- ??? 7 m??dulos funcionais (auth, weekly, users, projects, professionals, reports, logs)
-- ??? 12 templates HTML com Bootstrap 5.3
-- ??? 2 arquivos JavaScript interativos
-- ??? 1 stylesheet customizado
-- ??? Banco de dados SQLite com seed data
+- Ü? 7 mÜdulos funcionais (auth, weekly, users, projects, professionals, reports, logs)
+- Ü? 12 templates HTML com Bootstrap 5.3
+- Ü? 2 arquivos JavaScript interativos
+- Ü? 1 stylesheet customizado
+- Ü? Banco de dados SQLite com seed data
 
 ### 2. Funcionalidades Implementadas
 
-#### ???? Autentica????o
-- Login/Logout com sess??o
+#### ÜÜ AutenticaÜÜo
+- Login/Logout com sessÜo
 - 3 perfis (Admin, Supervisor, Visualizador)
 - Controle de acesso por rota
 
-#### ???? Quadro Semanal (Funcionalidade Principal)
-- Sele????o din??mica de projeto e semana
+#### ÜÜ Quadro Semanal (Funcionalidade Principal)
+- SeleÜÜo dinÜmica de projeto e semana
 - Carregamento AJAX do quadro
-- Edi????o inline de status (8 op????es)
-- Salvamento com tracking de mudan??as
+- EdiÜÜo inline de status (8 opÜÜes)
+- Salvamento com tracking de mudanÜas
 - Indicadores em tempo real:
-  - Assiduidade (com f??rmula ponderada)
-  - Contadores de faltas, realoca????es, feriados
+  - Assiduidade (com fÜrmula ponderada)
+  - Contadores de faltas, realocaÜÜes, feriados
   - Total de profissionais
 
-#### ???? Gest??o de Feriados
+#### ÜÜ GestÜo de Feriados
 - Aplicar feriado para toda a equipe
 - Remover feriado
-- Badge informativo com descri????o
-- Rec??lculo autom??tico de indicadores
+- Badge informativo com descriÜÜo
+- RecÜlculo automÜtico de indicadores
 
-#### ???? Gerar Planejamento
-- Criar nova semana de vig??lia
-- Todos os profissionais come??am "Presente"
-- Gera????o autom??tica de registros
+#### ÜÜ Gerar Planejamento
+- Criar nova semana de vigÜlia
+- Todos os profissionais comeÜam "Presente"
+- GeraÜÜo automÜtica de registros
 
-#### ???? CRUD Completo
-- **Usu??rios:** Create, Read, Update, Delete
+#### ÜÜ CRUD Completo
+- **UsuÜrios:** Create, Read, Update, Delete
 - **Projetos:** Create, Read, Update, Delete
 - **Profissionais:** Create, Read, Update, Delete
 
-#### ???? Relat??rios e Indicadores
-- Filtros por projeto, profissional e per??odo
-- Agrega????o de dados com m??tricas
+#### ÜÜ RelatÜrios e Indicadores
+- Filtros por projeto, profissional e perÜodo
+- AgregaÜÜo de dados com mÜtricas
 
-#### ???? Exporta????o
+#### ÜÜ ExportaÜÜo
 - Download CSV do quadro semanal
 
-#### ???? Logs de Auditoria
-- Todas as a????es registradas:
+#### ÜÜ Logs de Auditoria
+- Todas as aÜÜes registradas:
   - Login/Logout
   - Create/Update/Delete
-  - Aplica????o de feriados
-  - Exporta????o CSV
-- Filtros por usu??rio, a????o e entidade
+  - AplicaÜÜo de feriados
+  - ExportaÜÜo CSV
+- Filtros por usuÜrio, aÜÜo e entidade
 
 ---
 
-## ??????? Arquivos Criados/Modificados
+## ÜÜÜ? Arquivos Criados/Modificados
 
 ### Backend (Python/Flask)
 ```
 app/
-????????? __init__.py                  ??? Factory pattern
-????????? models.py                    ??? 6 modelos (User, Project, Professional, PlanningWeek, WeeklyAttendance, Holiday, AuditLog)
-????????? routes/
-???   ????????? auth.py                  ??? Login/Logout/Register
-???   ????????? weekly.py                ??? 7 endpoints (index, get_weeks, load, save, generate, apply_holiday, remove_holiday, export)
-???   ????????? users.py                 ??? CRUD usu??rios
-???   ????????? projects.py              ??? CRUD projetos
-???   ????????? professionals.py         ??? CRUD profissionais
-???   ????????? reports.py               ??? Indicadores com filtros
-???   ????????? logs.py                  ??? Visualiza????o de auditoria
-????????? utils/
-    ????????? init_data.py             ??? Seed database completo
+ÜÜÜÜ? __init__.py                  Ü? Factory pattern
+ÜÜÜÜ? models.py                    Ü? 6 modelos (User, Project, Professional, PlanningWeek, WeeklyAttendance, Holiday, AuditLog)
+ÜÜÜÜ? routes/
+Ü?   ÜÜÜÜ? auth.py                  Ü? Login/Logout/Register
+Ü?   ÜÜÜÜ? weekly.py                Ü? 7 endpoints (index, get_weeks, load, save, generate, apply_holiday, remove_holiday, export)
+Ü?   ÜÜÜÜ? users.py                 Ü? CRUD usuÜrios
+Ü?   ÜÜÜÜ? projects.py              Ü? CRUD projetos
+Ü?   ÜÜÜÜ? professionals.py         Ü? CRUD profissionais
+Ü?   ÜÜÜÜ? reports.py               Ü? Indicadores com filtros
+Ü?   ÜÜÜÜ? logs.py                  Ü? VisualizaÜÜo de auditoria
+ÜÜÜÜ? utils/
+    ÜÜÜÜ? init_data.py             Ü? Seed database completo
 ```
 
 ### Frontend (HTML/CSS/JS)
 ```
 app/templates/
-????????? base.html                    ??? Layout base com sidebar
-????????? home.html                    ??? Landing page
-????????? auth/
-???   ????????? login.html               ??? Formul??rio de login
-???   ????????? register.html            ??? Formul??rio de registro
-????????? weekly/
-???   ????????? index.html               ??? Quadro semanal + modais
-????????? users/
-???   ????????? index.html               ??? Lista de usu??rios
-???   ????????? form.html                ??? Criar/Editar usu??rio
-????????? projects/
-???   ????????? index.html               ??? Lista de projetos
-???   ????????? form.html                ??? Criar/Editar projeto
-????????? professionals/
-???   ????????? index.html               ??? Lista de profissionais
-???   ????????? form.html                ??? Criar/Editar profissional
-????????? reports/
-???   ????????? index.html               ??? Indicadores com filtros
-????????? logs/
-    ????????? index.html               ??? Logs de auditoria
+ÜÜÜÜ? base.html                    Ü? Layout base com sidebar
+ÜÜÜÜ? home.html                    Ü? Landing page
+ÜÜÜÜ? auth/
+Ü?   ÜÜÜÜ? login.html               Ü? FormulÜrio de login
+Ü?   ÜÜÜÜ? register.html            Ü? FormulÜrio de registro
+ÜÜÜÜ? weekly/
+Ü?   ÜÜÜÜ? index.html               Ü? Quadro semanal + modais
+ÜÜÜÜ? users/
+Ü?   ÜÜÜÜ? index.html               Ü? Lista de usuÜrios
+Ü?   ÜÜÜÜ? form.html                Ü? Criar/Editar usuÜrio
+ÜÜÜÜ? projects/
+Ü?   ÜÜÜÜ? index.html               Ü? Lista de projetos
+Ü?   ÜÜÜÜ? form.html                Ü? Criar/Editar projeto
+ÜÜÜÜ? professionals/
+Ü?   ÜÜÜÜ? index.html               Ü? Lista de profissionais
+Ü?   ÜÜÜÜ? form.html                Ü? Criar/Editar profissional
+ÜÜÜÜ? reports/
+Ü?   ÜÜÜÜ? index.html               Ü? Indicadores com filtros
+ÜÜÜÜ? logs/
+    ÜÜÜÜ? index.html               Ü? Logs de auditoria
 
 app/static/
-????????? css/
-???   ????????? horus.css                ??? 300+ linhas de estilos
-????????? js/
-    ????????? horus.js                 ??? Utilit??rios globais
-    ????????? weekly.js                ??? ~350 linhas l??gica do quadro
+ÜÜÜÜ? css/
+Ü?   ÜÜÜÜ? horus.css                Ü? 300+ linhas de estilos
+ÜÜÜÜ? js/
+    ÜÜÜÜ? horus.js                 Ü? UtilitÜrios globais
+    ÜÜÜÜ? weekly.js                Ü? ~350 linhas lÜgica do quadro
 ```
 
-### Documenta????o
+### DocumentaÜÜo
 ```
-???? README.md                     ??? Documenta????o completa do projeto
-???? QUICKSTART.md                 ??? Guia de in??cio r??pido
-???? TESTE_FUNCIONAL.md            ??? Relat??rio de testes validados
-???? requirements.txt              ??? Depend??ncias Python
-???? run.py                        ??? Entry point
+ÜÜ README.md                     Ü? DocumentaÜÜo completa do projeto
+ÜÜ QUICKSTART.md                 Ü? Guia de inÜcio rÜpido
+ÜÜ TESTE_FUNCIONAL.md            Ü? RelatÜrio de testes validados
+ÜÜ requirements.txt              Ü? DependÜncias Python
+ÜÜ run.py                        Ü? Entry point
 ```
 
 ---
 
-## ???? Testes Validados
+## ÜÜ Testes Validados
 
-### ??? Testes Automatizados Realizados
-1. ??? Login como Admin
-2. ??? Sele????o de projeto Educaita
-3. ??? Carregamento de Semana 25
-4. ??? Altera????o de status (Presente ??? Falta justificada)
-5. ??? Salvamento com persist??ncia
-6. ??? Recarga da p??gina com dados persistidos
-7. ??? Aplica????o de feriado (Corpus Christi na quarta-feira)
-8. ??? Rec??lculo de indicadores
-9. ??? Verifica????o de logs no terminal
+### Ü? Testes Automatizados Realizados
+1. Ü? Login como Admin
+2. Ü? SeleÜÜo de projeto Educaita
+3. Ü? Carregamento de Semana 25
+4. Ü? AlteraÜÜo de status (Presente Ü? Falta justificada)
+5. Ü? Salvamento com persistÜncia
+6. Ü? Recarga da pÜgina com dados persistidos
+7. Ü? AplicaÜÜo de feriado (Corpus Christi na quarta-feira)
+8. Ü? RecÜlculo de indicadores
+9. Ü? VerificaÜÜo de logs no terminal
 
-### ???? Resultados dos Testes
+### ÜÜ Resultados dos Testes
 - **Login:** 100% sucesso
 - **Carregamento:** 100% sucesso
-- **Edi????o:** 100% sucesso
-- **Persist??ncia:** 100% sucesso
-- **Feriados:** 100% sucesso (ap??s corre????o do bug JSON.dumps)
+- **EdiÜÜo:** 100% sucesso
+- **PersistÜncia:** 100% sucesso
+- **Feriados:** 100% sucesso (apÜs correÜÜo do bug JSON.dumps)
 - **Indicadores:** 100% precisos
 - **Performance:** Carregamento < 1s
 
-### ???? Bugs Encontrados e Corrigidos
-1. ??? Vari??vel Jinja2 em arquivo JS est??tico ??? Movido para inline script
-2. ??? JSON.dumps em JavaScript ??? Corrigido para JSON.stringify
+### ÜÜ Bugs Encontrados e Corrigidos
+1. Ü? VariÜvel Jinja2 em arquivo JS estÜtico Ü? Movido para inline script
+2. Ü? JSON.dumps em JavaScript Ü? Corrigido para JSON.stringify
 
 ---
 
-## ???? Indicadores Finais Validados
+## ÜÜ Indicadores Finais Validados
 
-Ap??s testes com 3 profissionais, 1 falta justificada e 1 feriado:
+ApÜs testes com 3 profissionais, 1 falta justificada e 1 feriado:
 
-| M??trica | Valor | Status |
+| MÜtrica | Valor | Status |
 |---------|-------|--------|
-| **Assiduidade** | 91.67% | ??? Correto |
-| **Profissionais** | 3 | ??? Correto |
-| **Faltas Justificadas** | 1 | ??? Correto |
-| **Feriados** | 3 | ??? Correto |
-| **Dias V??lidos** | 12/15 | ??? Correto |
+| **Assiduidade** | 91.67% | Ü? Correto |
+| **Profissionais** | 3 | Ü? Correto |
+| **Faltas Justificadas** | 1 | Ü? Correto |
+| **Feriados** | 3 | Ü? Correto |
+| **Dias VÜlidos** | 12/15 | Ü? Correto |
 
-**F??rmula validada:**
+**FÜrmula validada:**
 ```
-Dias totais: 3 profissionais ?? 5 dias = 15
-Feriados aplicados: 3 (1 dia ?? 3 profissionais)
-Dias v??lidos: 15 - 3 = 12
+Dias totais: 3 profissionais Ü 5 dias = 15
+Feriados aplicados: 3 (1 dia Ü 3 profissionais)
+Dias vÜlidos: 15 - 3 = 12
 Faltas: 1
-Presen??as efetivas: 12 - 1 = 11
-Assiduidade: (11 / 12) ?? 100 = 91.67% ???
+PresenÜas efetivas: 12 - 1 = 11
+Assiduidade: (11 / 12) Ü 100 = 91.67% Ü?
 ```
 
 ---
 
-## ???? Como Usar
+## ÜÜ Como Usar
 
-### In??cio R??pido (30 segundos)
+### InÜcio RÜpido (30 segundos)
 ```powershell
 cd C:\Users\Gustavo\Desktop\horus-operacional
 .\venv\Scripts\Activate.ps1
@@ -194,17 +194,17 @@ Acesse: http://localhost:5000
 Login: `admin@example.com` / `admin123`
 
 ### Primeiro Teste
-1. V?? para "Quadro Semanal"
+1. VÜ para "Quadro Semanal"
 2. Selecione "Educaita"
 3. Selecione "Semana 25"
 4. Clique "Carregar"
 5. Altere um status
-6. Clique "Salvar vig??lia"
-7. Veja os indicadores atualizarem! ????
+6. Clique "Salvar vigÜlia"
+7. Veja os indicadores atualizarem! ÜÜ
 
 ---
 
-## ???? Arquitetura T??cnica
+## ÜÜ Arquitetura TÜcnica
 
 ### Backend
 - **Framework:** Flask 3.0 (Blueprint architecture)
@@ -219,61 +219,61 @@ Login: `admin@example.com` / `admin123`
 - **JS:** Vanilla JavaScript (AJAX, DOM manipulation)
 - **Icons:** Bootstrap Icons 1.11.3
 
-### Padr??es
-- **MVC:** Separa????o de responsabilidades
+### PadrÜes
+- **MVC:** SeparaÜÜo de responsabilidades
 - **RESTful:** Endpoints JSON para AJAX
-- **Factory Pattern:** create_app() configur??vel
+- **Factory Pattern:** create_app() configurÜvel
 - **Decorators:** @login_required, @admin_required
-- **Blueprints:** Modulariza????o de rotas
+- **Blueprints:** ModularizaÜÜo de rotas
 
 ---
 
-## ???? O que N??O foi implementado (fora do escopo MVP)
+## ÜÜ O que NÜO foi implementado (fora do escopo MVP)
 
-- ??? Testes unit??rios automatizados (pytest)
-- ??? Deploy em produ????o (Docker, Cloud)
-- ??? Notifica????es por email
-- ??? Gr??ficos de tend??ncia
-- ??? API REST p??blica
-- ??? Frontend React/Vue
-- ??? Autentica????o OAuth/SSO
-- ??? Multi-tenancy
-- ??? Internacionaliza????o (i18n)
-- ??? Modo escuro
+- Ü? Testes unitÜrios automatizados (pytest)
+- Ü? Deploy em produÜÜo (Docker, Cloud)
+- Ü? NotificaÜÜes por email
+- Ü? GrÜficos de tendÜncia
+- Ü? API REST pÜblica
+- Ü? Frontend React/Vue
+- Ü? AutenticaÜÜo OAuth/SSO
+- Ü? Multi-tenancy
+- Ü? InternacionalizaÜÜo (i18n)
+- Ü? Modo escuro
 
 ---
 
-## ??????? Roadmap Sugerido
+## ÜÜÜ? Roadmap Sugerido
 
 ### Fase 2 (Curto Prazo)
 - [ ] Testes automatizados (pytest + coverage)
 - [ ] Deploy Docker + Docker Compose
 - [ ] CI/CD com GitHub Actions
-- [ ] Backup autom??tico do banco
-- [ ] Documenta????o API (Swagger/OpenAPI)
+- [ ] Backup automÜtico do banco
+- [ ] DocumentaÜÜo API (Swagger/OpenAPI)
 
-### Fase 3 (M??dio Prazo)
+### Fase 3 (MÜdio Prazo)
 - [ ] Dashboard administrativo
-- [ ] Gr??ficos de tend??ncia (Chart.js)
-- [ ] Notifica????es por email
-- [ ] Relat??rios PDF (ReportLab)
+- [ ] GrÜficos de tendÜncia (Chart.js)
+- [ ] NotificaÜÜes por email
+- [ ] RelatÜrios PDF (ReportLab)
 - [ ] Import CSV de profissionais
 
 ### Fase 4 (Longo Prazo)
 - [ ] API REST completa
 - [ ] Frontend React/Vue (SPA)
-- [ ] Autentica????o JWT
+- [ ] AutenticaÜÜo JWT
 - [ ] Multi-tenancy
 - [ ] Mobile app (React Native)
 
 ---
 
-## ???? Suporte
+## ÜÜ Suporte
 
-### Documenta????o
-- [`README.md`](README.md) ??? Vis??o geral e arquitetura
-- [`QUICKSTART.md`](QUICKSTART.md) ??? Guia de 5 minutos
-- [`TESTE_FUNCIONAL.md`](TESTE_FUNCIONAL.md) ??? Testes validados
+### DocumentaÜÜo
+- [`README.md`](README.md) Ü? VisÜo geral e arquitetura
+- [`QUICKSTART.md`](QUICKSTART.md) Ü? Guia de 5 minutos
+- [`TESTE_FUNCIONAL.md`](TESTE_FUNCIONAL.md) Ü? Testes validados
 
 ### Contato
 - **Email:** admin@example.com
@@ -281,42 +281,42 @@ Login: `admin@example.com` / `admin123`
 
 ---
 
-## ???? Conclus??o
+## ÜÜ ConclusÜo
 
-O **H??rus Operacional MVP** est?? **100% funcional** e pronto para uso. Todos os requisitos do PROMPT 2 foram atendidos:
+O **HÜrus Operacional MVP** estÜ **100% funcional** e pronto para uso. Todos os requisitos do PROMPT 2 foram atendidos:
 
-??? CRUD de usu??rios, projetos e profissionais  
-??? Quadro semanal com gest??o por exce????o  
-??? Aplica????o e remo????o de feriados  
-??? Indicadores calculados corretamente  
-??? Exporta????o CSV  
-??? Logs de auditoria  
-??? Controle de permiss??es (3 perfis)  
-??? Interface responsiva e intuitiva  
-??? Seed data completo  
-??? Documenta????o completa  
+Ü? CRUD de usuÜrios, projetos e profissionais  
+Ü? Quadro semanal com gestÜo por exceÜÜo  
+Ü? AplicaÜÜo e remoÜÜo de feriados  
+Ü? Indicadores calculados corretamente  
+Ü? ExportaÜÜo CSV  
+Ü? Logs de auditoria  
+Ü? Controle de permissÜes (3 perfis)  
+Ü? Interface responsiva e intuitiva  
+Ü? Seed data completo  
+Ü? DocumentaÜÜo completa  
 
 **Bugs:** 2 encontrados e corrigidos durante testes  
-**Performance:** Excelente (< 1s para todas as opera????es)  
-**Qualidade do c??digo:** Alta (sem erros, bem estruturado)  
+**Performance:** Excelente (< 1s para todas as operaÜÜes)  
+**Qualidade do cÜdigo:** Alta (sem erros, bem estruturado)  
 
 ---
 
-## ???? Agradecimentos
+## ÜÜ Agradecimentos
 
-Obrigado por usar o **H??rus Operacional**! 
+Obrigado por usar o **HÜrus Operacional**! 
 
 Se este MVP atendeu suas expectativas, considere:
-- ??? Dar uma estrela no GitHub
-- ???? Reportar bugs via Issues
-- ???? Sugerir melhorias
-- ???? Contribuir com Pull Requests
+- Ü? Dar uma estrela no GitHub
+- ÜÜ Reportar bugs via Issues
+- ÜÜ Sugerir melhorias
+- ÜÜ Contribuir com Pull Requests
 
 ---
 
 <div align="center">
-  <h3>???? H??rus Operacional v1.0</h3>
-  <p><strong>O olho que v?? a assiduidade</strong></p>
-  <p>Constru??do com ??????, Python e Flask</p>
-  <p><em>"A vig??lia come??a aqui"</em></p>
+  <h3>ÜÜ HÜrus Operacional v1.0</h3>
+  <p><strong>O olho que vÜ a assiduidade</strong></p>
+  <p>ConstruÜdo com ÜÜÜ, Python e Flask</p>
+  <p><em>"A vigÜlia comeÜa aqui"</em></p>
 </div>

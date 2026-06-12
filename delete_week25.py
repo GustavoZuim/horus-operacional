@@ -11,6 +11,6 @@ if w:
     WeeklyAttendance.query.filter_by(planning_week_id=w.id).delete()
     db.session.delete(w)
     db.session.commit()
-    print('??? Semana 25 deletada com sucesso')
+    print('Ü? Semana 25 deletada com sucesso')
 else:
-    print('Semana 25 n??o encontrada')
+    print('Semana 25 nÜo encontrada')

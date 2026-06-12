@@ -1,9 +1,9 @@
-# ???? Guia de Deploy - H??rus Operacional
+# ÜÜ Guia de Deploy - HÜrus Operacional
 
-## ??? Quick Start (Desenvolvimento)
+## Ü? Quick Start (Desenvolvimento)
 
 ```bash
-# 1. Clone e entre no diret??rio
+# 1. Clone e entre no diretÜrio
 cd horus-operacional
 
 # 2. Crie o ambiente virtual
@@ -11,7 +11,7 @@ python -m venv venv
 venv\Scripts\activate  # Windows
 # source venv/bin/activate  # Linux/Mac
 
-# 3. Instale depend??ncias
+# 3. Instale dependÜncias
 pip install -r requirements.txt
 
 # 4. Inicialize o banco de dados
@@ -21,17 +21,17 @@ python init_db.py
 python run.py
 ```
 
-**Credenciais padr??o:**
+**Credenciais padrÜo:**
 - Email: `admin@horus.local`
 - Senha: `admin123`
 
-?????? **Altere a senha ap??s o primeiro login!**
+ÜÜÜ **Altere a senha apÜs o primeiro login!**
 
 ---
 
-## ???? Deploy em Produ????o
+## ÜÜ Deploy em ProduÜÜo
 
-### Op????o 1: VPS/Servidor Linux
+### OpÜÜo 1: VPS/Servidor Linux
 
 #### 1. Preparar o Servidor
 
@@ -42,7 +42,7 @@ sudo apt update && sudo apt upgrade -y
 # Instalar Python 3.10+
 sudo apt install python3.10 python3.10-venv python3-pip nginx -y
 
-# Criar usu??rio para aplica????o
+# Criar usuÜrio para aplicaÜÜo
 sudo adduser horus
 sudo usermod -aG sudo horus
 su - horus
@@ -51,7 +51,7 @@ su - horus
 #### 2. Clonar e Configurar
 
 ```bash
-# Clonar reposit??rio
+# Clonar repositÜrio
 git clone <repo-url> /home/horus/horus-operacional
 cd /home/horus/horus-operacional
 
@@ -59,12 +59,12 @@ cd /home/horus/horus-operacional
 python3.10 -m venv venv
 source venv/bin/activate
 
-# Instalar depend??ncias
+# Instalar dependÜncias
 pip install -r requirements.txt
 pip install gunicorn
 ```
 
-#### 3. Configurar Vari??veis de Ambiente
+#### 3. Configurar VariÜveis de Ambiente
 
 ```bash
 cp .env.example .env
@@ -111,7 +111,7 @@ ExecStart=/home/horus/horus-operacional/venv/bin/gunicorn --workers 4 --bind 0.0
 WantedBy=multi-user.target
 ```
 
-Ativar servi??o:
+Ativar serviÜo:
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl start horus
@@ -160,7 +160,7 @@ sudo certbot --nginx -d seu-dominio.com
 
 ---
 
-### Op????o 2: Docker
+### OpÜÜo 2: Docker
 
 #### 1. Criar Dockerfile
 
@@ -208,7 +208,7 @@ docker-compose up -d
 
 ---
 
-### Op????o 3: Heroku
+### OpÜÜo 3: Heroku
 
 #### 1. Criar Procfile
 
@@ -234,30 +234,30 @@ heroku open
 
 ---
 
-## ???? Checklist de Seguran??a
+## ÜÜ Checklist de SeguranÜa
 
-- [ ] Alterar `SECRET_KEY` para valor aleat??rio forte
-- [ ] Alterar senha do admin padr??o
+- [ ] Alterar `SECRET_KEY` para valor aleatÜrio forte
+- [ ] Alterar senha do admin padrÜo
 - [ ] Configurar `FLASK_ENV=production`
 - [ ] Desativar `FLASK_DEBUG=False`
 - [ ] Ativar HTTPS (SSL/TLS)
 - [ ] Configurar `SESSION_COOKIE_SECURE=True`
 - [ ] Limitar acesso ao banco de dados
 - [ ] Configurar firewall (portas 80, 443 apenas)
-- [ ] Backups autom??ticos do banco
+- [ ] Backups automÜticos do banco
 - [ ] Logs de acesso e erros
 - [ ] Rate limiting (nginx/gunicorn)
 - [ ] Monitoramento (New Relic, Datadog, etc.)
 
 ---
 
-## ???? Banco de Dados
+## ÜÜ Banco de Dados
 
 ### SQLite (Desenvolvimento/Pequeno Porte)
-- **Vantagens**: Zero configura????o, arquivo ??nico, f??cil backup
-- **Limita????es**: Concorr??ncia limitada, sem rede
+- **Vantagens**: Zero configuraÜÜo, arquivo Ünico, fÜcil backup
+- **LimitaÜÜes**: ConcorrÜncia limitada, sem rede
 
-### PostgreSQL (Recomendado para Produ????o)
+### PostgreSQL (Recomendado para ProduÜÜo)
 
 ```bash
 # Instalar PostgreSQL
@@ -276,16 +276,16 @@ DATABASE_URL=postgresql://horus_user:senha-forte@localhost/horus_db
 
 ---
 
-## ???? Atualiza????es
+## ÜÜ AtualizaÜÜes
 
-### Deploy de Nova Vers??o
+### Deploy de Nova VersÜo
 
 ```bash
 cd /home/horus/horus-operacional
 git pull origin main
 source venv/bin/activate
 pip install -r requirements.txt
-flask db upgrade  # Se houver migra????es
+flask db upgrade  # Se houver migraÜÜes
 sudo systemctl restart horus
 ```
 
@@ -301,12 +301,12 @@ pg_dump horus_db > horus_backup_$(date +%Y%m%d).sql
 
 ---
 
-## ???? Monitoramento
+## ÜÜ Monitoramento
 
 ### Logs
 
 ```bash
-# Ver logs do servi??o
+# Ver logs do serviÜo
 sudo journalctl -u horus -f
 
 # Ver logs do Nginx
@@ -314,23 +314,23 @@ sudo tail -f /var/log/nginx/access.log
 sudo tail -f /var/log/nginx/error.log
 ```
 
-### M??tricas
+### MÜtricas
 
 Considere integrar:
 - **New Relic** - Monitoramento APM
 - **Sentry** - Rastreamento de erros
-- **Prometheus + Grafana** - M??tricas customizadas
+- **Prometheus + Grafana** - MÜtricas customizadas
 
 ---
 
-## ???? Troubleshooting
+## ÜÜ Troubleshooting
 
 ### Erro 502 Bad Gateway
 ```bash
-# Verificar se o Gunicorn est?? rodando
+# Verificar se o Gunicorn estÜ rodando
 sudo systemctl status horus
 
-# Reiniciar se necess??rio
+# Reiniciar se necessÜrio
 sudo systemctl restart horus
 ```
 
@@ -339,11 +339,11 @@ sudo systemctl restart horus
 # Restaurar backup
 cp horus_backup_YYYYMMDD.db horus.db
 
-# Ou reinicializar (ATEN????O: perde dados!)
+# Ou reinicializar (ATENÜÜO: perde dados!)
 python init_db.py
 ```
 
-### Problemas de permiss??o
+### Problemas de permissÜo
 ```bash
 # Ajustar ownership
 sudo chown -R horus:horus /home/horus/horus-operacional
@@ -352,8 +352,8 @@ sudo chmod -R 755 /home/horus/horus-operacional
 
 ---
 
-## ???? Suporte
+## ÜÜ Suporte
 
-Para d??vidas sobre deploy, consulte a documenta????o ou entre em contato com o desenvolvedor.
+Para dÜvidas sobre deploy, consulte a documentaÜÜo ou entre em contato com o desenvolvedor.
 
-**H??rus Operacional** - Pronto para Produ????o! ????
+**HÜrus Operacional** - Pronto para ProduÜÜo! ÜÜ

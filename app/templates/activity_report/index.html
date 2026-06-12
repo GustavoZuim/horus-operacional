@@ -21,9 +21,9 @@
         <div class="card-body">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">M??s/Ano</label>
+                    <label class="form-label">MÜs/Ano</label>
                     <select id="monthSelect" class="form-select">
-                        <option value="">Selecione o m??s</option>
+                        <option value="">Selecione o mÜs</option>
                         {% for month in months %}
                         <option value="{{ month.value }}">{{ month.label }}</option>
                         {% endfor %}
@@ -48,7 +48,7 @@
 
     <!-- Mensagem de aviso -->
     <div id="noData" class="alert alert-info" style="display: none;">
-        <i class="bi bi-info-circle"></i> Nenhuma atividade encontrada para o per??odo selecionado.
+        <i class="bi bi-info-circle"></i> Nenhuma atividade encontrada para o perÜodo selecionado.
     </div>
 
     <!-- Resultado -->
@@ -58,7 +58,7 @@
             <div class="col-md-4">
                 <div class="card mystic-card text-center">
                     <div class="card-body">
-                        <h6 class="text-muted mb-2">Per??odo</h6>
+                        <h6 class="text-muted mb-2">PerÜodo</h6>
                         <h3 class="mb-0 text-gold" id="summaryMonth">-</h3>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
             <!-- Aba: Por Projeto -->
             <div class="tab-pane fade show active" id="project-panel" role="tabpanel">
                 <div id="projectsContainer" class="row g-4">
-                    <!-- Ser?? preenchido via JavaScript -->
+                    <!-- SerÜ preenchido via JavaScript -->
                 </div>
             </div>
 
@@ -121,11 +121,11 @@
                                         <th>Categoria</th>
                                         <th class="text-end">Quantidade</th>
                                         <th class="text-end">Percentual</th>
-                                        <th>Distribui????o</th>
+                                        <th>DistribuiÜÜo</th>
                                     </tr>
                                 </thead>
                                 <tbody id="totalTableBody">
-                                    <!-- Ser?? preenchido via JavaScript -->
+                                    <!-- SerÜ preenchido via JavaScript -->
                                 </tbody>
                             </table>
                         </div>
@@ -264,7 +264,7 @@ async function loadReport() {
     const month = document.getElementById('monthSelect').value;
     
     if (!month) {
-        showToast('Selecione um m??s', 'warning');
+        showToast('Selecione um mÜs', 'warning');
         return;
     }
     
@@ -281,10 +281,10 @@ async function loadReport() {
             currentData = data;
             renderReport(data);
         } else {
-            showToast(data.error || 'Erro ao carregar relat??rio', 'danger');
+            showToast(data.error || 'Erro ao carregar relatÜrio', 'danger');
         }
     } catch (error) {
-        showToast('Erro ao carregar relat??rio', 'danger');
+        showToast('Erro ao carregar relatÜrio', 'danger');
         console.error(error);
     } finally {
         document.getElementById('loading').style.display = 'none';

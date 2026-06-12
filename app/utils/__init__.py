@@ -1,5 +1,5 @@
 """
-Utilit??rios para inicializa????o do banco de dados
+UtilitÜrios para inicializaÜÜo do banco de dados
 """
 from app import db
 from app.models import User, Project, Professional
@@ -12,11 +12,11 @@ def initialize_database(app):
         # Criar tabelas
         db.create_all()
         
-        # Verificar se j?? existe admin
+        # Verificar se jÜ existe admin
         admin_exists = User.query.filter_by(email=app.config['ADMIN_EMAIL']).first()
         
         if not admin_exists:
-            # Criar usu??rio admin
+            # Criar usuÜrio admin
             admin = User(
                 email=app.config['ADMIN_EMAIL'],
                 name=app.config['ADMIN_NAME'],
@@ -49,8 +49,8 @@ def initialize_database(app):
             # Criar projetos de exemplo
             projects = [
                 Project(name='Educaita', code='EDU', active=True),
-                Project(name='Ca??apava', code='CAC', active=True),
-                Project(name='Mairipor??', code='MAI', active=True),
+                Project(name='CaÜapava', code='CAC', active=True),
+                Project(name='MairiporÜ', code='MAI', active=True),
                 Project(name='Ilhabela', code='ILH', active=True),
             ]
             for project in projects:
@@ -59,7 +59,7 @@ def initialize_database(app):
             # Criar profissionais de exemplo
             professionals = [
                 Professional(
-                    name='Andr?? Luiz Guimar??es',
+                    name='AndrÜ Luiz GuimarÜes',
                     registration='MI34',
                     role_description='Reconhecimento facial / testes',
                     active=True
@@ -81,9 +81,9 @@ def initialize_database(app):
                 db.session.add(prof)
             
             db.session.commit()
-            print('??? Dados iniciais criados!')
-            print(f'??? Admin: {app.config["ADMIN_EMAIL"]} / {app.config["ADMIN_PASSWORD"]}')
-            print('??? Supervisor: nathani@horus.local / supervisor123')
-            print('??? Visualizador: viewer@horus.local / viewer123')
+            print('Ü? Dados iniciais criados!')
+            print(f'Ü? Admin: {app.config["ADMIN_EMAIL"]} / {app.config["ADMIN_PASSWORD"]}')
+            print('Ü? Supervisor: nathani@horus.local / supervisor123')
+            print('Ü? Visualizador: viewer@horus.local / viewer123')
         else:
-            print('! Banco j?? inicializado.')
+            print('! Banco jÜ inicializado.')

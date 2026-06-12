@@ -1,5 +1,5 @@
 """
-Rotas de autentica????o
+Rotas de autenticaÜÜo
 """
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
@@ -61,5 +61,5 @@ def logout():
     db.session.commit()
     
     logout_user()
-    flash('Voc?? saiu com sucesso.', 'success')
+    flash('VocÜ saiu com sucesso.', 'success')
     return redirect(url_for('auth.login'))

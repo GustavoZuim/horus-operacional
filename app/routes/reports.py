@@ -77,12 +77,12 @@ def get_metrics():
         total_valid += valid_days
         total_present += present_days
         total_falta_j += statuses.count('Falta justificada')
-        total_falta_nj += statuses.count('Falta n??o justificada')
-        total_saida += statuses.count('Sa??da antecipada')
+        total_falta_nj += statuses.count('Falta nÜo justificada')
+        total_saida += statuses.count('SaÜda antecipada')
         total_realoc += statuses.count('Realocado')
         total_feriados += statuses.count('Feriado')
         
-        # M??tricas por profissional
+        # MÜtricas por profissional
         prof_id = att.professional_id
         if prof_id not in professional_metrics:
             professional_metrics[prof_id] = {
@@ -97,7 +97,7 @@ def get_metrics():
         professional_metrics[prof_id]['valid_days'] += valid_days
         professional_metrics[prof_id]['present_days'] += present_days
         professional_metrics[prof_id]['falta_j'] += statuses.count('Falta justificada')
-        professional_metrics[prof_id]['falta_nj'] += statuses.count('Falta n??o justificada')
+        professional_metrics[prof_id]['falta_nj'] += statuses.count('Falta nÜo justificada')
     
     # Calcular taxas
     global_rate = (total_present / total_valid * 100) if total_valid > 0 else None

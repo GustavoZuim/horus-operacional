@@ -1,5 +1,5 @@
 """
-Rotas principais da aplica????o
+Rotas principais da aplicaÜÜo
 """
 from flask import Blueprint, render_template, jsonify, redirect, url_for
 from flask_login import login_required, current_user

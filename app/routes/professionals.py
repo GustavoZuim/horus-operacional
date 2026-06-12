@@ -44,13 +44,13 @@ def create():
         project_id = request.form.get('project_id')
         
         if not name or not registration or not project_id:
-            flash('Todos os campos s??o obrigat??rios.', 'danger')
+            flash('Todos os campos sÜo obrigatÜrios.', 'danger')
             return render_template('professionals/form.html', projects=projects)
         
-        # Verificar se matrícula j?? existe
+        # Verificar se matrícula jÜ existe
         existing = Professional.query.filter_by(registration=registration).first()
         if existing:
-            flash('Matrícula j?? cadastrada.', 'danger')
+            flash('Matrícula jÜ cadastrada.', 'danger')
             return render_template('professionals/form.html', projects=projects)
         
         professional = Professional(

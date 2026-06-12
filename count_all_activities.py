@@ -21,7 +21,7 @@ if pdf_files:
         print(f"{'='*60}")
         
         days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
-        day_names = ['Segunda', 'Ter??a', 'Quarta', 'Quinta', 'Sexta']
+        day_names = ['Segunda', 'TerÜa', 'Quarta', 'Quinta', 'Sexta']
         
         total_activities = 0
         for day, name in zip(days, day_names):

@@ -1,44 +1,44 @@
 /**
- * H??rus Operacional - JavaScript Core
- * L??gica de c??lculo de assiduidade
+ * HÜrus Operacional - JavaScript Core
+ * LÜgica de cÜlculo de assiduidade
  */
 
-// Status e suas classifica????es
+// Status e suas classificaÜÜes
 const statuses = [
   "Presente",
   "Falta justificada",
-  "Falta n??o justificada",
-  "Sa??da antecipada",
+  "Falta nÜo justificada",
+  "SaÜda antecipada",
   "Realocado",
   "Feriado",
   "Folga",
-  "N??o planejado"
+  "NÜo planejado"
 ];
 
 const statusClasses = {
   "Presente": "s-presente",
   "Falta justificada": "s-falta-j",
-  "Falta n??o justificada": "s-falta-nj",
-  "Sa??da antecipada": "s-saida",
+  "Falta nÜo justificada": "s-falta-nj",
+  "SaÜda antecipada": "s-saida",
   "Realocado": "s-realocado",
   "Feriado": "s-feriado",
   "Folga": "s-folga",
-  "N??o planejado": "s-nao"
+  "NÜo planejado": "s-nao"
 };
 
 // Status que entram no denominador
 const validDays = new Set([
   "Presente",
   "Falta justificada",
-  "Falta n??o justificada",
-  "Sa??da antecipada",
+  "Falta nÜo justificada",
+  "SaÜda antecipada",
   "Realocado"
 ]);
 
-// Status que contam como presen??a
+// Status que contam como presenÜa
 const presentDays = new Set([
   "Presente",
-  "Sa??da antecipada",
+  "SaÜda antecipada",
   "Realocado"
 ]);
 
@@ -52,7 +52,7 @@ function showToast(message, type = 'dark') {
   if (toastEl && toastText) {
     toastText.textContent = message;
     
-    // Trocar classe de cor se necess??rio
+    // Trocar classe de cor se necessÜrio
     toastEl.className = `toast align-items-center text-bg-${type} border-0`;
     
     const toast = new bootstrap.Toast(toastEl);
@@ -71,7 +71,7 @@ function calculateAttendanceRate(validCount, presentCount) {
 }
 
 /**
- * Formata taxa de assiduidade para exibi????o
+ * Formata taxa de assiduidade para exibiÜÜo
  */
 function formatRate(rate) {
   if (rate === null) {

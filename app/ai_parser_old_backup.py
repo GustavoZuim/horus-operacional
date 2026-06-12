@@ -1,6 +1,6 @@
 """
 Agente de IA para interpretação inteligente de PDFs de planejamento
-Usa técnicas avan??adas de NLP e extração estruturada
+Usa técnicas avanÜadas de NLP e extração estruturada
 """
 import fitz  # PyMuPDF
 import re
@@ -13,7 +13,7 @@ class PlanningAIParser:
     # Dias da semana em português
     WEEKDAYS = {
         'segunda': 'monday',
-        'ter??a': 'tuesday',
+        'terÜa': 'tuesday',
         'quarta': 'wednesday',
         'quinta': 'thursday',
         'sexta': 'friday'
@@ -162,13 +162,13 @@ class PlanningAIParser:
         # Buscar padrão: Nome do profissional (geralmente em destaque)
         # Matrícula: XXX Cargo: YYY
         
-        # Padr??o 1: Buscar linha com "Matricula:" ou "Matrícula:"
-        matricula_pattern = r'Matr[??i]cula:\s*([A-Z]{2}\d+)'
+        # PadrÜo 1: Buscar linha com "Matricula:" ou "Matrícula:"
+        matricula_pattern = r'Matr[Üi]cula:\s*([A-Z]{2}\d+)'
         matriculas = re.findall(matricula_pattern, page_text, re.IGNORECASE)
         
-        # Padr??o 2: Buscar nome antes da matrícula
+        # PadrÜo 2: Buscar nome antes da matrícula
         # Formato comum: "Nome Completo\nMatricula: XXX"
-        name_matricula_pattern = r'([A-Z??????????????????????][a-z??????????????????????]+(?:\s+[A-Z??????????????????????][a-z??????????????????????]+)+)\s+Matr[??i]cula:\s*([A-Z]{2}\d+)'
+        name_matricula_pattern = r'([A-ZÜÜÜÜÜÜÜÜÜÜÜ][a-zÜÜÜÜÜÜÜÜÜÜÜ]+(?:\s+[A-ZÜÜÜÜÜÜÜÜÜÜÜ][a-zÜÜÜÜÜÜÜÜÜÜÜ]+)+)\s+Matr[Üi]cula:\s*([A-Z]{2}\d+)'
         name_matricula_matches = re.findall(name_matricula_pattern, page_text, re.IGNORECASE)
         
         for name, matricula in name_matricula_matches:
@@ -184,9 +184,9 @@ class PlanningAIParser:
         """
         Extrai atividades organizadas por dia da semana
         
-        Estrat??gia:
+        EstratÜgia:
         O PDF tem layout de tabela com colunas para cada dia.
-        PyMuPDF l?? linearmente, ent??o distribu??mos as atividades
+        PyMuPDF lÜ linearmente, entÜo distribuÜmos as atividades
         sequencialmente pelos 5 dias da semana.
         """
         activities_by_day = {
@@ -204,10 +204,10 @@ class PlanningAIParser:
             return activities_by_day
         
         # Distribuir atividades sequencialmente pelos dias
-        # Assumindo que o PDF lista atividades em ordem: segunda, ter??a, quarta, quinta, sexta
+        # Assumindo que o PDF lista atividades em ordem: segunda, terÜa, quarta, quinta, sexta
         days_list = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
         
-        # Calcular quantas atividades por dia (divis??o aproximada)
+        # Calcular quantas atividades por dia (divisÜo aproximada)
         activities_per_day = len(all_activities) / 5
         
         # Distribuir
@@ -237,7 +237,7 @@ class PlanningAIParser:
             'Manutenção'
         ]
         
-        # Estrat??gia: Split por marcadores de unidade e processar cada bloco
+        # EstratÜgia: Split por marcadores de unidade e processar cada bloco
         # Marcadores: Sem Unidade, EMEIEF, EMEI, CREI
         unit_markers = ['Sem Unidade', 'EMEIEF', 'EMEI', 'CREI']
         
@@ -245,17 +245,17 @@ class PlanningAIParser:
         blocks = re.split(r'\n(?:Sem Unidade|EMEIEF[^\n]*|EMEI[^\n]*|CREI[^\n]*)\n', page_text)
         
         for block in blocks:
-            # Para cada categoria, verificar se est?? presente neste bloco
+            # Para cada categoria, verificar se estÜ presente neste bloco
             for category in categories:
                 if category in block:
-                    # Extrair texto ap??s a categoria
+                    # Extrair texto apÜs a categoria
                     pattern = rf'{re.escape(category)}\s*\n\s*(.+?)(?=\n(?:{"|".join([re.escape(c) for c in categories])})|$)'
                     matches = re.findall(pattern, block, re.MULTILINE | re.DOTALL)
                     
                     for description in matches:
                         description = description.strip()
                         
-                        # Remover bullet e espa??os extras
+                        # Remover bullet e espaÜos extras
                         description = re.sub(r'^[\s]*', '', description)
                         description = re.sub(r'\s+', ' ', description).strip()
                         
@@ -285,14 +285,14 @@ class PlanningAIParser:
         """Extrai atividades de uma seção de texto"""
         activities = []
         
-        # Novo padrão para o formato espec??fico do PDF:
+        # Novo padrão para o formato especÜfico do PDF:
         # Categoria (ex: "Organização Cadastral")
         # Bullet "" + descrição
         # "Sem Unidade" ou nome da unidade
         
-        # Padr??o melhorado: captura categoria e descrição
-        # Ex: "Organização Cadastral\n Card??pio da merenda..."
-        pattern = r'([A-Z??????????????????????][^\n]{10,})\n\s*([^\n]{20,}?)(?:\nSem Unidade|\nEMEIEF|\nEMEI|\nCREI|\n[A-Z]{2,})'
+        # PadrÜo melhorado: captura categoria e descrição
+        # Ex: "Organização Cadastral\n CardÜpio da merenda..."
+        pattern = r'([A-ZÜÜÜÜÜÜÜÜÜÜÜ][^\n]{10,})\n\s*([^\n]{20,}?)(?:\nSem Unidade|\nEMEIEF|\nEMEI|\nCREI|\n[A-Z]{2,})'
         matches = re.findall(pattern, section_text, re.MULTILINE)
         
         for category, description in matches:
@@ -306,20 +306,20 @@ class PlanningAIParser:
             # Formato: "Categoria: Descrição"
             activity_text = f"{category}: {description}"
             
-            # Limpar espa??os m??ltiplos
+            # Limpar espaÜos mÜltiplos
             activity_text = re.sub(r'\s+', ' ', activity_text)
             
-            # Truncar descri????es muito longas
+            # Truncar descriÜÜes muito longas
             if len(activity_text) > 200:
                 activity_text = activity_text[:197] + '...'
             
             activities.append(activity_text)
         
-        # Fallback: buscar linhas que come??am com bullet  ou categorias conhecidas
+        # Fallback: buscar linhas que comeÜam com bullet  ou categorias conhecidas
         if not activities:
             for cat in self.ACTIVITY_CATEGORIES:
                 if cat in section_text:
-                    # Extrair texto ap??s a categoria
+                    # Extrair texto apÜs a categoria
                     pattern = rf'{cat}\s*\n\s*([^\n]+)'
                     matches = re.findall(pattern, section_text)
                     for match in matches:
@@ -337,14 +337,14 @@ class PlanningAIParser:
             registered_professionals: Lista de profissionais cadastrados no sistema
             
         Returns:
-            Dict com todos os dados extra??dos estruturados
+            Dict com todos os dados extraÜdos estruturados
         """
         result = {            'project_name': self.extract_project_name(),            'week_info': self.extract_week_info(),
             'professionals': [],
             'alerts': []
         }
         
-        # Processar cada página (cada profissional geralmente est?? em uma página)
+        # Processar cada página (cada profissional geralmente estÜ em uma página)
         for page_text in self.pages_text:
             # Extrair profissionais desta página
             page_professionals = self.extract_professionals_from_page(page_text)

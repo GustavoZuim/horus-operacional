@@ -35,7 +35,7 @@ def index():
 @login_required
 @admin_required
 def create():
-    """Criar novo usu??rio"""
+    """Criar novo usuÜrio"""
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
@@ -44,16 +44,16 @@ def create():
         
         # Validações
         if not name or not email or not password:
-            flash('Todos os campos s??o obrigat??rios.', 'danger')
+            flash('Todos os campos sÜo obrigatÜrios.', 'danger')
             return render_template('users/form.html')
         
-        # Verificar se email j?? existe
+        # Verificar se email jÜ existe
         existing = User.query.filter_by(email=email).first()
         if existing:
-            flash('Email j?? cadastrado.', 'danger')
+            flash('Email jÜ cadastrado.', 'danger')
             return render_template('users/form.html')
         
-        # Criar usu??rio
+        # Criar usuÜrio
         user = User(
             name=name,
             email=email,
@@ -76,7 +76,7 @@ def create():
         db.session.add(log)
         db.session.commit()
         
-        flash(f'Usu??rio {name} criado com sucesso!', 'success')
+        flash(f'UsuÜrio {name} criado com sucesso!', 'success')
         return redirect(url_for('users.index'))
     
     return render_template('users/form.html')
@@ -86,7 +86,7 @@ def create():
 @login_required
 @admin_required
 def edit(id):
-    """Editar usu??rio"""
+    """Editar usuÜrio"""
     user = User.query.get_or_404(id)
     
     if request.method == 'POST':
@@ -113,7 +113,7 @@ def edit(id):
         db.session.add(log)
         db.session.commit()
         
-        flash(f'Usu??rio {user.name} atualizado!', 'success')
+        flash(f'UsuÜrio {user.name} atualizado!', 'success')
         return redirect(url_for('users.index'))
     
     return render_template('users/form.html', user=user)
@@ -123,12 +123,12 @@ def edit(id):
 @login_required
 @admin_required
 def delete(id):
-    """Desativar usu??rio"""
+    """Desativar usuÜrio"""
     user = User.query.get_or_404(id)
     
-    # N??o permitir desativar a si mesmo
+    # NÜo permitir desativar a si mesmo
     if user.id == current_user.id:
-        flash('Voc?? n??o pode desativar seu pr??prio usu??rio.', 'danger')
+        flash('VocÜ nÜo pode desativar seu prÜprio usuÜrio.', 'danger')
         return redirect(url_for('users.index'))
     
     user.active = False
@@ -145,5 +145,5 @@ def delete(id):
     db.session.add(log)
     db.session.commit()
     
-    flash(f'Usu??rio {user.name} desativado.', 'warning')
+    flash(f'UsuÜrio {user.name} desativado.', 'warning')
     return redirect(url_for('users.index'))

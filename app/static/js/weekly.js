@@ -1,5 +1,5 @@
 /**
- * H??rus Operacional - Quadro Semanal
+ * HÜrus Operacional - Quadro Semanal
  * Gerenciamento do quadro interativo
  */
 
@@ -9,7 +9,7 @@ let currentBoard = null;
 let changes = [];
 let isSupervisor = window.IS_SUPERVISOR || false;
 
-// Inicializa????o
+// InicializaÜÜo
 document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
 });
@@ -21,13 +21,13 @@ function setupEventListeners() {
         projectSelect.addEventListener('change', onProjectChange);
     }
     
-    // Bot??o carregar
+    // BotÜo carregar
     const loadBtn = document.getElementById('loadBtn');
     if (loadBtn) {
         loadBtn.addEventListener('click', loadBoard);
     }
     
-    // Bot??o salvar
+    // BotÜo salvar
     const saveBtn = document.getElementById('saveBtn');
     if (saveBtn) {
         saveBtn.addEventListener('click', saveChanges);
@@ -68,7 +68,7 @@ async function onProjectChange() {
         weeks.forEach(week => {
             const option = document.createElement('option');
             option.value = week.id;
-            option.textContent = `${week.label} ?? ${formatDate(week.start_date)} a ${formatDate(week.end_date)}`;
+            option.textContent = `${week.label} Ü ${formatDate(week.start_date)} a ${formatDate(week.end_date)}`;
             weekSelect.appendChild(option);
         });
         
@@ -106,12 +106,12 @@ async function loadBoard() {
         updateMetrics(data.metrics);
         renderHolidays(data.holidays, data.week);
         
-        // Mostrar se????es
+        // Mostrar seÜÜes
         document.getElementById('placeholderSection').style.display = 'none';
         document.getElementById('boardSection').style.display = 'block';
         document.getElementById('metricsSection').style.display = 'flex';
         
-        // Habilitar bot??es
+        // Habilitar botÜes
         if (isSupervisor) {
             document.getElementById('saveBtn').disabled = false;
         }
@@ -137,16 +137,16 @@ function renderBoard(data) {
     const tbody = document.getElementById('boardBody');
     tbody.innerHTML = '';
     
-    // Atualizar t??tulo
+    // Atualizar tÜtulo
     document.getElementById('boardTitle').textContent = 
-        `${data.week.project} ?? ${data.week.label}`;
+        `${data.week.project} Ü ${data.week.label}`;
     document.getElementById('boardSubtitle').textContent = 
-        `${formatDate(data.week.start_date)} a ${formatDate(data.week.end_date)} ?? Gest??o por exce????o`;
+        `${formatDate(data.week.start_date)} a ${formatDate(data.week.end_date)} Ü GestÜo por exceÜÜo`;
     
     // Atualizar headers com datas
     const startDate = new Date(data.week.start_date + 'T00:00:00');
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    const weekdaysPt = ['Segunda', 'Ter??a', 'Quarta', 'Quinta', 'Sexta'];
+    const weekdaysPt = ['Segunda', 'TerÜa', 'Quarta', 'Quinta', 'Sexta'];
     
     weekdays.forEach((day, i) => {
         const date = new Date(startDate);
@@ -179,7 +179,7 @@ function renderBoard(data) {
                 <input type="text" class="form-control form-control-sm" 
                        data-id="${att.id}" data-field="notes" 
                        value="${att.notes}" 
-                       placeholder="Sem observa????o"
+                       placeholder="Sem observaÜÜo"
                        ${!isSupervisor ? 'readonly' : ''}>
             </td>
         `;
@@ -202,7 +202,7 @@ function renderBoard(data) {
 }
 
 /**
- * Renderizar c??lula de dia com status e atividades
+ * Renderizar cÜlula de dia com status e atividades
  */
 function renderDayCell(day, currentStatus, activities, attId) {
     const hasActivities = activities && activities.trim().length > 0;
@@ -213,12 +213,12 @@ function renderDayCell(day, currentStatus, activities, attId) {
     const statuses = [
         'Presente',
         'Falta justificada',
-        'Falta n??o justificada',
-        'Sa??da antecipada',
+        'Falta nÜo justificada',
+        'SaÜda antecipada',
         'Realocado',
         'Feriado',
         'Folga',
-        'N??o planejado'
+        'NÜo planejado'
     ];
     
     let html = '<div class="day-cell">';
@@ -241,7 +241,7 @@ function renderDayCell(day, currentStatus, activities, attId) {
     if (hasActivities) {
         html += '<div class="activities-container">';
         activityList.forEach((activity, index) => {
-            // Limitar exibi????o a 3 atividades, resto mostra contador
+            // Limitar exibiÜÜo a 3 atividades, resto mostra contador
             if (index < 3) {
                 // Extrair categoria (antes do :)
                 const parts = activity.split(':');
@@ -276,14 +276,14 @@ function renderStatusSelect(day, currentStatus, attId) {
 }
 
 /**
- * Rastrear mudan??a
+ * Rastrear mudanÜa
  */
 function trackChange(e) {
     const id = parseInt(e.target.dataset.id);
     const field = e.target.dataset.field;
     const value = e.target.value;
     
-    // Encontrar ou criar registro de mudan??a
+    // Encontrar ou criar registro de mudanÜa
     let change = changes.find(c => c.id === id);
     if (!change) {
         change = { id: id };
@@ -298,15 +298,15 @@ function trackChange(e) {
         e.target.classList.add(statusClasses[value] || 's-presente');
     }
     
-    console.log('Mudan??as pendentes:', changes.length);
+    console.log('MudanÜas pendentes:', changes.length);
 }
 
 /**
- * Salvar mudan??as
+ * Salvar mudanÜas
  */
 async function saveChanges() {
     if (changes.length === 0) {
-        showToast('Nenhuma altera????o para salvar', 'info');
+        showToast('Nenhuma alteraÜÜo para salvar', 'info');
         return;
     }
     
@@ -325,7 +325,7 @@ async function saveChanges() {
         if (response.ok) {
             showToast(result.message, 'success');
             changes = [];
-            // Recarregar para atualizar m??tricas
+            // Recarregar para atualizar mÜtricas
             loadBoard();
         } else {
             showToast(result.error || 'Erro ao salvar', 'danger');
@@ -333,7 +333,7 @@ async function saveChanges() {
         
     } catch (error) {
         console.error('Erro ao salvar:', error);
-        showToast('Erro ao salvar altera????es', 'danger');
+        showToast('Erro ao salvar alteraÜÜes', 'danger');
     }
 }
 
@@ -446,7 +446,7 @@ function renderHolidays(holidays, week) {
     
     const weekdaysPt = {
         'Monday': 'segunda-feira',
-        'Tuesday': 'ter??a-feira',
+        'Tuesday': 'terÜa-feira',
         'Wednesday': 'quarta-feira',
         'Thursday': 'quinta-feira',
         'Friday': 'sexta-feira'
@@ -457,7 +457,7 @@ function renderHolidays(holidays, week) {
         div.className = 'holiday-alert';
         div.innerHTML = `
             <i class="bi bi-sun me-2"></i>
-            <strong>Feriado informado:</strong> ${weekdaysPt[holiday.weekday]}, ${formatDate(holiday.date)} ??? ${holiday.description}
+            <strong>Feriado informado:</strong> ${weekdaysPt[holiday.weekday]}, ${formatDate(holiday.date)} Ü? ${holiday.description}
             ${isSupervisor ? `<button class="btn btn-sm btn-outline-danger float-end" onclick="removeHoliday(${holiday.id})">
                 <i class="bi bi-x"></i> Remover
             </button>` : ''}
@@ -495,7 +495,7 @@ async function removeHoliday(holidayId) {
 }
 
 /**
- * Atualizar m??tricas
+ * Atualizar mÜtricas
  */
 function updateMetrics(metrics) {
     document.getElementById('metricRate').textContent = 

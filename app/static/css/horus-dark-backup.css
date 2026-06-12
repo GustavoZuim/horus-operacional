@@ -1,7 +1,7 @@
 /**
- * H??rus Operacional - Identidade Visual M??stica
- * Paleta: Olho de H??rus - O olho que tudo v??
- * Inspirado no misticismo eg??pcio e na vigil??ncia divina
+ * HÜrus Operacional - Identidade Visual MÜstica
+ * Paleta: Olho de HÜrus - O olho que tudo vÜ
+ * Inspirado no misticismo egÜpcio e na vigilÜncia divina
  */
 
 :root {
@@ -66,7 +66,7 @@ body::before {
   min-height: 100vh;
 }
 
-/* === Sidebar M??stica === */
+/* === Sidebar MÜstica === */
 .sidebar {
   background: linear-gradient(180deg, 
     var(--mystic-night) 0%, 
@@ -80,7 +80,7 @@ body::before {
   box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
 }
 
-/* Brilho m??stico de fundo */
+/* Brilho mÜstico de fundo */
 .sidebar::before {
   content: "";
   position: absolute;
@@ -135,7 +135,7 @@ body::before {
   box-shadow: 0 14px 38px rgba(216, 162, 58, .25);
 }
 
-/* === Olho de H??rus Animado === */
+/* === Olho de HÜrus Animado === */
 .eye {
   width: 42px;
   height: 26px;
@@ -225,7 +225,7 @@ body::before {
   text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
 }
 
-/* === Navega????o === */
+/* === NavegaÜÜo === */
 .nav-section {
   color: var(--mystic-smoke);
   font-size: 11px;
@@ -258,7 +258,7 @@ body::before {
   transform: translateX(4px);
 }
 
-/* === Main Content M??stico === */
+/* === Main Content MÜstico === */
 main {
   padding: 26px;
   position: relative;
@@ -335,7 +335,7 @@ h1 {
   margin-bottom: 18px;
 }
 
-/* === Bot??es === */
+/* === BotÜes === */
 .btn-horus {
   background: linear-gradient(135deg, var(--horus-gold-light), var(--horus-gold), var(--horus-gold-dark));
   border: 1px solid var(--horus-gold-light);
@@ -358,7 +358,7 @@ h1 {
   padding-inline: 16px;
 }
 
-/* === M??tricas === */
+/* === MÜtricas === */
 .metric {
   padding: 18px;
   height: 100%;
@@ -595,7 +595,7 @@ h1 {
   font-style: italic;
 }
 
-/* Ajustar largura das c??lulas de dia */
+/* Ajustar largura das cÜlulas de dia */
 .table-weekly td:nth-child(n+3):nth-child(-n+7) {
   min-width: 200px;
   vertical-align: top;
@@ -616,7 +616,7 @@ h1 {
   text-align: center;
 }
 
-/* === Breadcrumb M??stico === */
+/* === Breadcrumb MÜstico === */
 .breadcrumb {
   background: rgba(26, 31, 58, 0.4);
   backdrop-filter: blur(10px);

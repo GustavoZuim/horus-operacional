@@ -1,62 +1,62 @@
-# ???? H??rus Operacional - Projeto Pronto para Deploy
+# ÜÜ HÜrus Operacional - Projeto Pronto para Deploy
 
-## ??? Status do Projeto
+## Ü? Status do Projeto
 
-**Projeto pronto para publica????o** - Todas as funcionalidades implementadas e testadas.
+**Projeto pronto para publicaÜÜo** - Todas as funcionalidades implementadas e testadas.
 
 ---
 
-## ???? Funcionalidades Implementadas
+## ÜÜ Funcionalidades Implementadas
 
-### 1. Gest??o de Assiduidade
-- ??? Quadro semanal interativo
-- ??? Marca????o por exce????o (todos come??am "Presente")
-- ??? 8 status diferentes (Presente, Falta justificada, Falta n??o justificada, etc.)
-- ??? C??lculo autom??tico de taxa de assiduidade individual
-- ??? C??lculo de m??dia de assiduidade da semana
+### 1. GestÜo de Assiduidade
+- Ü? Quadro semanal interativo
+- Ü? MarcaÜÜo por exceÜÜo (todos comeÜam "Presente")
+- Ü? 8 status diferentes (Presente, Falta justificada, Falta nÜo justificada, etc.)
+- Ü? CÜlculo automÜtico de taxa de assiduidade individual
+- Ü? CÜlculo de mÜdia de assiduidade da semana
 
-### 2. Importa????o Inteligente com IA
-- ??? Upload de PDF com parsing autom??tico
-- ??? Extra????o de profissionais, datas e atividades
-- ??? **NOVO**: Detec????o autom??tica de feriados/folgas/recesso
-- ??? **NOVO**: Contador de atividades por dia na pr??via
-- ??? Pr??via revis??vel antes de importar
-- ??? Cadastro r??pido de profissionais n??o encontrados
-- ??? Op????o de sobrescrever semanas existentes
-- ??? Suporte a m??ltiplas atividades por dia
+### 2. ImportaÜÜo Inteligente com IA
+- Ü? Upload de PDF com parsing automÜtico
+- Ü? ExtraÜÜo de profissionais, datas e atividades
+- Ü? **NOVO**: DetecÜÜo automÜtica de feriados/folgas/recesso
+- Ü? **NOVO**: Contador de atividades por dia na prÜvia
+- Ü? PrÜvia revisÜvel antes de importar
+- Ü? Cadastro rÜpido de profissionais nÜo encontrados
+- Ü? OpÜÜo de sobrescrever semanas existentes
+- Ü? Suporte a mÜltiplas atividades por dia
 
-### 3. Relat??rio de Atividades Mensais
-- ??? **Aba "Por Projeto"**: Cards com categorias e contadores
-- ??? **Aba "Total Geral"**: Tabela consolidada com percentuais e barras de progresso
-- ??? Filtro por m??s/ano
-- ??? Estat??sticas de todos os projetos
-- ??? Visual claro e profissional
+### 3. RelatÜrio de Atividades Mensais
+- Ü? **Aba "Por Projeto"**: Cards com categorias e contadores
+- Ü? **Aba "Total Geral"**: Tabela consolidada com percentuais e barras de progresso
+- Ü? Filtro por mÜs/ano
+- Ü? EstatÜsticas de todos os projetos
+- Ü? Visual claro e profissional
 
 ### 4. Interface e UX
-- ??? Dashboard com cards de navega????o
-- ??? Breadcrumbs em todas as p??ginas
-- ??? Bot??o de logout no topbar
-- ??? Tema m??stico eg??pcio (Olho de H??rus)
-- ??? Cards interativos com hover effects
-- ??? Design responsivo (Bootstrap 5)
-- ??? ??cones Bootstrap Icons
+- Ü? Dashboard com cards de navegaÜÜo
+- Ü? Breadcrumbs em todas as pÜginas
+- Ü? BotÜo de logout no topbar
+- Ü? Tema mÜstico egÜpcio (Olho de HÜrus)
+- Ü? Cards interativos com hover effects
+- Ü? Design responsivo (Bootstrap 5)
+- Ü? Ücones Bootstrap Icons
 
-### 5. Gest??o de Usu??rios
-- ??? 3 n??veis de permiss??o (Admin, Supervisor, Visualizador)
-- ??? Autentica????o segura (Flask-Login)
-- ??? Logs de auditoria completos
+### 5. GestÜo de UsuÜrios
+- Ü? 3 nÜveis de permissÜo (Admin, Supervisor, Visualizador)
+- Ü? AutenticaÜÜo segura (Flask-Login)
+- Ü? Logs de auditoria completos
 
 ### 6. Modelos e Dados
-- ??? 7 modelos de banco de dados
-- ??? Migra????es Alembic funcionando
-- ??? Relacionamentos entre entidades
-- ??? 5 colunas de atividades por dia (segunda a sexta)
+- Ü? 7 modelos de banco de dados
+- Ü? MigraÜÜes Alembic funcionando
+- Ü? Relacionamentos entre entidades
+- Ü? 5 colunas de atividades por dia (segunda a sexta)
 
 ---
 
-## ???? Como Usar
+## ÜÜ Como Usar
 
-### 1. Primeira vez (Instala????o)
+### 1. Primeira vez (InstalaÜÜo)
 
 ```bash
 # Clone o projeto
@@ -66,7 +66,7 @@ cd horus-operacional
 python -m venv venv
 venv\Scripts\activate  # Windows
 
-# Instale depend??ncias
+# Instale dependÜncias
 pip install -r requirements.txt
 
 # Inicialize o banco (cria admin)
@@ -84,91 +84,91 @@ Abra: http://localhost:5000
 - Email: `admin@horus.local`
 - Senha: `admin123`
 
-?????? **Altere a senha ap??s o primeiro login!**
+ÜÜÜ **Altere a senha apÜs o primeiro login!**
 
-### 3. Fluxo de Trabalho T??pico
+### 3. Fluxo de Trabalho TÜpico
 
 1. **Cadastrar** projetos e profissionais (menu Admin)
 2. **Importar** planejamento semanal (PDF com atividades)
-3. **Gerenciar** quadro semanal (marcar exce????es de presen??a)
-4. **Visualizar** relat??rios de atividades mensais
+3. **Gerenciar** quadro semanal (marcar exceÜÜes de presenÜa)
+4. **Visualizar** relatÜrios de atividades mensais
 5. **Consultar** indicadores de assiduidade
 
 ---
 
-## ???? Estrutura do C??digo
+## ÜÜ Estrutura do CÜdigo
 
 ```
 horus-operacional/
-????????? app/
-???   ????????? routes/              # 9 blueprints (auth, main, weekly, imports, etc.)
-???   ????????? templates/           # Templates Jinja2
-???   ????????? static/             # CSS, JS customizados
-???   ????????? models.py           # 7 modelos SQLAlchemy
-???   ????????? ai_parser.py        # Parser inteligente de PDF
-????????? migrations/             # Migra????es Alembic
-????????? init_db.py             # Script de inicializa????o
-????????? run.py                 # Entry point
-????????? requirements.txt       # Depend??ncias Python
-????????? DEPLOY.md             # Guia completo de deploy
-????????? README.md             # Documenta????o detalhada
+ÜÜÜÜ? app/
+Ü?   ÜÜÜÜ? routes/              # 9 blueprints (auth, main, weekly, imports, etc.)
+Ü?   ÜÜÜÜ? templates/           # Templates Jinja2
+Ü?   ÜÜÜÜ? static/             # CSS, JS customizados
+Ü?   ÜÜÜÜ? models.py           # 7 modelos SQLAlchemy
+Ü?   ÜÜÜÜ? ai_parser.py        # Parser inteligente de PDF
+ÜÜÜÜ? migrations/             # MigraÜÜes Alembic
+ÜÜÜÜ? init_db.py             # Script de inicializaÜÜo
+ÜÜÜÜ? run.py                 # Entry point
+ÜÜÜÜ? requirements.txt       # DependÜncias Python
+ÜÜÜÜ? DEPLOY.md             # Guia completo de deploy
+ÜÜÜÜ? README.md             # DocumentaÜÜo detalhada
 ```
 
 ---
 
-## ???? Tecnologias
+## ÜÜ Tecnologias
 
 - **Backend**: Python 3.10+, Flask 3.0, SQLAlchemy 2.0
 - **Frontend**: Bootstrap 5, Jinja2, JavaScript
 - **Banco**: SQLite (dev) / PostgreSQL (prod recomendado)
 - **IA/ML**: PyMuPDF para parsing de PDF
-- **Autentica????o**: Flask-Login com hash de senhas
+- **AutenticaÜÜo**: Flask-Login com hash de senhas
 
 ---
 
-## ???? Banco de Dados Limpo
+## ÜÜ Banco de Dados Limpo
 
 O banco de dados foi **reinicializado** com:
-- ??? Todas as tabelas criadas
-- ??? Apenas 1 usu??rio admin
-- ??? Sem dados de teste
+- Ü? Todas as tabelas criadas
+- Ü? Apenas 1 usuÜrio admin
+- Ü? Sem dados de teste
 
-Para resetar novamente (se necess??rio):
+Para resetar novamente (se necessÜrio):
 ```bash
 python init_db.py
 ```
 
 ---
 
-## ???? Deploy em Produ????o
+## ÜÜ Deploy em ProduÜÜo
 
-Consulte **DEPLOY.md** para instru????es completas de:
+Consulte **DEPLOY.md** para instruÜÜes completas de:
 - Deploy em VPS Linux (Nginx + Gunicorn)
 - Deploy com Docker
 - Deploy no Heroku
-- Configura????o de HTTPS
-- Checklist de seguran??a
+- ConfiguraÜÜo de HTTPS
+- Checklist de seguranÜa
 - Backups e monitoramento
 
 ---
 
-## ???? ??ltimas Corre????es
+## ÜÜ Ültimas CorreÜÜes
 
 ### Junho 2026
-- ??? Tradu????o de meses para portugu??s (June ??? Junho)
-- ??? Banco de dados limpo e reinicializado
-- ??? Usu??rio admin ??nico criado
-- ??? Layout do relat??rio de atividades clareado
-- ??? Visual dos cards de projeto melhorado
-- ??? Badges dourados destacados
-- ??? Efeitos hover nas categorias
+- Ü? TraduÜÜo de meses para portuguÜs (June Ü? Junho)
+- Ü? Banco de dados limpo e reinicializado
+- Ü? UsuÜrio admin Ünico criado
+- Ü? Layout do relatÜrio de atividades clareado
+- Ü? Visual dos cards de projeto melhorado
+- Ü? Badges dourados destacados
+- Ü? Efeitos hover nas categorias
 
 ---
 
-## ???? Licen??a e Cr??ditos
+## ÜÜ LicenÜa e CrÜditos
 
-**H??rus Operacional**
-Sistema de Gest??o de Assiduidade com Intelig??ncia Artificial
+**HÜrus Operacional**
+Sistema de GestÜo de Assiduidade com InteligÜncia Artificial
 
 Desenvolvido por: **GitHub Copilot**
 Modelo: **Claude Sonnet 4.5**
@@ -177,27 +177,27 @@ Data: Junho de 2026
 
 ---
 
-## ??? Checklist de Entrega
+## Ü? Checklist de Entrega
 
 - [x] Todas as funcionalidades implementadas
 - [x] Banco de dados limpo e inicializado
-- [x] Usu??rio admin padr??o criado
-- [x] Documenta????o completa (README + DEPLOY)
-- [x] Script de inicializa????o (init_db.py)
-- [x] Tradu????o para portugu??s
+- [x] UsuÜrio admin padrÜo criado
+- [x] DocumentaÜÜo completa (README + DEPLOY)
+- [x] Script de inicializaÜÜo (init_db.py)
+- [x] TraduÜÜo para portuguÜs
 - [x] Visual profissional e claro
-- [x] C??digo organizado e comentado
-- [x] Pronto para deploy em produ????o
+- [x] CÜdigo organizado e comentado
+- [x] Pronto para deploy em produÜÜo
 
 ---
 
-## ???? Projeto Pronto!
+## ÜÜ Projeto Pronto!
 
-O **H??rus Operacional** est?? 100% funcional e pronto para ser publicado!
+O **HÜrus Operacional** estÜ 100% funcional e pronto para ser publicado!
 
-Para qualquer d??vida, consulte:
-- **README.md**: Documenta????o detalhada
+Para qualquer dÜvida, consulte:
+- **README.md**: DocumentaÜÜo detalhada
 - **DEPLOY.md**: Guia de deploy
-- **init_db.py**: Script de inicializa????o
+- **init_db.py**: Script de inicializaÜÜo
 
-**Boa publica????o! ????**
+**Boa publicaÜÜo! ÜÜ**

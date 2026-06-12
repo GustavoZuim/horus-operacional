@@ -40,13 +40,13 @@ def create():
         name = request.form.get('name')
         
         if not name:
-            flash('Nome do projeto ?? obrigat??rio.', 'danger')
+            flash('Nome do projeto Ü obrigatÜrio.', 'danger')
             return render_template('projects/form.html')
         
-        # Verificar se j?? existe
+        # Verificar se jÜ existe
         existing = Project.query.filter_by(name=name).first()
         if existing:
-            flash('Projeto j?? cadastrado.', 'danger')
+            flash('Projeto jÜ cadastrado.', 'danger')
             return render_template('projects/form.html')
         
         project = Project(name=name, status='active')

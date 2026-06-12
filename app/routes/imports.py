@@ -19,7 +19,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
 
 def allowed_file(filename):
-    """Verifica se o arquivo ?? PDF"""
+    """Verifica se o arquivo Ü PDF"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def detect_holiday_in_activities(activities):
@@ -32,10 +32,10 @@ def detect_holiday_in_activities(activities):
         'feriado',
         'ponto facultativo',
         'folga',
-        'dia n??o letivo',
+        'dia nÜo letivo',
         'recesso',
         'emenda',
-        'n??o haver?? expediente',
+        'nÜo haverÜ expediente',
         'sem expediente',
         'dispensado'
     ]
@@ -57,7 +57,7 @@ def admin_or_supervisor_required(f):
         if not current_user.is_authenticated:
             return redirect(url_for('auth.login'))
         if current_user.role not in ['admin', 'supervisor']:
-            flash('Voc?? n??o tem permiss??o para acessar esta página.', 'danger')
+            flash('VocÜ nÜo tem permissÜo para acessar esta página.', 'danger')
             return redirect(url_for('weekly.index'))
         return f(*args, **kwargs)
     return decorated_function
@@ -167,7 +167,7 @@ def upload():
         ai_parser = PlanningAIParser(filepath)
         parsed_data = ai_parser.parse_full_planning(registered_professionals)
         
-        # Separar profissionais cadastrados vs n??o cadastrados
+        # Separar profissionais cadastrados vs nÜo cadastrados
         registered_names = {p.name.lower().strip() for p in registered_professionals}
         registered_regs = {p.registration.strip() for p in registered_professionals}
         
@@ -214,7 +214,7 @@ def upload():
         # Extrair informações da semana
         week_info = parsed_data['week_info']
         
-        # Se n??o identificou semana, tentar pegar do nome do arquivo
+        # Se nÜo identificou semana, tentar pegar do nome do arquivo
         if not week_info['week_label']:
             week_match = re.search(r'semana[_\s]*(\d+)', filename, re.IGNORECASE)
             if week_match:
@@ -238,12 +238,12 @@ def upload():
             'alerts': parsed_data['alerts']
         }
         
-        # Adicionar alerta se houver profissionais n??o cadastrados
+        # Adicionar alerta se houver profissionais nÜo cadastrados
         if professionals_not_in_system:
             preview_data['alerts'].insert(0, 
-                f"{len(professionals_not_in_system)} profissional(is) n??o cadastrado(s) no sistema")
+                f"{len(professionals_not_in_system)} profissional(is) nÜo cadastrado(s) no sistema")
         
-        # Armazenar dados na sess??o para confirmar depois
+        # Armazenar dados na sessÜo para confirmar depois
         session['import_data'] = {
             'project_id': project_id,
             'project_name': project.name,
@@ -268,24 +268,24 @@ def upload():
 def confirm():
     """Confirma importação e gera quadro semanal"""
     try:
-        # Recuperar dados da sess??o
+        # Recuperar dados da sessÜo
         import_data = session.get('import_data')
         if not import_data:
-            return jsonify({'error': 'Dados de importação n??o encontrados'}), 400
+            return jsonify({'error': 'Dados de importação nÜo encontrados'}), 400
         
-        # Recuperar dados do formul??rio (prévia editada)
+        # Recuperar dados do formulÜrio (prévia editada)
         week_label = request.json.get('week_label')
         start_date = request.json.get('start_date')
         end_date = request.json.get('end_date')
         professionals_data = request.json.get('professionals', [])
-        overwrite = request.json.get('overwrite', False)  # Nova op????o
+        overwrite = request.json.get('overwrite', False)  # Nova opÜÜo
         
         if not week_label or not start_date or not end_date:
-            return jsonify({'error': 'Preencha todos os campos obrigat??rios'}), 400
+            return jsonify({'error': 'Preencha todos os campos obrigatÜrios'}), 400
         
         project_id = import_data['project_id']
         
-        # Verificar se j?? existe planejamento para esta semana e projeto
+        # Verificar se jÜ existe planejamento para esta semana e projeto
         existing_week = PlanningWeek.query.filter_by(
             project_id=project_id,
             week_label=week_label
@@ -294,7 +294,7 @@ def confirm():
         if existing_week:
             if not overwrite:
                 return jsonify({
-                    'error': f'J?? existe planejamento "{week_label}" para este projeto',
+                    'error': f'JÜ existe planejamento "{week_label}" para este projeto',
                     'existing_week_id': existing_week.id,
                     'can_overwrite': True
                 }), 409  # Conflict status code
@@ -352,14 +352,14 @@ def confirm():
         
         db.session.commit()
         
-        # Limpar arquivo tempor??rio
+        # Limpar arquivo temporÜrio
         try:
             if os.path.exists(import_data['temp_filepath']):
                 os.remove(import_data['temp_filepath'])
         except:
             pass
         
-        # Limpar dados da sess??o
+        # Limpar dados da sessÜo
         session.pop('import_data', None)
         
         return jsonify({
@@ -377,11 +377,11 @@ def confirm():
 @login_required
 @admin_or_supervisor_required
 def cancel():
-    """Cancela importação e limpa arquivo tempor??rio"""
+    """Cancela importação e limpa arquivo temporÜrio"""
     try:
         import_data = session.get('import_data')
         if import_data:
-            # Remover arquivo tempor??rio
+            # Remover arquivo temporÜrio
             try:
                 if os.path.exists(import_data['temp_filepath']):
                     os.remove(import_data['temp_filepath'])
@@ -399,7 +399,7 @@ def cancel():
             db.session.add(log)
             db.session.commit()
             
-            # Limpar sess??o
+            # Limpar sessÜo
             session.pop('import_data', None)
         
         return jsonify({'success': True})
@@ -412,7 +412,7 @@ def cancel():
 @login_required
 @admin_or_supervisor_required
 def quick_register():
-    """Cadastro r??pido de profissionais n??o cadastrados"""
+    """Cadastro rÜpido de profissionais nÜo cadastrados"""
     try:
         data = request.json
         professionals_data = data.get('professionals', [])
@@ -430,7 +430,7 @@ def quick_register():
             if not name or not registration or not project_id:
                 continue
             
-            # Verificar se j?? existe
+            # Verificar se jÜ existe
             existing = Professional.query.filter_by(
                 registration=registration,
                 project_id=project_id
@@ -481,18 +481,18 @@ def quick_register():
 @login_required
 @admin_or_supervisor_required
 def create_project():
-    """Cria????o r??pida de projeto durante importação"""
+    """CriaÜÜo rÜpida de projeto durante importação"""
     try:
         data = request.json
         project_name = data.get('name', '').strip()
         
         if not project_name:
-            return jsonify({'error': 'Nome do projeto ?? obrigat??rio'}), 400
+            return jsonify({'error': 'Nome do projeto Ü obrigatÜrio'}), 400
         
-        # Verificar se j?? existe
+        # Verificar se jÜ existe
         existing = Project.query.filter_by(name=project_name).first()
         if existing:
-            return jsonify({'error': f'Projeto "{project_name}" j?? existe'}), 400
+            return jsonify({'error': f'Projeto "{project_name}" jÜ existe'}), 400
         
         # Criar novo projeto
         project = Project(

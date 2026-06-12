@@ -205,7 +205,7 @@ class PlanningAIParser:
         return '\n'.join(activities[:10])  # Máximo 10 atividades
     
     def parse_full_planning(self, registered_professionals: List[Dict]) -> Dict:
-        """Parse completo do PDF"""
+        """Parse completo do PDF - lida com continuação de quadros entre páginas"""
         result = {
             'project_name': self.extract_project_name(),
             'week_info': self.extract_week_info(),
@@ -213,23 +213,51 @@ class PlanningAIParser:
             'alerts': []
         }
         
+        # Dicionário para acumular atividades de cada profissional
+        # (caso o quadro continue em outra página)
+        prof_activities = {}
+        
         # Processar cada página
         for page_num, page_text in enumerate(self.pages_text):
             page_professionals = self.extract_professionals_from_page(page_text)
             
-            for prof in page_professionals:
-                # Extrair atividades simples (sem dividir por dia - apenas listar tudo)
-                all_activities = self.extract_activities_simple(page_text)
-                
-                # Criar profissional com atividades distribuídas nos 5 dias
-                prof_result = {
-                    'name': prof['name'],
-                    'registration': prof['registration'],
-                }
-                
-                # Dividir atividades entre os 5 dias
-                activity_lines = [a for a in all_activities.split('\n') if a]
-                days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+            # Extrair todas as atividades da página (podem ser de profissional anterior)
+            page_activities = self.extract_activities_simple(page_text)
+            
+            if page_professionals:
+                # Página tem profissionais identificados
+                for prof in page_professionals:
+                    key = (prof['name'], prof['registration'])
+                    
+                    # Se já existe, acumular atividades (continuação)
+                    if key in prof_activities:
+                        existing = prof_activities[key]
+                        existing += '\n' + page_activities
+                        prof_activities[key] = existing
+                    else:
+                        # Novo profissional
+                        prof_activities[key] = page_activities
+            
+            elif page_activities and prof_activities:
+                # Página SEM nome mas COM atividades = continuação
+                # Adicionar atividades ao ÚLTIMO profissional processado
+                if prof_activities:
+                    last_key = list(prof_activities.keys())[-1]
+                    prof_activities[last_key] += '\n' + page_activities
+        
+        # Converter dicionário em lista de profissionais
+        for (name, registration), all_activities in prof_activities.items():
+            # Criar profissional com atividades distribuídas nos 5 dias
+            prof_result = {
+                'name': name,
+                'registration': registration,
+            }
+            
+            # Dividir atividades entre os 5 dias
+            activity_lines = [a for a in all_activities.split('\n') if a.strip()]
+            days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']
+            
+            if activity_lines:
                 acts_per_day = max(1, len(activity_lines) // 5)
                 
                 for i, day in enumerate(days):
@@ -239,8 +267,13 @@ class PlanningAIParser:
                     
                     prof_result[day] = 'Presente'
                     prof_result[f'{day}_activities'] = '\n'.join(day_acts) if day_acts else ''
-                
-                result['professionals'].append(prof_result)
+            else:
+                # Sem atividades específicas, todos presentes sem descrição
+                for day in days:
+                    prof_result[day] = 'Presente'
+                    prof_result[f'{day}_activities'] = ''
+            
+            result['professionals'].append(prof_result)
         
         # Se não encontrou nenhum profissional
         if not result['professionals']:
@@ -250,7 +283,8 @@ class PlanningAIParser:
                 'total_text_length': len(self.text),
                 'first_100_chars': self.text[:100],
                 'lines_count': len(self.lines),
-                'pages_count': len(self.pages_text)
+                'pages_count': len(self.pages_text),
+                'sample_lines': self.lines[:20]  # Primeiras 20 linhas para debug
             }
         
         return result

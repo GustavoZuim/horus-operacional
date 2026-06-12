@@ -4,9 +4,9 @@ from app.models import WeeklyAttendance, Professional, PlanningWeek
 app = create_app()
 app.app_context().push()
 
-# ??ltima semana importada
+# Ültima semana importada
 w = PlanningWeek.query.order_by(PlanningWeek.id.desc()).first()
-print(f'??ltima semana: {w.week_label} (ID {w.id})')
+print(f'Ültima semana: {w.week_label} (ID {w.id})')
 print(f'Projeto: {w.project.name}')
 
 # Registros dessa semana

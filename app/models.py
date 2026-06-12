@@ -9,12 +9,12 @@ from app import db, login_manager
 
 @login_manager.user_loader
 def load_user(user_id):
-    """Callback para Flask-Login carregar usu??rio"""
+    """Callback para Flask-Login carregar usuÜrio"""
     return User.query.get(int(user_id))
 
 
 class User(UserMixin, db.Model):
-    """Modelo de usu??rio com autentica????o"""
+    """Modelo de usuÜrio com autenticaÜÜo"""
     
     __tablename__ = 'users'
     
@@ -36,11 +36,11 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
     
     def is_admin(self):
-        """Verificar se ?? admin"""
+        """Verificar se Ü admin"""
         return self.role == 'admin'
     
     def is_supervisor(self):
-        """Verificar se ?? supervisor ou admin"""
+        """Verificar se Ü supervisor ou admin"""
         return self.role in ['admin', 'supervisor']
     
     def __repr__(self):
@@ -117,15 +117,15 @@ class WeeklyAttendance(db.Model):
     
     __tablename__ = 'weekly_attendance'
     
-    # Status poss??veis
+    # Status possÜveis
     STATUS_PRESENTE = 'Presente'
     STATUS_FALTA_JUSTIFICADA = 'Falta justificada'
-    STATUS_FALTA_NAO_JUSTIFICADA = 'Falta n??o justificada'
-    STATUS_SAIDA_ANTECIPADA = 'Sa??da antecipada'
+    STATUS_FALTA_NAO_JUSTIFICADA = 'Falta nÜo justificada'
+    STATUS_SAIDA_ANTECIPADA = 'SaÜda antecipada'
     STATUS_REALOCADO = 'Realocado'
     STATUS_FERIADO = 'Feriado'
     STATUS_FOLGA = 'Folga'
-    STATUS_NAO_PLANEJADO = 'N??o planejado'
+    STATUS_NAO_PLANEJADO = 'NÜo planejado'
     
     VALID_STATUSES = [
         STATUS_PRESENTE,
@@ -145,7 +145,7 @@ class WeeklyAttendance(db.Model):
     monday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
     monday_activities = db.Column(db.Text)  # Atividades detalhadas da segunda
     tuesday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
-    tuesday_activities = db.Column(db.Text)  # Atividades detalhadas da ter??a
+    tuesday_activities = db.Column(db.Text)  # Atividades detalhadas da terÜa
     wednesday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
     wednesday_activities = db.Column(db.Text)  # Atividades detalhadas da quarta
     thursday_status = db.Column(db.String(50), nullable=False, default=STATUS_PRESENTE)
@@ -237,7 +237,7 @@ class AuditLog(db.Model):
     action = db.Column(db.String(50), nullable=False)  # login, create, update, delete, export, etc
     entity = db.Column(db.String(50), nullable=False)  # user, project, professional, planning, attendance, etc
     entity_id = db.Column(db.Integer)  # ID da entidade afetada
-    details = db.Column(db.Text)  # JSON com detalhes da a????o
+    details = db.Column(db.Text)  # JSON com detalhes da aÜÜo
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     # Relacionamentos

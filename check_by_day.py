@@ -12,7 +12,7 @@ if att:
     
     days = {
         'Segunda': att.monday_activities,
-        'Ter??a': att.tuesday_activities,
+        'TerÜa': att.tuesday_activities,
         'Quarta': att.wednesday_activities,
         'Quinta': att.thursday_activities,
         'Sexta': att.friday_activities
@@ -23,7 +23,7 @@ if att:
         if activities:
             acts = activities.split('\n')
             print(f'  Total: {len(acts)} atividades')
-            for i, act in enumerate(acts[:2], 1):  # Mostrar s?? 2
+            for i, act in enumerate(acts[:2], 1):  # Mostrar sÜ 2
                 print(f'  {i}. {act[:80]}...')
         else:
             print('  VAZIO')

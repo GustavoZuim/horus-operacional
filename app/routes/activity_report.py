@@ -1,5 +1,5 @@
 """
-Rotas de relat??rio mensal de atividades
+Rotas de relatÜrio mensal de atividades
 """
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required
@@ -11,9 +11,9 @@ from collections import defaultdict
 
 bp = Blueprint('activity_report', __name__, url_prefix='/activity-report')
 
-# Tradu????o de meses para português
+# TraduÜÜo de meses para português
 MONTHS_PT = {
-    1: 'Janeiro', 2: 'Fevereiro', 3: 'Mar??o', 4: 'Abril',
+    1: 'Janeiro', 2: 'Fevereiro', 3: 'MarÜo', 4: 'Abril',
     5: 'Maio', 6: 'Junho', 7: 'Julho', 8: 'Agosto',
     9: 'Setembro', 10: 'Outubro', 11: 'Novembro', 12: 'Dezembro'
 }
@@ -40,11 +40,11 @@ def parse_activities(activities_text):
 @bp.route('/')
 @login_required
 def index():
-    """Página principal do relat??rio de atividades"""
+    """Página principal do relatÜrio de atividades"""
     # Buscar projetos ativos
     projects = Project.query.filter_by(status='active').order_by(Project.name).all()
     
-    # Buscar meses dispon??veis
+    # Buscar meses disponÜveis
     weeks = PlanningWeek.query.order_by(PlanningWeek.start_date.desc()).all()
     
     months = []
@@ -66,18 +66,18 @@ def index():
 @bp.route('/data')
 @login_required
 def get_data():
-    """Retorna dados do relat??rio de atividades"""
+    """Retorna dados do relatÜrio de atividades"""
     month = request.args.get('month')  # Formato: YYYY-MM
     
     if not month:
-        return jsonify({'error': 'M??s n??o especificado'}), 400
+        return jsonify({'error': 'MÜs nÜo especificado'}), 400
     
     try:
         year, month_num = map(int, month.split('-'))
     except:
-        return jsonify({'error': 'Formato de m??s invêlido'}), 400
+        return jsonify({'error': 'Formato de mÜs invêlido'}), 400
     
-    # Buscar todas as semanas do m??s
+    # Buscar todas as semanas do mÜs
     weeks = PlanningWeek.query.filter(
         extract('year', PlanningWeek.start_date) == year,
         extract('month', PlanningWeek.start_date) == month_num

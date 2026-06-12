@@ -11,12 +11,12 @@ if pdf_files:
     # Procurar por dias da semana
     print('=== ESTRUTURA DO PDF ===\n')
     
-    days = ['Segunda-feira', 'Ter??a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira']
+    days = ['Segunda-feira', 'TerÜa-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira']
     
     for day in days:
         if day in text:
             idx = text.index(day)
-            # Pegar 200 caracteres ap??s o dia
+            # Pegar 200 caracteres apÜs o dia
             snippet = text[idx:idx+200]
             print(f'{day}:')
             print(snippet.encode('utf-8', errors='replace').decode('utf-8'))
