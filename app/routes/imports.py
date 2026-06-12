@@ -120,9 +120,7 @@ def upload():
                 # Criar novo projeto automaticamente
                 project = Project(
                     name=project_name_from_pdf,
-                    description=f'Projeto criado automaticamente via importação de PDF',
-                    status='active',
-                    start_date=datetime.now().date()
+                    status='active'
                 )
                 db.session.add(project)
                 db.session.flush()  # Para obter o ID sem commit
