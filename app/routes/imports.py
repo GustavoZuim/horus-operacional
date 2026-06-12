@@ -229,11 +229,14 @@ def upload():
             end_date = (week_info['dates'][0] + timedelta(days=4)).strftime('%Y-%m-%d')
         
         # Montar resultado da prévia
+        # IMPORTANTE: A tabela deve mostrar TODOS os profissionais (cadastrados + não cadastrados)
+        all_professionals = professionals_in_system + professionals_not_in_system
+        
         preview_data = {
             'week_label': week_info['week_label'],
             'start_date': start_date,
             'end_date': end_date,
-            'professionals': professionals_in_system,
+            'professionals': all_professionals,  # Todos os profissionais para preview
             'unregistered': professionals_not_in_system,
             'alerts': parsed_data['alerts']
         }
