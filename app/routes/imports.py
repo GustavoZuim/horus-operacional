@@ -10,7 +10,7 @@ import json
 from datetime import datetime, timedelta
 from app import db
 from app.models import Project, Professional, PlanningWeek, WeeklyAttendance, Holiday, AuditLog
-from app.ai_parser import PlanningAIParser  # Agente de IA
+from app.ai_parser import PlanningAIParser  # Parser V2.0 Ultra-Robusto
 
 bp = Blueprint('imports', __name__, url_prefix='/imports')
 
