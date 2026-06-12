@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block title %}Quadro Semanal - H??rus Operacional{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Quadro Semanal</li>
+{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Controle operacional</div>
+<h1>Quadro Semanal</h1>
+<p class="lead-small">
+  Todos come??am como <strong>Presente</strong>. Altere apenas as exce????es.
+</p>
+{% endblock %}
+
+{% block content %}
+<!-- Filtros e A????es -->
+<section class="card-h filters">
+  <div class="row g-3 align-items-end">
+    <div class="col-lg-3 col-md-6">
+      <label class="form-label fw-bold">Projeto</label>
+      <select class="form-select" id="projectSelect">
+        <option value="">Selecione um projeto</option>
+        {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="col-lg-3 col-md-6">
+      <label class="form-label fw-bold">Semana</label>
+      <select class="form-select" id="weekSelect" disabled>
+        <option value="">Selecione uma semana</option>
+      </select>
+    </div>
+    
+    <div class="col-lg-6 d-flex flex-wrap gap-2 justify-content-lg-end">
+      <button class="btn btn-outline-secondary btn-round" id="loadBtn" disabled>
+        <i class="bi bi-arrow-clockwise me-1"></i> Carregar
+      </button>
+      {% if current_user.is_supervisor() %}
+      <button class="btn btn-outline-dark btn-round" data-bs-toggle="modal" data-bs-target="#generateModal">
+        <i class="bi bi-plus-circle me-1"></i> Gerar Planejamento
+      </button>
+      <button class="btn btn-horus" id="saveBtn" disabled>
+        <i class="bi bi-eye me-1"></i> Salvar vig??lia
+      </button>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- M??tricas -->
+<section class="row g-3 mt-2" id="metricsSection" style="display: none;">
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-percent"></i></div>
+      <div class="metric-value" id="metricRate">N/A</div>
+      <div class="metric-label">Assiduidade</div>
+    </div>
+  </div>
+  
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-people"></i></div>
+      <div class="metric-value" id="metricPeople">0</div>
+      <div class="metric-label">Profissionais</div>
+    </div>
+  </div>
+  
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-file-earmark-check"></i></div>
+      <div class="metric-value" id="metricFaltaJ">0</div>
+      <div class="metric-label">Faltas justificadas</div>
+    </div>
+  </div>
+  
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-exclamation-triangle"></i></div>
+      <div class="metric-value" id="metricFaltaNJ">0</div>
+      <div class="metric-label">Faltas n??o justificadas</div>
+    </div>
+  </div>
+  
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-arrow-left-right"></i></div>
+      <div class="metric-value" id="metricRealoc">0</div>
+      <div class="metric-label">Realoca????es</div>
+    </div>
+  </div>
+  
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-calendar-heart"></i></div>
+      <div class="metric-value" id="metricFeriados">0</div>
+      <div class="metric-label">Feriados</div>
+    </div>
+  </div>
+</section>
+
+<!-- Board -->
+<section class="card-h board mt-3" id="boardSection" style="display: none;">
+  <div class="board-head">
+    <div>
+      <div class="board-title" id="boardTitle">Quadro Semanal</div>
+      <div class="board-subtitle" id="boardSubtitle">Selecione projeto e semana</div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <span class="status-pill bg-success-subtle text-success">
+        <i class="bi bi-check-circle me-1"></i> Padr??o: Presente
+      </span>
+      {% if current_user.is_supervisor() %}
+      <button class="btn btn-sm btn-outline-warning btn-round" data-bs-toggle="modal" data-bs-target="#holidayModal">
+        <i class="bi bi-sun me-1"></i> Aplicar Feriado
+      </button>
+      <a href="#" class="btn btn-sm btn-outline-primary btn-round" id="exportBtn" disabled>
+        <i class="bi bi-download me-1"></i> Exportar CSV
+      </a>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- Container de feriados -->
+  <div id="holidaysContainer"></div>
+  
+  <!-- Tabela -->
+  <div class="table-responsive">
+    <table class="table align-middle mb-0" id="boardTable">
+      <thead>
+        <tr>
+          <th style="min-width:200px">Profissional</th>
+          <th>Matr??cula</th>
+          <th id="thMonday">Segunda</th>
+          <th id="thTuesday">Ter??a</th>
+          <th id="thWednesday">Quarta</th>
+          <th id="thThursday">Quinta</th>
+          <th id="thFriday">Sexta</th>
+          <th style="min-width:220px">Observa????es</th>
+        </tr>
+      </thead>
+      <tbody id="boardBody">
+        <!-- Preenchido via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Placeholder -->
+<section class="card-h board mt-3" id="placeholderSection">
+  <div class="board-head">
+    <div>
+      <div class="board-title">
+        <i class="bi bi-eye-slash me-2"></i>
+        Nenhum quadro carregado
+      </div>
+      <div class="board-subtitle">
+        Selecione um projeto e uma semana para iniciar a vig??lia
+      </div>
+    </div>
+  </div>
+  
+  <div class="p-5 text-center">
+    <div class="import-zone">
+      <i class="bi bi-eye fs-1 text-warning-emphasis"></i>
+      <div class="fw-bold mt-3 fs-5">A vig??lia aguarda</div>
+      <div class="text-muted mt-2">
+        {% if current_user.is_supervisor() %}
+        1. Selecione um projeto<br>
+        2. Selecione uma semana ou gere um novo planejamento<br>
+        3. Clique em "Carregar" para come??ar
+        {% else %}
+        Aguardando configura????o do supervisor...
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal: Gerar Planejamento -->
+{% if current_user.is_supervisor() %}
+<div class="modal fade" id="generateModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title fw-bold">Gerar Planejamento Semanal</h5>
+          <div class="text-muted small">Todos iniciam como "Presente"</div>
+        </div>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="generateForm">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Projeto</label>
+            <select class="form-select" id="genProject" required>
+              <option value="">Selecione</option>
+              {% for project in projects %}
+              <option value="{{ project.id }}">{{ project.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold">Label da Semana</label>
+            <input type="text" class="form-control" id="genLabel" placeholder="Ex: Semana 26" required>
+          </div>
+          
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label fw-bold">Data In??cio (Segunda)</label>
+              <input type="date" class="form-control" id="genStartDate" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label fw-bold">Data Fim (Sexta)</label>
+              <input type="date" class="form-control" id="genEndDate" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary btn-round" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-horus" id="generateSubmitBtn">
+          <i class="bi bi-magic me-1"></i> Gerar Quadro
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Aplicar Feriado -->
+<div class="modal fade" id="holidayModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4">
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title fw-bold">Aplicar Feriado</h5>
+          <div class="text-muted small">Marca o dia para todos os profissionais</div>
+        </div>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="holidayForm">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Dia da Semana</label>
+            <select class="form-select" id="holidayWeekday" required>
+              <option value="">Selecione</option>
+              <option value="Monday">Segunda-feira</option>
+              <option value="Tuesday">Ter??a-feira</option>
+              <option value="Wednesday">Quarta-feira</option>
+              <option value="Thursday">Quinta-feira</option>
+              <option value="Friday">Sexta-feira</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-bold">Descri????o</label>
+            <input type="text" class="form-control" id="holidayDescription" 
+                   placeholder="Ex: Feriado municipal" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary btn-round" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-horus" id="holidaySubmitBtn">
+          <i class="bi bi-sun me-1"></i> Aplicar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  window.IS_SUPERVISOR = {{ 'true' if current_user.is_supervisor() else 'false' }};
+</script>
+<script src="{{ url_for('static', filename='js/weekly.js') }}"></script>
+{% endblock %}

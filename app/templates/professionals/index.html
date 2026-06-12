@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Profissionais - H??rus Operacional{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Profissionais</li>
+{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Administra????o</div>
+<h1>Profissionais</h1>
+<p class="lead-small">Gerenciar profissionais</p>
+{% endblock %}
+
+{% block content %}
+<div class="card-h p-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0">Lista de Profissionais</h5>
+    <a href="{{ url_for('professionals.create') }}" class="btn btn-horus">
+      <i class="bi bi-plus-circle me-1"></i> Novo Profissional
+    </a>
+  </div>
+  
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Matr??cula</th>
+          <th>Projeto</th>
+          <th>Status</th>
+          <th class="text-end">A????es</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prof in professionals %}
+        <tr>
+          <td><strong>{{ prof.name }}</strong></td>
+          <td><span class="badge text-bg-light">{{ prof.registration }}</span></td>
+          <td>{{ prof.project.name }}</td>
+          <td>
+            {% if prof.status == 'active' %}
+              <span class="badge bg-success">Ativo</span>
+            {% else %}
+              <span class="badge bg-secondary">Inativo</span>
+            {% endif %}
+          </td>
+          <td class="text-end">
+            <a href="{{ url_for('professionals.edit', id=prof.id) }}" class="btn btn-sm btn-outline-primary">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <form method="POST" action="{{ url_for('professionals.delete', id=prof.id) }}" class="d-inline">
+              <button type="submit" class="btn btn-sm btn-outline-danger" 
+                      onclick="return confirm('Inativar este profissional?')">
+                <i class="bi bi-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

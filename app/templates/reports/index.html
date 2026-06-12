@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Indicadores - H??rus Operacional{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Relat??rios</div>
+<h1>Indicadores de Assiduidade</h1>
+<p class="lead-small">Visualize m??tricas por per??odo, projeto ou profissional</p>
+{% endblock %}
+
+{% block content %}
+<div class="card-h p-4 mb-3">
+  <h5 class="mb-3">Filtros</h5>
+  <div class="row g-3">
+    <div class="col-md-3">
+      <label class="form-label fw-bold">Projeto</label>
+      <select class="form-select" id="filterProject">
+        <option value="">Todos</option>
+        {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="col-md-3">
+      <label class="form-label fw-bold">Profissional</label>
+      <select class="form-select" id="filterProfessional">
+        <option value="">Todos</option>
+        {% for prof in professionals %}
+        <option value="{{ prof.id }}">{{ prof.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="col-md-2">
+      <label class="form-label fw-bold">Data Inicial</label>
+      <input type="date" class="form-control" id="filterStartDate">
+    </div>
+    
+    <div class="col-md-2">
+      <label class="form-label fw-bold">Data Final</label>
+      <input type="date" class="form-control" id="filterEndDate">
+    </div>
+    
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-horus w-100" id="applyFiltersBtn">
+        <i class="bi bi-search me-1"></i> Buscar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-3" id="globalMetrics">
+  <div class="col-md-3">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-percent"></i></div>
+      <div class="metric-value" id="globalRate">--</div>
+      <div class="metric-label">Taxa Global</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-check-circle"></i></div>
+      <div class="metric-value" id="globalPresent">--</div>
+      <div class="metric-label">Dias Presentes</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-calendar-check"></i></div>
+      <div class="metric-value" id="globalValid">--</div>
+      <div class="metric-label">Dias V??lidos</div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card-h metric">
+      <div class="metric-icon"><i class="bi bi-exclamation-triangle"></i></div>
+      <div class="metric-value" id="globalFaltas">--</div>
+      <div class="metric-label">Total de Faltas</div>
+    </div>
+  </div>
+</div>
+
+<div class="card-h p-4">
+  <h5 class="mb-3">Por Profissional</h5>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Profissional</th>
+          <th>Matr??cula</th>
+          <th class="text-center">Dias V??lidos</th>
+          <th class="text-center">Dias Presentes</th>
+          <th class="text-center">Faltas J.</th>
+          <th class="text-center">Faltas N.J.</th>
+          <th class="text-center">Taxa</th>
+        </tr>
+      </thead>
+      <tbody id="profMetricsBody">
+        <tr>
+          <td colspan="7" class="text-center text-muted">Selecione filtros e clique em Buscar</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('applyFiltersBtn').addEventListener('click', async () => {
+    const projectId = document.getElementById('filterProject').value;
+    const professionalId = document.getElementById('filterProfessional').value;
+    const startDate = document.getElementById('filterStartDate').value;
+    const endDate = document.getElementById('filterEndDate').value;
+    
+    const params = new URLSearchParams();
+    if (projectId) params.append('project_id', projectId);
+    if (professionalId) params.append('professional_id', professionalId);
+    if (startDate) params.append('start_date', startDate);
+    if (endDate) params.append('end_date', endDate);
+    
+    try {
+        const response = await fetch(`/reports/api/metrics?${params}`);
+        const data = await response.json();
+        
+        // M??tricas globais
+        const g = data.global;
+        document.getElementById('globalRate').textContent = g.rate ? `${g.rate}%` : 'N/A';
+        document.getElementById('globalPresent').textContent = g.total_present;
+        document.getElementById('globalValid').textContent = g.total_valid;
+        document.getElementById('globalFaltas').textContent = 
+            g.falta_justificada + g.falta_nao_justificada;
+        
+        // Por profissional
+        const tbody = document.getElementById('profMetricsBody');
+        tbody.innerHTML = '';
+        
+        if (data.by_professional.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">Nenhum dado encontrado</td></tr>';
+            return;
+        }
+        
+        data.by_professional.forEach(p => {
+            const rate = p.rate ? p.rate.toFixed(2) : 'N/A';
+            const badgeClass = !p.rate ? 'bg-secondary' : 
+                                p.rate >= 90 ? 'bg-success' : 
+                                p.rate >= 75 ? 'bg-warning' : 'bg-danger';
+            
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong>${p.name}</strong></td>
+                    <td><span class="badge text-bg-light">${p.registration}</span></td>
+                    <td class="text-center">${p.valid_days}</td>
+                    <td class="text-center">${p.present_days}</td>
+                    <td class="text-center">${p.falta_j}</td>
+                    <td class="text-center">${p.falta_nj}</td>
+                    <td class="text-center">
+                        <span class="badge ${badgeClass}">${rate}${p.rate ? '%' : ''}</span>
+                    </td>
+                </tr>
+            `;
+        });
+        
+    } catch (error) {
+        console.error('Erro ao carregar indicadores:', error);
+        showToast('Erro ao carregar indicadores', 'danger');
+    }
+});
+</script>
+{% endblock %}

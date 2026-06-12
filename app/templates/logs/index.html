@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Logs de Auditoria - H??rus Operacional{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Governan??a</div>
+<h1>Logs de Auditoria</h1>
+<p class="lead-small">Hist??rico de todas as a????es no sistema</p>
+{% endblock %}
+
+{% block content %}
+<div class="card-h p-4 mb-3">
+  <h5 class="mb-3">Filtros</h5>
+  <div class="row g-3">
+    <div class="col-md-3">
+      <label class="form-label fw-bold">Usu??rio</label>
+      <select class="form-select" id="filterUser">
+        <option value="">Todos</option>
+        {% for user in users %}
+        <option value="{{ user.id }}">{{ user.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div class="col-md-3">
+      <label class="form-label fw-bold">A????o</label>
+      <select class="form-select" id="filterAction">
+        <option value="">Todas</option>
+        <option value="login">Login</option>
+        <option value="logout">Logout</option>
+        <option value="create">Cria????o</option>
+        <option value="update">Atualiza????o</option>
+        <option value="delete">Exclus??o</option>
+        <option value="export">Exporta????o</option>
+        <option value="apply_holiday">Aplicar Feriado</option>
+      </select>
+    </div>
+    
+    <div class="col-md-3">
+      <label class="form-label fw-bold">Entidade</label>
+      <select class="form-select" id="filterEntity">
+        <option value="">Todas</option>
+        <option value="session">Sess??o</option>
+        <option value="user">Usu??rio</option>
+        <option value="project">Projeto</option>
+        <option value="professional">Profissional</option>
+        <option value="planning">Planejamento</option>
+        <option value="attendance">Presen??a</option>
+        <option value="holiday">Feriado</option>
+      </select>
+    </div>
+    
+    <div class="col-md-3 d-flex align-items-end">
+      <button class="btn btn-horus w-100" id="loadLogsBtn">
+        <i class="bi bi-search me-1"></i> Buscar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="card-h p-4">
+  <h5 class="mb-3">??ltimas A????es</h5>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead>
+        <tr>
+          <th>Data/Hora</th>
+          <th>Usu??rio</th>
+          <th>A????o</th>
+          <th>Entidade</th>
+          <th>Detalhes</th>
+        </tr>
+      </thead>
+      <tbody id="logsBody">
+        <tr>
+          <td colspan="5" class="text-center text-muted">Clique em Buscar para carregar logs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('loadLogsBtn').addEventListener('click', async () => {
+    const userId = document.getElementById('filterUser').value;
+    const action = document.getElementById('filterAction').value;
+    const entity = document.getElementById('filterEntity').value;
+    
+    const params = new URLSearchParams();
+    if (userId) params.append('user_id', userId);
+    if (action) params.append('action', action);
+    if (entity) params.append('entity', entity);
+    
+    try {
+        const response = await fetch(`/logs/api/list?${params}`);
+        const logs = await response.json();
+        
+        const tbody = document.getElementById('logsBody');
+        tbody.innerHTML = '';
+        
+        if (logs.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Nenhum log encontrado</td></tr>';
+            return;
+        }
+        
+        logs.forEach(log => {
+            const date = new Date(log.created_at);
+            const dateStr = date.toLocaleString('pt-BR');
+            
+            const actionBadge = {
+                'login': 'bg-success',
+                'logout': 'bg-secondary',
+                'create': 'bg-primary',
+                'update': 'bg-warning',
+                'delete': 'bg-danger',
+                'export': 'bg-info'
+            }[log.action] || 'bg-secondary';
+            
+            tbody.innerHTML += `
+                <tr>
+                    <td><small>${dateStr}</small></td>
+                    <td><strong>${log.user}</strong></td>
+                    <td><span class="badge ${actionBadge}">${log.action}</span></td>
+                    <td><span class="badge bg-light text-dark">${log.entity}</span></td>
+                    <td><small class="text-muted">${log.details || '-'}</small></td>
+                </tr>
+            `;
+        });
+        
+    } catch (error) {
+        console.error('Erro ao carregar logs:', error);
+        showToast('Erro ao carregar logs', 'danger');
+    }
+});
+
+// Carregar logs automaticamente ao abrir p??gina
+document.getElementById('loadLogsBtn').click();
+</script>
+{% endblock %}

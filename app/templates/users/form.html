@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Editar' if user else 'Novo' }} Usu??rio - H??rus Operacional{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Administra????o</div>
+<h1>{{ 'Editar' if user else 'Novo' }} Usu??rio</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card-h p-4">
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nome</label>
+          <input type="text" class="form-control" name="name" 
+                 value="{{ user.name if user else '' }}" required>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label fw-bold">Email</label>
+          <input type="email" class="form-control" name="email" 
+                 value="{{ user.email if user else '' }}" required>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label fw-bold">Senha {{ 'Nova ' if user else '' }}</label>
+          <input type="password" class="form-control" name="password" 
+                 placeholder="{{ 'Deixe em branco para manter' if user else 'Senha' }}" 
+                 {{ 'required' if not user else '' }}>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label fw-bold">Perfil</label>
+          <select class="form-select" name="role" required>
+            <option value="visualizador" {{ 'selected' if user and user.role == 'visualizador' else '' }}>Visualizador</option>
+            <option value="supervisor" {{ 'selected' if user and user.role == 'supervisor' else '' }}>Supervisor</option>
+            <option value="admin" {{ 'selected' if user and user.role == 'admin' else '' }}>Admin</option>
+          </select>
+        </div>
+        
+        {% if user %}
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" name="active" 
+                 {{ 'checked' if user.active else '' }}>
+          <label class="form-check-label">Usu??rio ativo</label>
+        </div>
+        {% endif %}
+        
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-horus">
+            <i class="bi bi-check-circle me-1"></i> Salvar
+          </button>
+          <a href="{{ url_for('users.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

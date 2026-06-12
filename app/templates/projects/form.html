@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Editar' if project else 'Novo' }} Projeto - H??rus Operacional{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Administra????o</div>
+<h1>{{ 'Editar' if project else 'Novo' }} Projeto</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card-h p-4">
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nome do Projeto</label>
+          <input type="text" class="form-control" name="name" 
+                 value="{{ project.name if project else '' }}" required>
+        </div>
+        
+        {% if project %}
+        <div class="mb-3">
+          <label class="form-label fw-bold">Status</label>
+          <select class="form-select" name="status" required>
+            <option value="active" {{ 'selected' if project.status == 'active' else '' }}>Ativo</option>
+            <option value="inactive" {{ 'selected' if project.status == 'inactive' else '' }}>Inativo</option>
+          </select>
+        </div>
+        {% endif %}
+        
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-horus">
+            <i class="bi bi-check-circle me-1"></i> Salvar
+          </button>
+          <a href="{{ url_for('projects.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: horus-operacional
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT run:app"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.10.12
+    disk:
+      name: horus-data
+      mountPath: /opt/render/project/src
+      sizeGB: 1

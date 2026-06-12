@@ -1,0 +1,657 @@
+{% extends "base.html" %}
+
+{% block title %}Importar Planejamento - H??rus Operacional{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Importar Planejamento</li>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <span class="badge badge-category">Opera????o</span>
+                <h1>Importar Planejamento</h1>
+                <p class="text-muted">Upload de PDF com pr??via revis??vel</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Etapa 1: Upload -->
+<div id="step-upload" class="card mystic-card mb-4">
+    <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-upload"></i> 1. Selecione o projeto e fa??a upload do PDF</h5>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="project_id" class="form-label">Projeto *</label>
+                    <div class="input-group">
+                        <select class="form-select" id="project_id" name="project_id" required>
+                            <option value="">Selecione um projeto</option>
+                            {% for project in projects %}
+                            <option value="{{ project.id }}">{{ project.name }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if current_user.is_admin() %}
+                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#newProjectModal">
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                        {% endif %}
+                    </div>
+                    <div class="form-text">Escolha o projeto para este planejamento</div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="pdf_file" class="form-label">Arquivo PDF *</label>
+                    <input type="file" class="form-control" id="pdf_file" name="file" accept=".pdf" required>
+                    <div class="form-text">Tamanho m??ximo: 10MB</div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-file-earmark-pdf"></i> Processar PDF
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Loading -->
+<div id="loading" class="card mystic-card mb-4" style="display: none;">
+    <div class="card-body text-center">
+        <div class="spinner-border text-primary mb-3" role="status">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+        <h5>Processando PDF...</h5>
+        <p class="text-muted">Extraindo texto e identificando dados</p>
+    </div>
+</div>
+
+<!-- Etapa 2: Pr??via -->
+<div id="step-preview" class="card mystic-card mb-4" style="display: none;">
+    <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-eye"></i> 2. Revise a pr??via antes de importar</h5>
+        
+        <!-- Dados gerais -->
+        <div id="preview-info" class="alert alert-info mb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Projeto:</strong>
+                    <div id="info-project"></div>
+                </div>
+                <div class="col-md-3">
+                    <strong>Semana:</strong>
+                    <div>
+                        <input type="text" class="form-control form-control-sm" id="info-week" placeholder="Ex: Semana 25">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <strong>Per??odo:</strong>
+                    <div class="d-flex gap-2">
+                        <input type="date" class="form-control form-control-sm" id="info-start">
+                        <input type="date" class="form-control form-control-sm" id="info-end">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <strong>Arquivo:</strong>
+                    <div id="info-filename" class="text-truncate"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alertas -->
+        <div id="preview-alerts" style="display: none;"></div>
+        
+        <!-- Profissionais n??o cadastrados -->
+        <div id="unregistered-section" class="alert alert-danger" style="display: none;">
+            <h6 class="alert-heading">
+                <i class="bi bi-exclamation-triangle"></i> Profissionais n??o cadastrados no sistema
+            </h6>
+            <p class="mb-3">Os seguintes profissionais foram identificados no PDF mas n??o est??o cadastrados no projeto:</p>
+            <div id="unregistered-list" class="mb-3"></div>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#quickRegisterModal">
+                <i class="bi bi-person-plus"></i> Cadastrar profissionais
+            </button>
+        </div>
+        
+        <!-- Tabela de pr??via -->
+        <div class="table-responsive">
+            <table class="table table-hover" id="preview-table">
+                <thead>
+                    <tr>
+                        <th>Profissional</th>
+                        <th>Matr??cula</th>
+                        <th>Segunda</th>
+                        <th>Ter??a</th>
+                        <th>Quarta</th>
+                        <th>Quinta</th>
+                        <th>Sexta</th>
+                        <th>Observa????o</th>
+                    </tr>
+                </thead>
+                <tbody id="preview-tbody">
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Bot??es de a????o -->
+        <div class="d-flex gap-2 justify-content-end">
+            <button type="button" class="btn btn-secondary" id="btnCancel">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" id="btnConfirm">
+                <i class="bi bi-check-circle"></i> Confirmar importa????o
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.badge-category {
+    background: linear-gradient(135deg, var(--mystic-purple), var(--mystic-indigo));
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-select {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+}
+
+#preview-table tbody tr:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+}
+</style>
+
+<script>
+const statusOptions = [
+    'Presente',
+    'Falta justificada',
+    'Falta n??o justificada',
+    'Sa??da antecipada',
+    'Realocado',
+    'Feriado',
+    'Folga',
+    'N??o planejado'
+];
+
+let previewData = null;
+
+document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    
+    // Mostrar loading
+    document.getElementById('step-upload').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+    
+    try {
+        const response = await fetch('/imports/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.error) {
+            showToast(data.error, 'danger');
+            document.getElementById('step-upload').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+            return;
+        }
+        
+        // Mostrar pr??via
+        showPreview(data.preview);
+        
+    } catch (error) {
+        showToast('Erro ao processar PDF: ' + error.message, 'danger');
+        document.getElementById('step-upload').style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
+    }
+});
+
+function showPreview(data) {
+    previewData = data;
+    
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('step-preview').style.display = 'block';
+    
+    // Preencher dados gerais
+    const projectSelect = document.getElementById('project_id');
+    document.getElementById('info-project').textContent = projectSelect.options[projectSelect.selectedIndex].text;
+    document.getElementById('info-week').value = data.week_label || '';
+    document.getElementById('info-start').value = data.start_date || '';
+    document.getElementById('info-end').value = data.end_date || '';
+    
+    const fileInput = document.getElementById('pdf_file');
+    document.getElementById('info-filename').textContent = fileInput.files[0].name;
+    
+    // Alertas
+    if (data.alerts && data.alerts.length > 0) {
+        const alertsDiv = document.getElementById('preview-alerts');
+        alertsDiv.innerHTML = '<div class="alert alert-warning"><strong>Aten????o:</strong><ul class="mb-0">' +
+            data.alerts.map(a => `<li>${a}</li>`).join('') +
+            '</ul></div>';
+        alertsDiv.style.display = 'block';
+    }
+    
+    // Profissionais n??o cadastrados
+    if (data.unregistered && data.unregistered.length > 0) {
+        unregisteredProfessionals = data.unregistered;
+        
+        const unregisteredDiv = document.getElementById('unregistered-section');
+        const listDiv = document.getElementById('unregistered-list');
+        
+        listDiv.innerHTML = '<ul class="mb-0">' +
+            data.unregistered.map(p => `<li><strong>${p.name}</strong> (Matr??cula: ${p.registration})</li>`).join('') +
+            '</ul>';
+        
+        unregisteredDiv.style.display = 'block';
+    } else {
+        document.getElementById('unregistered-section').style.display = 'none';
+        unregisteredProfessionals = [];
+    }
+    
+    // Tabela de profissionais
+    const tbody = document.getElementById('preview-tbody');
+    tbody.innerHTML = '';
+    
+    if (data.professionals && data.professionals.length > 0) {
+        data.professionals.forEach((prof, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${prof.name}</strong></td>
+                <td><span class="badge bg-secondary">${prof.registration}</span></td>
+                <td>${renderDayCell(index, 'monday', prof)}</td>
+                <td>${renderDayCell(index, 'tuesday', prof)}</td>
+                <td>${renderDayCell(index, 'wednesday', prof)}</td>
+                <td>${renderDayCell(index, 'thursday', prof)}</td>
+                <td>${renderDayCell(index, 'friday', prof)}</td>
+                <td><input type="text" class="form-control form-control-sm" value="${prof.observation || ''}" data-index="${index}" data-field="observation"></td>
+            `;
+            tbody.appendChild(row);
+        });
+    } else {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center">Nenhum profissional identificado</td></tr>';
+    }
+}
+
+function renderDayCell(index, day, prof) {
+    const statusKey = `${day}_status`;
+    const countKey = `${day}_count`;
+    const suggestedStatus = prof[statusKey] || 'presente';
+    const activityCount = prof[countKey] || 0;
+    
+    // Capitalizar primeira letra para o select
+    const displayStatus = suggestedStatus.charAt(0).toUpperCase() + suggestedStatus.slice(1);
+    
+    const select = `<select class="form-select form-select-sm status-select" data-index="${index}" data-field="${day}">` +
+        statusOptions.map(status => 
+            `<option value="${status}" ${status === displayStatus ? 'selected' : ''}>${status}</option>`
+        ).join('') +
+    '</select>';
+    
+    // Badge de contador de atividades
+    let countBadge = '';
+    if (activityCount > 0) {
+        countBadge = `<small class="d-block mt-1 text-muted"><i class="bi bi-list-check"></i> ${activityCount} atividade${activityCount > 1 ? 's' : ''}</small>`;
+    }
+    
+    return select + countBadge;
+}
+
+function renderStatusSelect(index, day, currentValue) {
+    // Fun????o legada - agora usa renderDayCell
+    const select = `<select class="form-select form-select-sm status-select" data-index="${index}" data-field="${day}">` +
+        statusOptions.map(status => 
+            `<option value="${status}" ${status === currentValue ? 'selected' : ''}>${status}</option>`
+        ).join('') +
+    '</select>';
+    return select;
+}
+
+document.getElementById('btnConfirm').addEventListener('click', async () => {
+    // Coletar dados editados
+    const weekLabel = document.getElementById('info-week').value.trim();
+    const startDate = document.getElementById('info-start').value;
+    const endDate = document.getElementById('info-end').value;
+    
+    if (!weekLabel || !startDate || !endDate) {
+        showToast('Preencha semana e per??odo', 'warning');
+        return;
+    }
+    
+    // Coletar dados dos profissionais (com edi????es)
+    const professionals = previewData.professionals.map((prof, index) => {
+        return {
+            id: prof.id,
+            name: prof.name,
+            registration: prof.registration,
+            monday: document.querySelector(`select[data-index="${index}"][data-field="monday"]`).value,
+            monday_activities: prof.monday_activities || '',
+            tuesday: document.querySelector(`select[data-index="${index}"][data-field="tuesday"]`).value,
+            tuesday_activities: prof.tuesday_activities || '',
+            wednesday: document.querySelector(`select[data-index="${index}"][data-field="wednesday"]`).value,
+            wednesday_activities: prof.wednesday_activities || '',
+            thursday: document.querySelector(`select[data-index="${index}"][data-field="thursday"]`).value,
+            thursday_activities: prof.thursday_activities || '',
+            friday: document.querySelector(`select[data-index="${index}"][data-field="friday"]`).value,
+            friday_activities: prof.friday_activities || '',
+            observation: document.querySelector(`input[data-index="${index}"][data-field="observation"]`).value
+        };
+    });
+    
+    // Enviar confirma????o
+    try {
+        const response = await fetch('/imports/confirm', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                week_label: weekLabel,
+                start_date: startDate,
+                end_date: endDate,
+                professionals: professionals,
+                overwrite: false
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.status === 409 && data.can_overwrite) {
+            // J?? existe semana - perguntar se quer sobrescrever
+            if (confirm(`${data.error}\n\nDeseja SOBRESCREVER a semana existente?\n\nATEN????O: Todos os dados anteriores ser??o perdidos!`)) {
+                // Reenviar com flag de sobrescrever
+                const overwriteResponse = await fetch('/imports/confirm', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        week_label: weekLabel,
+                        start_date: startDate,
+                        end_date: endDate,
+                        professionals: professionals,
+                        overwrite: true
+                    })
+                });
+                
+                const overwriteData = await overwriteResponse.json();
+                
+                if (overwriteData.error) {
+                    showToast(overwriteData.error, 'danger');
+                    return;
+                }
+                
+                showToast(overwriteData.message + ' (sobrescrito)', 'success');
+                setTimeout(() => {
+                    window.location.href = '/weekly/';
+                }, 1500);
+            }
+            return;
+        }
+        
+        if (data.error) {
+            showToast(data.error, 'danger');
+            return;
+        }
+        
+        showToast(data.message, 'success');
+        
+        // Redirecionar para o quadro semanal
+        setTimeout(() => {
+            window.location.href = '/weekly/';
+        }, 1500);
+        
+    } catch (error) {
+        showToast('Erro ao confirmar importa????o: ' + error.message, 'danger');
+    }
+});
+
+document.getElementById('btnCancel').addEventListener('click', async () => {
+    if (!confirm('Deseja cancelar esta importa????o?')) {
+        return;
+    }
+    
+    try {
+        await fetch('/imports/cancel', { method: 'POST' });
+        window.location.reload();
+    } catch (error) {
+        showToast('Erro ao cancelar: ' + error.message, 'danger');
+    }
+});
+</script>
+
+<!-- Modal de Novo Projeto -->
+<div class="modal fade" id="newProjectModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-diagram-3"></i> Novo Projeto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newProjectForm">
+                    <div class="mb-3">
+                        <label for="new-project-name" class="form-label fw-bold">Nome do Projeto *</label>
+                        <input type="text" class="form-control" id="new-project-name" required>
+                        <div class="form-text">Digite o nome do projeto que aparece no PDF</div>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> 
+                        O projeto ser?? criado com status Ativo
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnCreateProject">
+                    <i class="bi bi-check-circle"></i> Criar projeto
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Criar novo projeto
+document.getElementById('btnCreateProject')?.addEventListener('click', async () => {
+    const projectName = document.getElementById('new-project-name').value.trim();
+    
+    if (!projectName) {
+        showToast('Digite o nome do projeto', 'warning');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/imports/create-project', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: projectName })
+        });
+        
+        const data = await response.json();
+        
+        if (data.error) {
+            showToast(data.error, 'danger');
+            return;
+        }
+        
+        showToast(`Projeto "${projectName}" criado com sucesso!`, 'success');
+        
+        // Adicionar ao dropdown
+        const select = document.getElementById('project_id');
+        const option = document.createElement('option');
+        option.value = data.project_id;
+        option.textContent = projectName;
+        option.selected = true;
+        select.appendChild(option);
+        
+        // Fechar modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('newProjectModal'));
+        modal.hide();
+        
+        // Limpar campo
+        document.getElementById('new-project-name').value = '';
+        
+    } catch (error) {
+        showToast('Erro ao criar projeto: ' + error.message, 'danger');
+    }
+});
+</script>
+
+<!-- Modal de Cadastro R??pido -->
+<div class="modal fade" id="quickRegisterModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-person-plus"></i> Cadastro R??pido de Profissionais</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted mb-3">Cadastre os profissionais n??o encontrados no sistema:</p>
+                <form id="quickRegisterForm">
+                    <input type="hidden" id="quick-project-id">
+                    <div id="quick-register-fields"></div>
+                    <div class="alert alert-info mt-3">
+                        <i class="bi bi-info-circle"></i> 
+                        Ap??s cadastrar, os profissionais aparecer??o automaticamente na pr??via de importa????o.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btnQuickRegister">
+                    <i class="bi bi-check-circle"></i> Cadastrar todos
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Vari??veis globais para profissionais n??o cadastrados
+let unregisteredProfessionals = [];
+
+// Abrir modal de cadastro r??pido
+document.getElementById('quickRegisterModal')?.addEventListener('show.bs.modal', function() {
+    const projectId = document.getElementById('project_id').value;
+    document.getElementById('quick-project-id').value = projectId;
+    
+    const fieldsDiv = document.getElementById('quick-register-fields');
+    fieldsDiv.innerHTML = '';
+    
+    unregisteredProfessionals.forEach((prof, index) => {
+        const fieldHtml = `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label fw-bold">Nome do Profissional</label>
+                            <input type="text" class="form-control" value="${prof.name}" 
+                                   data-index="${index}" data-field="name" required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <label class="form-label fw-bold">Matr??cula</label>
+                            <input type="text" class="form-control" value="${prof.registration}" 
+                                   data-index="${index}" data-field="registration" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        fieldsDiv.insertAdjacentHTML('beforeend', fieldHtml);
+    });
+});
+
+// Cadastrar profissionais via modal
+document.getElementById('btnQuickRegister')?.addEventListener('click', async () => {
+    const projectId = document.getElementById('quick-project-id').value;
+    const fields = document.querySelectorAll('#quick-register-fields input');
+    
+    // Coletar dados dos campos
+    const updates = {};
+    fields.forEach(input => {
+        const index = input.dataset.index;
+        const field = input.dataset.field;
+        if (!updates[index]) updates[index] = {};
+        updates[index][field] = input.value;
+    });
+    
+    // Atualizar profissionais n??o cadastrados
+    Object.keys(updates).forEach(index => {
+        Object.assign(unregisteredProfessionals[index], updates[index]);
+    });
+    
+    try {
+        const professionalsToRegister = unregisteredProfessionals.map(p => ({
+            name: p.name,
+            registration: p.registration,
+            project_id: parseInt(projectId)
+        }));
+        
+        const response = await fetch('/imports/quick-register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ professionals: professionalsToRegister })
+        });
+        
+        const data = await response.json();
+        
+        if (data.error) {
+            showToast(data.error, 'danger');
+            return;
+        }
+        
+        showToast(`${data.registered_count} profissional(is) cadastrado(s) com sucesso!`, 'success');
+        
+        // Fechar modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('quickRegisterModal'));
+        modal.hide();
+        
+        // Ocultar se????o de n??o cadastrados
+        document.getElementById('unregistered-section').style.display = 'none';
+        
+        // Recarregar pr??via com profissionais cadastrados
+        reloadPreview();
+        
+    } catch (error) {
+        showToast('Erro ao cadastrar profissionais: ' + error.message, 'danger');
+    }
+});
+
+async function reloadPreview() {
+    // Re-submeter o formul??rio para atualizar a pr??via
+    const projectId = document.getElementById('project_id').value;
+    const fileInput = document.getElementById('pdf_file');
+    
+    const formData = new FormData();
+    formData.append('project_id', projectId);
+    formData.append('file', fileInput.files[0]);
+    
+    try {
+        const response = await fetch('/imports/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (!data.error) {
+            showPreview(data.preview);
+        }
+    } catch (error) {
+        console.error('Erro ao recarregar pr??via:', error);
+    }
+}
+</script>
+{% endblock %}

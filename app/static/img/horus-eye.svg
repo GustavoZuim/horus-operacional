@@ -1,0 +1,72 @@
+<!-- Logo do Olho de H??rus - Identidade Visual -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="horusGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="horusBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0097A7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00838F;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.8" />
+      <stop offset="70%" style="stop-color:#D4AF37;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- C??rculo externo m??stico -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="url(#horusGold)" stroke-width="2" opacity="0.6"/>
+  <circle cx="100" cy="100" r="85" fill="none" stroke="url(#horusBlue)" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Olho de H??rus estilizado -->
+  <!-- Contorno superior do olho -->
+  <path d="M 40 90 Q 50 60, 100 70 Q 150 60, 160 90" 
+        fill="none" 
+        stroke="url(#horusGold)" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+  
+  <!-- Contorno inferior do olho -->
+  <path d="M 40 90 Q 45 110, 70 105 Q 100 100, 130 105 Q 155 110, 160 90" 
+        fill="none" 
+        stroke="url(#horusGold)" 
+        stroke-width="4" 
+        stroke-linecap="round"/>
+  
+  <!-- Pupila com brilho m??stico -->
+  <circle cx="100" cy="85" r="20" fill="url(#horusBlue)"/>
+  <circle cx="100" cy="85" r="12" fill="#000000"/>
+  <circle cx="105" cy="80" r="4" fill="#FFFFFF" opacity="0.8"/>
+  <circle cx="100" cy="85" r="35" fill="url(#eyeGlow)" opacity="0.3"/>
+  
+  <!-- L??grima m??tica (s??mbolo de prote????o) -->
+  <path d="M 100 105 Q 105 120, 105 135 Q 105 145, 100 150 Q 95 145, 95 135 Q 95 120, 100 105 Z" 
+        fill="url(#horusGold)" 
+        opacity="0.8"/>
+  
+  <!-- Espiral de sabedoria (abaixo do olho) -->
+  <path d="M 95 150 Q 85 155, 80 165 L 75 170" 
+        fill="none" 
+        stroke="url(#horusGold)" 
+        stroke-width="3" 
+        stroke-linecap="round"/>
+  
+  <!-- Linha de for??a (lado direito) -->
+  <path d="M 160 90 L 165 95 L 160 100" 
+        fill="none" 
+        stroke="url(#horusGold)" 
+        stroke-width="3" 
+        stroke-linecap="round"/>
+  
+  <!-- Sobrancelha m??stica -->
+  <path d="M 35 75 Q 60 50, 100 55 Q 140 50, 165 75" 
+        fill="none" 
+        stroke="url(#horusGold)" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        opacity="0.6"/>
+</svg>

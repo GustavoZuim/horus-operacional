@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}Home - H??rus Operacional{% endblock %}
+
+{% block page_header %}
+<div class="kicker">Bem-vindo ao sistema</div>
+<h1><i class="bi bi-house-door"></i> Painel de Controle</h1>
+<p class="lead-small">
+  Acesse rapidamente as funcionalidades do sistema <strong>H??rus Operacional</strong>.
+</p>
+{% endblock %}
+
+{% block content %}
+<!-- Cards de Acesso R??pido -->
+<div class="row g-4 mb-4">
+  <!-- Quadro Semanal -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('weekly.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-table" style="font-size: 3rem; color: var(--horus-gold);"></i>
+        </div>
+        <h5 class="card-title">Quadro Semanal</h5>
+        <p class="card-text text-muted">
+          Gerencie a presen??a semanal dos profissionais por projeto
+        </p>
+        <span class="badge bg-primary">Opera????o</span>
+      </div>
+    </a>
+  </div>
+  
+  {% if current_user.is_admin() or current_user.is_supervisor() %}
+  <!-- Importar Planejamento -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('imports.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-cloud-upload" style="font-size: 3rem; color: var(--eye-cyan);"></i>
+        </div>
+        <h5 class="card-title">Importar Planejamento</h5>
+        <p class="card-text text-muted">
+          Fa??a upload de PDFs com pr??via revis??vel e agente de IA
+        </p>
+        <span class="badge bg-info">Com IA</span>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+  
+  <!-- Indicadores -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('reports.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-bar-chart-line" style="font-size: 3rem; color: var(--mystic-purple);"></i>
+        </div>
+        <h5 class="card-title">Indicadores</h5>
+        <p class="card-text text-muted">
+          Visualize m??tricas e relat??rios de assiduidade
+        </p>
+        <span class="badge bg-secondary">An??lise</span>
+      </div>
+    </a>
+  </div>
+  
+  <!-- Relat??rio de Atividades -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('activity_report.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-pie-chart-fill" style="font-size: 3rem; color: var(--eye-cyan);"></i>
+        </div>
+        <h5 class="card-title">Relat??rio de Atividades</h5>
+        <p class="card-text text-muted">
+          Estat??sticas mensais por projeto e categoria
+        </p>
+        <span class="badge bg-info">Novo</span>
+      </div>
+    </a>
+  </div>
+  
+  {% if current_user.is_admin() %}
+  <!-- Projetos -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('projects.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-diagram-3" style="font-size: 3rem; color: var(--horus-gold-light);"></i>
+        </div>
+        <h5 class="card-title">Projetos</h5>
+        <p class="card-text text-muted">
+          Cadastre e gerencie projetos do sistema
+        </p>
+        <span class="badge bg-warning text-dark">Admin</span>
+      </div>
+    </a>
+  </div>
+  
+  <!-- Profissionais -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('professionals.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-people" style="font-size: 3rem; color: var(--eye-teal);"></i>
+        </div>
+        <h5 class="card-title">Profissionais</h5>
+        <p class="card-text text-muted">
+          Cadastre profissionais e vincule aos projetos
+        </p>
+        <span class="badge bg-warning text-dark">Admin</span>
+      </div>
+    </a>
+  </div>
+  
+  <!-- Usu??rios -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('users.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-person-lock" style="font-size: 3rem; color: var(--mystic-indigo);"></i>
+        </div>
+        <h5 class="card-title">Usu??rios</h5>
+        <p class="card-text text-muted">
+          Gerencie usu??rios e permiss??es do sistema
+        </p>
+        <span class="badge bg-warning text-dark">Admin</span>
+      </div>
+    </a>
+  </div>
+  
+  <!-- Logs -->
+  <div class="col-lg-4 col-md-6">
+    <a href="{{ url_for('logs.index') }}" class="card mystic-card card-hover text-decoration-none">
+      <div class="card-body text-center">
+        <div class="mb-3">
+          <i class="bi bi-clock-history" style="font-size: 3rem; color: var(--horus-gold-dark);"></i>
+        </div>
+        <h5 class="card-title">Logs de Auditoria</h5>
+        <p class="card-text text-muted">
+          Consulte o hist??rico de a????es do sistema
+        </p>
+        <span class="badge bg-dark">Governan??a</span>
+      </div>
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Estat??sticas R??pidas -->
+<div class="row g-4">
+  <div class="col-lg-3 col-md-6">
+    <div class="card mystic-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <p class="text-muted mb-1">Total de Projetos</p>
+            <h3 class="mb-0">{{ stats.total_projects }}</h3>
+          </div>
+          <i class="bi bi-diagram-3" style="font-size: 2.5rem; color: var(--horus-gold); opacity: 0.3;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-3 col-md-6">
+    <div class="card mystic-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <p class="text-muted mb-1">Profissionais Ativos</p>
+            <h3 class="mb-0">{{ stats.active_professionals }}</h3>
+          </div>
+          <i class="bi bi-people" style="font-size: 2.5rem; color: var(--eye-cyan); opacity: 0.3;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-3 col-md-6">
+    <div class="card mystic-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <p class="text-muted mb-1">Semanas Planejadas</p>
+            <h3 class="mb-0">{{ stats.total_weeks }}</h3>
+          </div>
+          <i class="bi bi-calendar-week" style="font-size: 2.5rem; color: var(--mystic-purple); opacity: 0.3;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-3 col-md-6">
+    <div class="card mystic-card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <p class="text-muted mb-1">Usu??rios Cadastrados</p>
+            <h3 class="mb-0">{{ stats.total_users }}</h3>
+          </div>
+          <i class="bi bi-person-check" style="font-size: 2.5rem; color: var(--eye-teal); opacity: 0.3;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.card-hover {
+  transition: all 0.3s ease;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  border-color: var(--horus-gold);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.card-hover .card-title {
+  color: var(--horus-gold);
+}
+
+.card-hover .card-text {
+  color: rgba(255, 255, 255, 0.7);
+}
+</style>
+{% endblock %}
