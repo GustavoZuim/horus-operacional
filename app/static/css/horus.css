@@ -681,17 +681,21 @@ h1 {
 
 /* === Correções de contraste para melhor legibilidade === */
 
-/* Textos dentro dos cards */
+/* Textos dentro dos cards - Máxima prioridade */
 .card-h .text-muted,
 .card-h small.text-muted,
+.card-h p.text-muted,
+div.text-muted,
+small.text-muted,
+p.text-muted,
 .text-muted {
-  color: var(--mystic-smoke) !important;
-  opacity: 0.9;
+  color: #B0BEC5 !important;
+  opacity: 1 !important;
 }
 
 .card-h .form-label,
 .form-label {
-  color: var(--mystic-silver) !important;
+  color: #E0E0E0 !important;
 }
 
 .card-h h2,
@@ -700,11 +704,13 @@ h1 {
 .card-h h4,
 .card-h h5,
 .card-h h6 {
-  color: var(--horus-gold-light) !important;
+  color: #FFD700 !important;
 }
 
-.card-h p {
-  color: var(--mystic-silver) !important;
+.card-h p,
+.card-h small,
+div.card-h small {
+  color: #E0E0E0 !important;
 }
 
 /* Inputs com melhor contraste */
@@ -726,7 +732,7 @@ h1 {
 
 /* Checkbox com melhor visibilidade */
 .form-check-label {
-  color: var(--mystic-silver) !important;
+  color: #E0E0E0 !important;
 }
 
 .form-check-input {
@@ -739,11 +745,17 @@ h1 {
   border-color: var(--horus-gold-light);
 }
 
-/* Textos pequenos com boa legibilidade */
-small {
-  color: var(--mystic-smoke) !important;
+/* Textos pequenos com boa legibilidade - Cores diretas */
+small,
+small.text-muted {
+  color: #B0BEC5 !important;
 }
 
 strong {
-  color: var(--horus-gold-light) !important;
+  color: #FFD700 !important;
+}
+
+/* Rodapé fora do card */
+.text-center small.text-muted {
+  color: #B0BEC5 !important;
 }
