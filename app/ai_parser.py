@@ -240,37 +240,29 @@ class PlanningAIParser:
             doc.close()
             return activities_by_day
         
-        # 2. Tipos de cards - DETECÇÃO FLEXÍVEL (case-insensitive e parcial)
-        activity_patterns = [
-            'elaboração de relatórios',
-            'elaboracao de relatorios',
-            'organização de cadastros',
-            'organizacao de cadastros', 
-            'organização cadastral',
-            'organizacao cadastral',
-            'vistoria',  # Pega qualquer tipo de vistoria
-            'teste de funcionalidade',
-            'ação de formação',
-            'acao de formacao',
-            'reconhecimento facial',
-            'monitoramento'
+        # 2. Tipos de cards
+        activity_types = [
+            'Elaboração de Relatórios',
+            'Organização Cadastral',
+            'Vistoria à Unidade',
+            'Teste de Funcionalidade',
+            'Ação de Formação e Treinamento'
         ]
         
         # 3. Detectar TODOS os cards e mapear para dia mais próximo
-        y_threshold = 80  # Threshold mais baixo para pegar todos os cards
+    y_threshold = 80  # Threshold mais baixo para pegar todos os cards
         
         for block in blocks:
             if block['type'] == 0:
                 for line in block['lines']:
                     for span in line['spans']:
                         text = span['text'].strip()
-                        text_lower = text.lower()  # Case-insensitive
                         x = span['bbox'][0]
                         y = span['bbox'][1]
                         
                         if y > y_threshold:
-                            for pattern in activity_patterns:
-                                if pattern in text_lower:
+                            for act_type in activity_types:
+                                if act_type in text:
                                     # Determinar qual cabeçalho de dia está mais próximo
                                     closest_day = None
                                     min_distance = float('inf')
@@ -282,12 +274,11 @@ class PlanningAIParser:
                                             closest_day = day
                                     
                                     if closest_day:
-                                        # Chave única para evitar duplicatas exatas (usa texto original)
-                                        card_key = f"{closest_day}_{text}_{int(y)}"
+                                        # Chave única para evitar duplicatas exatas
+                                        card_key = f"{closest_day}_{act_type}_{int(y)}"
                                         if card_key not in detected_cards:
-                                            activities_by_day[closest_day].append(text)  # Usa texto original
+                                            activities_by_day[closest_day].append(act_type)
                                             detected_cards[card_key] = True
-                                    break  # Encontrou pattern, não precisa testar outros
         
         doc.close()
         return activities_by_day
